@@ -10,9 +10,7 @@ package assignment;
  * @author MSI-
  */
 public class DeliveryMan {
-
     private int manID;
-    private String pw;
     private static int nextManID = 0001;
     private String name;
     private String contactNum;
@@ -23,7 +21,7 @@ public class DeliveryMan {
     }
 
     public DeliveryMan(int manID, String name) {
-        this.manID = nextManID++;
+        this.manID =  nextManID++;
         this.name = name;
     }
 
@@ -32,23 +30,14 @@ public class DeliveryMan {
         this.name = name;
     }
 
-    public DeliveryMan(int manID, String name, String pw, String contactNum, String adds, String status) {
-        this.manID = manID;
-        this.pw = pw;
+    public DeliveryMan(int manID, String name, String contactNum, String adds, String status) {
+        this.manID = nextManID++;
         this.name = name;
         this.contactNum = contactNum;
         this.adds = adds;
         this.status = status;
     }
-
-    public String getPw() {
-        return pw;
-    }
-
-    public void setPw(String pw) {
-        this.pw = pw;
-    }
-
+    
     public int getManID() {
         return manID;
     }
@@ -73,6 +62,8 @@ public class DeliveryMan {
         this.name = name;
     }
 
+    
+    
     public String getContactNum() {
         return contactNum;
     }
@@ -96,9 +87,11 @@ public class DeliveryMan {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    public String toString() {
-        return String.format("No. %-10d %-20s %-20s %-20s  %-20s ", manID, name, contactNum, adds, status);
+    
+    public String toString(){
+        return String.format("No. %-10d %-20s %-20s %-20s  %-20s ", manID, name,contactNum,adds,status);
     }
-
+    
+    
+    
 }
