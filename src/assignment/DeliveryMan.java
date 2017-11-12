@@ -5,6 +5,8 @@
  */
 package assignment;
 
+import java.util.Date;
+
 /**
  *
  * @author MSI-
@@ -17,8 +19,26 @@ public class DeliveryMan {
     private String contactNum;
     private String adds;
     private String status;
+    private Date DateTime;
+    private String workingStatus;
 
     public DeliveryMan() {
+    }
+
+    public String getWorkingStatus() {
+        return workingStatus;
+    }
+
+    public void setWorkingStatus(String workingStatus) {
+        this.workingStatus = workingStatus;
+    }
+
+    public Date getDateTime() {
+        return DateTime;
+    }
+
+    public void setDateTime(Date DateTime) {
+        this.DateTime = DateTime;
     }
 
     public DeliveryMan(int manID, String name) {
@@ -31,13 +51,15 @@ public class DeliveryMan {
         this.name = name;
     }
 
-    public DeliveryMan(int manID, String name, String pw,String contactNum, String adds, String status) {
+    public DeliveryMan(int manID, String name, String pw,String contactNum, String adds, String status, Date DateTime, String workingStatus) {
         this.manID = nextManID++;
         this.pw = pw;
         this.name = name;
         this.contactNum = contactNum;
         this.adds = adds;
         this.status = status;
+        this.DateTime = DateTime;
+        this.workingStatus = workingStatus;
     }
     
     public int getManID() {
