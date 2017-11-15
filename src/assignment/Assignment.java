@@ -10,6 +10,7 @@ import java.util.Scanner;
 import assignment.staffView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import assignment.UserStory1;
 
 /**
  *
@@ -27,6 +28,7 @@ public class Assignment {
         System.out.println("=======================");
         System.out.println("1. Delivery man Log In");
         System.out.println("2. Staff Log in");
+        System.out.println("3. View Order Menu");
    //     System.out.println("3. test check");
         System.out.println("=======================");
         System.out.print("Enter your selection: ");
@@ -40,6 +42,11 @@ public class Assignment {
             }
             case "2": {
                 displayMenu();
+                break;
+             }
+            case "3": {
+                UserStory1 us1 = new UserStory1();
+               us1.orderMenu();
                 break;
              }
         /*             case "3":{
