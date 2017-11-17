@@ -98,7 +98,7 @@ public class UserStory1 {
        
     }
     public static void mainRestaurant(){
-        System.out.println("==========Fastest Delivery System==========");
+        System.out.println("====================");
         System.out.println("1. Blue Ribbon Restaurant");
         System.out.println("2. Nando's");
 	 System.out.println("3. KFC");
@@ -107,7 +107,7 @@ public class UserStory1 {
     }
     
     public static void mainBlue(){
-        System.out.println("==========Fastest Delivery System==========");
+        System.out.println("====================");
     }
     
    
