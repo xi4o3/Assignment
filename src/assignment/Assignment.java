@@ -24,14 +24,15 @@ public class Assignment {
     public static int b;
     public static String menu;
     public static String main;
+    public static String cusMenu;
     
     
         public static void mainMenu() {
         System.out.println("=======================");
         System.out.println("1. Delivery man Log In");
-        System.out.println("2. Staff Log in");
-        System.out.println("3. View Order Menu");
-        System.out.println("4. test check");
+        System.out.println("2. Affiliate Log In");
+        System.out.println("3. Customer Log In");
+    //    System.out.println("4. test check");
         System.out.println("=======================");
         System.out.print("Enter your selection: ");
         main = sc.nextLine();
@@ -47,15 +48,14 @@ public class Assignment {
                 break;
              }
             case "3": {
-                UserStory1 us1 = new UserStory1();
-                us1.orderMenu();
+                customerMenu();
                 break;
              }
-             case "4":{
+        /*     case "4":{
                 staffview.viewInfo();
                 mainMenu();
-                break;
-             } 
+                break; 
+             } */
             default: {
                 System.out.println("Please enter again !");
                 mainMenu();
@@ -139,6 +139,10 @@ public class Assignment {
                 mainMenu();
                 break;
             }
+             default: {
+                System.out.println("Please enter again !");
+                deliverymanMenu();
+            }
         }
     }
  
@@ -147,12 +151,12 @@ public class Assignment {
         int choice;
 
         System.out.println("Staff Menu");
-        System.out.println("-------------------------\n");
-        System.out.println("1 - Add new delivery man");
-        System.out.println("2 - View delivery man");
-//        System.out.println("3 - Decrypt a number");
-        System.out.println("4 - Quit");
-        System.out.println("-------------------------\n");
+        System.out.println("=========================\n");
+        System.out.println("1. Add new delivery man");
+        System.out.println("2. View delivery man details");
+        System.out.println("3. View delivery man working status");
+        System.out.println("4. -- Log out --");
+        System.out.println("=========================\n");
         System.out.print("\nPlease select your choice: ");
         choice = scanner.nextInt();
         while (choice < 0 || choice > 4) {
@@ -171,16 +175,48 @@ public class Assignment {
                 // Perform "encrypt number" case.
                 break;
             case 3:
-                // Perform "decrypt number" case.
+                staffview.viewInfo();
                 break;
             case 4:
                 mainMenu();
          //      System.exit(0);
                 break;
-            default:
+            default: 
+                System.out.println("Please enter again !");
+                displayMenu();
 
         }
     }
+     
+     public static void customerMenu(){
+        System.out.println("=======================");
+        System.out.println("1. View Order Mmenu");
+        System.out.println("1. -- Log out --");
+        System.out.println("=======================");
+        System.out.print("Enter your selection: ");
+        cusMenu = sc.nextLine();
+        
+        switch (cusMenu) {
+            case "1": {
+                UserStory1 us1 = new UserStory1();
+                us1.orderMenu();
+                break;
+
+            }
+            case "2": {
+
+                break;
+             }
+            case "3": {
+                
+                break;
+             }
+            default: {
+                System.out.println("Please enter again !");
+                customerMenu();
+            }
+        }
+     }
 
     public static void addDeliveryMan() {
 
