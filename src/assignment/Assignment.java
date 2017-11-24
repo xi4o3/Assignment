@@ -31,7 +31,8 @@ public class Assignment {
         System.out.println("=======================");
         System.out.println("1. Delivery man Log In");
         System.out.println("2. Affiliate Log In");
-        System.out.println("3. Customer Log In");
+        System.out.println("3. HR Log In");
+        System.out.println("4. Customer Log In");
     //    System.out.println("4. test check");
         System.out.println("=======================");
         System.out.print("Enter your selection: ");
@@ -44,10 +45,14 @@ public class Assignment {
                 break;
             }
             case "2": {
+                
+                break;
+             }
+              case "3": {
                 displayMenu();
                 break;
              }
-            case "3": {
+            case "4": {
                 customerMenu();
                 break;
              }
@@ -155,37 +160,45 @@ public class Assignment {
         System.out.println("1. Add new delivery man");
         System.out.println("2. View delivery man details");
         System.out.println("3. View delivery man working status");
-        System.out.println("4. -- Log out --");
+        System.out.println("4. Update delivery man status");
+        System.out.println("5. -- Log out --");
         System.out.println("=========================\n");
         System.out.print("\nPlease select your choice: ");
         choice = scanner.nextInt();
-        while (choice < 0 || choice > 4) {
-            System.out.print("Please enter number 1-4: ");
+        while (choice < 0 || choice > 5) {
+            System.out.print("Please enter number 1-5: ");
             choice = scanner.nextInt();
-
         }
 
         switch (choice) {
             case 1:
 
                 addDeliveryMan();
+                displayMenu();
 
                 break;
             case 2:
-                // Perform "encrypt number" case.
+                System.out.println(manList);
                 break;
             case 3:
                 staffview.viewInfo();
                 break;
             case 4:
+                System.out.print("Please enter the delivery man ID: ");
+                int id = sc.nextInt();
+                updateDeliManStatus(id);
+                break;
+            case 5:
                 mainMenu();
-         //      System.exit(0);
+             //      System.exit(0);
                 break;
             default: 
                 System.out.println("Please enter again !");
                 displayMenu();
 
         }
+     
+    
     }
      
      public static void customerMenu(){
@@ -250,6 +263,52 @@ public class Assignment {
 //        System.out.println(String.format(" %-20s %-20n %-20s %-20n\n","Name", "Contact Number","Address","Status"));
         System.out.println(manList);
     }
+    
+    public static void updateDeliManStatus(int id){
+        int choice = 0;
+       
+           for(int i = 1 ; i <= manList.getNumberOfEntries(); i++){
+            if(id == manList.getEntry(i).getManID()){
+                System.out.println("Set the delivery man status to: ");
+                System.out.println("1. Retired");
+                System.out.println("2. Resigned");
+                System.out.println("3. Other");
+                System.out.println("4. Back to HR main page");
+                System.out.print("\nYour choice: ");    
+            }else{
+                System.out.println("\nInvalid ID!!!\n");
+            }
+                choice = sc.nextInt();
+                while (choice < 0 || choice > 4) {
+                    System.out.print("Please enter number 1-4: ");
+                    choice = sc.nextInt();
+                }
+                switch(choice){
+                    case 1:
+                        manList.getEntry(i).setStatus("Retired");
+                        break;
+                    case 2:
+                        manList.getEntry(i).setStatus("Resigned");
+                        break;
+                    case 3:
+                        System.out.println("Please specify: ");
+                        String other = sc.nextLine();
+                        manList.getEntry(i).setStatus(other);
+                        break;
+                    case 4:
+                        displayMenu();
+                    default:
+                        System.out.print("Please select your choice (1-4) !");
+                        
+                }
+                System.out.println(manList);
+            
+            
+          
+        }
+    }
+        
+    
 
     public void addUser() {
         DeliveryMan deliMan = new DeliveryMan(10, "Miw","Miw12345" ,"012-3456789", "Jalan Miw", "Employed", null,"Unavailable");
@@ -283,7 +342,7 @@ public class Assignment {
         assign.addUser();
         assign.mainMenu();
         displayMenu();
-        assign.testDate();
+//        assign.testDate();
         //assign.deliverymanMenu();
         //boolean a = assign.User();
 
