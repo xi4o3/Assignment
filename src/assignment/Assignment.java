@@ -11,13 +11,14 @@ import assignment.staffView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import assignment.UserStory1;
+import static assignment.UserStory1.order;
 
 /**
  *
  * @author User
  */
 public class Assignment {
-
+    
     public static ListInterface<DeliveryMan> manList = new List<>();
     staffView staffview = new staffView();
     private Scanner sc = new Scanner(System.in);
@@ -29,7 +30,7 @@ public class Assignment {
         System.out.println("1. Delivery man Log In");
         System.out.println("2. Staff Log in");
         System.out.println("3. View Order Menu");
-   //     System.out.println("3. test check");
+        System.out.println("4. Place Order");
         System.out.println("=======================");
         System.out.print("Enter your selection: ");
         main = sc.nextLine();
@@ -46,9 +47,14 @@ public class Assignment {
              }
             case "3": {
                 UserStory1 us1 = new UserStory1();
-               us1.orderMenu();
+                us1.orderMenu();
                 break;
              }
+            case "4": {
+                UserStory1 us1 = new UserStory1();
+                us1.order1();
+                break;
+            }
         /*             case "3":{
              staffview.viewInfo();
              mainMenu();
