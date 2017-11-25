@@ -179,9 +179,11 @@ public class Assignment {
                 break;
             case 2:
                 System.out.println(manList);
+                displayMenu();
                 break;
             case 3:
                 staffview.viewInfo();
+                displayMenu();
                 break;
             case 4:
                 System.out.print("Please enter the delivery man ID: ");
@@ -265,20 +267,23 @@ public class Assignment {
     }
     
     public static void updateDeliManStatus(int id){
-        int choice = 0;
-       
-           for(int i = 1 ; i <= manList.getNumberOfEntries(); i++){
+        int choice = 0, i;
+ 
+//        while(j <= manList.getNumberOfEntries()){
+//            j++;
+//        }
+        
+           for(i = 1 ; i <= manList.getNumberOfEntries(); i++){
             if(id == manList.getEntry(i).getManID()){
+                System.out.println(manList.getEntry(i).getManID());
+                
                 System.out.println("Set the delivery man status to: ");
                 System.out.println("1. Retired");
                 System.out.println("2. Resigned");
                 System.out.println("3. Other");
                 System.out.println("4. Back to HR main page");
                 System.out.print("\nYour choice: ");    
-            }else{
-                System.out.println("\nInvalid ID!!!\n");
-            }
-                choice = sc.nextInt();
+                 choice = sc.nextInt();
                 while (choice < 0 || choice > 4) {
                     System.out.print("Please enter number 1-4: ");
                     choice = sc.nextInt();
@@ -301,12 +306,48 @@ public class Assignment {
                         System.out.print("Please select your choice (1-4) !");
                         
                 }
-                System.out.println(manList);
-            
+//            }else{
+//                System.out.println("\nInvalid ID!!!\n");
+//                System.out.println(manList.getNumberOfEntries());
+//                System.out.println(manList.getEntry(i).getManID());
+//                System.out.println(id);
+//                System.out.println(i);
+//                displayMenu();
+           }
             
           
-        }
-    }
+           }
+           
+//                choice = sc.nextInt();
+//                while (choice < 0 || choice > 4) {
+//                    System.out.print("Please enter number 1-4: ");
+//                    choice = sc.nextInt();
+//                }
+//                switch(choice){
+//                    case 1:
+//                        manList.getEntry(i).setStatus("Retired");
+//                        break;
+//                    case 2:
+//                        manList.getEntry(i).setStatus("Resigned");
+//                        break;
+//                    case 3:
+//                        System.out.println("Please specify: ");
+//                        String other = sc.nextLine();
+//                        manList.getEntry(i).setStatus(other);
+//                        break;
+//                    case 4:
+//                        displayMenu();
+//                    default:
+//                        System.out.print("Please select your choice (1-4) !");
+//                        
+//                }
+                System.out.println(manList);
+                displayMenu();
+            
+            
+                }
+    
+    
         
     
 
@@ -341,7 +382,7 @@ public class Assignment {
         Assignment assign = new Assignment();
         assign.addUser();
         assign.mainMenu();
-        displayMenu();
+        
 //        assign.testDate();
         //assign.deliverymanMenu();
         //boolean a = assign.User();
