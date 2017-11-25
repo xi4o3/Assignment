@@ -102,4 +102,5 @@ public interface ListInterface<T> {
    * @return true if the list is full, or false if not
    */
   public boolean isFull();
+
 }

@@ -11,13 +11,14 @@ import assignment.staffView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import assignment.UserStory1;
+import static assignment.UserStory1.order;
 
 /**
  *
  * @author User
  */
 public class Assignment {
-
+    
     public static ListInterface<DeliveryMan> manList = new List<>();
     static staffView staffview = new staffView();
     private static Scanner sc = new Scanner(System.in);

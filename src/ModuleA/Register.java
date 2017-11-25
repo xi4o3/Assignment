@@ -111,6 +111,7 @@ public class Register {
             System.out.println("Owner Name :" + affiliate.get(i).getOwner_name());
             System.out.println("Contact No :" + affiliate.get(i).getContact_no());
             System.out.println("Address :" + affiliate.get(i).getAddress());
+            
         }
         
     }
