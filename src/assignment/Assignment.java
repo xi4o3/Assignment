@@ -20,17 +20,21 @@ import static assignment.UserStory1.order;
 public class Assignment {
     
     public static ListInterface<DeliveryMan> manList = new List<>();
-    staffView staffview = new staffView();
-    private Scanner sc = new Scanner(System.in);
+    static staffView staffview = new staffView();
+    private static Scanner sc = new Scanner(System.in);
     public static int b;
+    public static String menu;
+    public static String main;
+    public static String cusMenu;
     
-        public void mainMenu() {
-        String main;
+    
+        public static void mainMenu() {
         System.out.println("=======================");
         System.out.println("1. Delivery man Log In");
-        System.out.println("2. Staff Log in");
-        System.out.println("3. View Order Menu");
-        System.out.println("4. Place Order");
+        System.out.println("2. Affiliate Log In");
+        System.out.println("3. HR Log In");
+        System.out.println("4. Customer Log In");
+    //    System.out.println("4. test check");
         System.out.println("=======================");
         System.out.print("Enter your selection: ");
         main = sc.nextLine();
@@ -42,23 +46,21 @@ public class Assignment {
                 break;
             }
             case "2": {
+                
+                break;
+             }
+              case "3": {
                 displayMenu();
                 break;
              }
-            case "3": {
-                UserStory1 us1 = new UserStory1();
-                us1.orderMenu();
+            case "4": {
+                customerMenu();
                 break;
              }
-            case "4": {
-                UserStory1 us1 = new UserStory1();
-                us1.order1();
-                break;
-            }
-        /*             case "3":{
-             staffview.viewInfo();
-             mainMenu();
-             break;
+        /*     case "4":{
+                staffview.viewInfo();
+                mainMenu();
+                break; 
              } */
             default: {
                 System.out.println("Please enter again !");
@@ -67,7 +69,7 @@ public class Assignment {
         }
     }
         
- public void User() {
+ public static void User() {
         String username;
         String password;
         boolean a = false;
@@ -94,8 +96,8 @@ public class Assignment {
         }
     }
  
-     public void deliverymanMenu() {
-        String menu;;
+     public static void deliverymanMenu() {
+ 
         System.out.println("=================================");
         System.out.println("1. Clock in");
         System.out.println("2. Clock out");
@@ -108,20 +110,30 @@ public class Assignment {
 
         switch (menu) {
             case "1": {
-                manList.getEntry(b).setWorkingStatus("Available");
-                System.out.println("** Status is now AVAILABLE !! ** ");
-                testDate();
-             //   staffview.viewInfo();
-                deliverymanMenu2();
-                break;
+                if(manList.getEntry(b).getWorkingStatus() == "Unavailable"){
+                    manList.getEntry(b).setWorkingStatus("Available");
+                    System.out.println("** Status is now AVAILABLE !! ** ");
+                    testDate();
+                    deliverymanMenu();
+                    break;
+                }else{
+                     System.out.println("You need to clock out to clock in ! ");
+                     deliverymanMenu();
+                     break;
+            }
             }
             case "2": {
-                manList.getEntry(b).setWorkingStatus("Unavailable");
-                System.out.println("** Status is now UNAVAILABLE !! **");
-                testDate();
-            //    staffview.viewInfo();
-                deliverymanMenu2();
-                break;
+                if(manList.getEntry(b).getWorkingStatus() == "Available"){
+                    manList.getEntry(b).setWorkingStatus("Unavailable");
+                    System.out.println("** Status is now UNAVAILABLE !! **");
+                    testDate();
+                    deliverymanMenu();
+                    break;
+                }else{
+                    System.out.println("You need to clock in to clock out ! ");
+                    deliverymanMenu();
+                    break;
+                }
             }
             case "3": {
 
@@ -133,6 +145,10 @@ public class Assignment {
                 mainMenu();
                 break;
             }
+             default: {
+                System.out.println("Please enter again !");
+                deliverymanMenu();
+            }
         }
     }
  
@@ -141,41 +157,82 @@ public class Assignment {
         int choice;
 
         System.out.println("Staff Menu");
-        System.out.println("-------------------------\n");
-        System.out.println("1 - Add new delivery man");
-        System.out.println("2 - View delivery man");
-//        System.out.println("3 - Decrypt a number");
-        System.out.println("4 - Quit");
-        System.out.println("-------------------------\n");
+        System.out.println("=========================\n");
+        System.out.println("1. Add new delivery man");
+        System.out.println("2. View delivery man details");
+        System.out.println("3. View delivery man working status");
+        System.out.println("4. Update delivery man status");
+        System.out.println("5. -- Log out --");
+        System.out.println("=========================\n");
         System.out.print("\nPlease select your choice: ");
         choice = scanner.nextInt();
-        while (choice < 0 || choice > 4) {
-            System.out.print("Please enter number 1-4: ");
+        while (choice < 0 || choice > 5) {
+            System.out.print("Please enter number 1-5: ");
             choice = scanner.nextInt();
-
         }
 
         switch (choice) {
             case 1:
 
                 addDeliveryMan();
+                displayMenu();
 
                 break;
             case 2:
-                // Perform "encrypt number" case.
+                System.out.println(manList);
+                displayMenu();
                 break;
             case 3:
-                // Perform "decrypt number" case.
+                staffview.viewInfo();
+                displayMenu();
                 break;
             case 4:
-                Assignment assign = new Assignment();
-                assign.mainMenu();
-         //      System.exit(0);
+                System.out.print("Please enter the delivery man ID: ");
+                int id = sc.nextInt();
+                updateDeliManStatus(id);
                 break;
-            default:
+            case 5:
+                mainMenu();
+             //      System.exit(0);
+                break;
+            default: 
+                System.out.println("Please enter again !");
+                displayMenu();
 
         }
+     
+    
     }
+     
+     public static void customerMenu(){
+        System.out.println("=======================");
+        System.out.println("1. View Order Mmenu");
+        System.out.println("1. -- Log out --");
+        System.out.println("=======================");
+        System.out.print("Enter your selection: ");
+        cusMenu = sc.nextLine();
+        
+        switch (cusMenu) {
+            case "1": {
+                UserStory1 us1 = new UserStory1();
+                us1.orderMenu();
+                break;
+
+            }
+            case "2": {
+
+                break;
+             }
+            case "3": {
+                
+                break;
+             }
+            default: {
+                System.out.println("Please enter again !");
+                customerMenu();
+            }
+        }
+     }
 
     public static void addDeliveryMan() {
 
@@ -209,26 +266,91 @@ public class Assignment {
 //        System.out.println(String.format(" %-20s %-20n %-20s %-20n\n","Name", "Contact Number","Address","Status"));
         System.out.println(manList);
     }
-
-    public void deliverymanMenu2() {
-        String menu2;
-        System.out.println("=================================");
-        System.out.println("1. Back to delivery man Menu ");
-        System.out.println("2. Back to Main Menu");
-        System.out.println("=================================");
-        System.out.print("Enter your selection: ");
-        menu2 = sc.nextLine();
-
-        switch (menu2) {
-            case "1": {
-                deliverymanMenu();
-            }
-            case "2": {
-                mainMenu();
-            }
-        }
-
-    }
+    
+    public static void updateDeliManStatus(int id){
+        int choice = 0, i;
+ 
+//        while(j <= manList.getNumberOfEntries()){
+//            j++;
+//        }
+        
+           for(i = 1 ; i <= manList.getNumberOfEntries(); i++){
+            if(id == manList.getEntry(i).getManID()){
+                System.out.println(manList.getEntry(i).getManID());
+                
+                System.out.println("Set the delivery man status to: ");
+                System.out.println("1. Retired");
+                System.out.println("2. Resigned");
+                System.out.println("3. Other");
+                System.out.println("4. Back to HR main page");
+                System.out.print("\nYour choice: ");    
+                 choice = sc.nextInt();
+                while (choice < 0 || choice > 4) {
+                    System.out.print("Please enter number 1-4: ");
+                    choice = sc.nextInt();
+                }
+                switch(choice){
+                    case 1:
+                        manList.getEntry(i).setStatus("Retired");
+                        break;
+                    case 2:
+                        manList.getEntry(i).setStatus("Resigned");
+                        break;
+                    case 3:
+                        System.out.println("Please specify: ");
+                        String other = sc.nextLine();
+                        manList.getEntry(i).setStatus(other);
+                        break;
+                    case 4:
+                        displayMenu();
+                    default:
+                        System.out.print("Please select your choice (1-4) !");
+                        
+                }
+//            }else{
+//                System.out.println("\nInvalid ID!!!\n");
+//                System.out.println(manList.getNumberOfEntries());
+//                System.out.println(manList.getEntry(i).getManID());
+//                System.out.println(id);
+//                System.out.println(i);
+//                displayMenu();
+           }
+            
+          
+           }
+           
+//                choice = sc.nextInt();
+//                while (choice < 0 || choice > 4) {
+//                    System.out.print("Please enter number 1-4: ");
+//                    choice = sc.nextInt();
+//                }
+//                switch(choice){
+//                    case 1:
+//                        manList.getEntry(i).setStatus("Retired");
+//                        break;
+//                    case 2:
+//                        manList.getEntry(i).setStatus("Resigned");
+//                        break;
+//                    case 3:
+//                        System.out.println("Please specify: ");
+//                        String other = sc.nextLine();
+//                        manList.getEntry(i).setStatus(other);
+//                        break;
+//                    case 4:
+//                        displayMenu();
+//                    default:
+//                        System.out.print("Please select your choice (1-4) !");
+//                        
+//                }
+                System.out.println(manList);
+                displayMenu();
+            
+            
+                }
+    
+    
+        
+    
 
     public void addUser() {
         DeliveryMan deliMan = new DeliveryMan(10, "Miw","Miw12345" ,"012-3456789", "Jalan Miw", "Employed", null,"Unavailable");
@@ -249,7 +371,7 @@ public class Assignment {
         staffview.setUserList(manList); */
     }
 
-    public void testDate() {
+    public static void testDate() {
         Date now = new Date();
         //  SimpleDateFormat dateFormatter = new SimpleDateFormat("E yyyy.mm.dd 'at' hh:mm:ss a");
         manList.getEntry(b).setDateTime(now);
@@ -261,8 +383,8 @@ public class Assignment {
         Assignment assign = new Assignment();
         assign.addUser();
         assign.mainMenu();
-        displayMenu();
-        assign.testDate();
+        
+//        assign.testDate();
         //assign.deliverymanMenu();
         //boolean a = assign.User();
 
