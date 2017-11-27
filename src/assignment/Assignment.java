@@ -26,6 +26,7 @@ public class Assignment {
     public static String menu;
     public static String main;
     public static String cusMenu;
+     static String other;
     
     
         public static void mainMenu() {
@@ -297,8 +298,9 @@ public class Assignment {
                         manList.getEntry(i).setStatus("Resigned");
                         break;
                     case 3:
-                        System.out.println("Please specify: ");
-                        String other = sc.nextLine();
+                        Scanner scanner = new Scanner(System.in); 
+                        System.out.print("Please specify: ");
+                        other = scanner.nextLine();
                         manList.getEntry(i).setStatus(other);
                         break;
                     case 4:
@@ -307,46 +309,21 @@ public class Assignment {
                         System.out.print("Please select your choice (1-4) !");
                         
                 }
-//            }else{
-//                System.out.println("\nInvalid ID!!!\n");
-//                System.out.println(manList.getNumberOfEntries());
-//                System.out.println(manList.getEntry(i).getManID());
-//                System.out.println(id);
-//                System.out.println(i);
-//                displayMenu();
+         
            }
             
           
            }
            
-//                choice = sc.nextInt();
-//                while (choice < 0 || choice > 4) {
-//                    System.out.print("Please enter number 1-4: ");
-//                    choice = sc.nextInt();
-//                }
-//                switch(choice){
-//                    case 1:
-//                        manList.getEntry(i).setStatus("Retired");
-//                        break;
-//                    case 2:
-//                        manList.getEntry(i).setStatus("Resigned");
-//                        break;
-//                    case 3:
-//                        System.out.println("Please specify: ");
-//                        String other = sc.nextLine();
-//                        manList.getEntry(i).setStatus(other);
-//                        break;
-//                    case 4:
-//                        displayMenu();
-//                    default:
-//                        System.out.print("Please select your choice (1-4) !");
-//                        
-//                }
+
                 System.out.println(manList);
                 displayMenu();
-            
-            
+
                 }
+    
+
+    
+
     
     
         
