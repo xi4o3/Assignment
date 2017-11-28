@@ -9,6 +9,7 @@ package domain;
  *
  * @author Wingent
  */
+
 public class Affiliate
 {
     private String Res_id;
