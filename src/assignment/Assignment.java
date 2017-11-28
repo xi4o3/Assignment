@@ -5,6 +5,7 @@
  */
 package assignment;
 
+
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import assignment.staffView;
@@ -12,6 +13,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import assignment.UserStory1;
 import static assignment.UserStory1.order;
+import ModuleA.ModuleAFunction;
+import domain.Affiliate;
+import domain.Food;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -20,20 +26,28 @@ import static assignment.UserStory1.order;
 public class Assignment {
     
     public static ListInterface<DeliveryMan> manList = new List<>();
+    //***************************module A***********************************
+    private java.util.List<Affiliate> affiliate = new ArrayList<>();
+    private java.util.List<Food> food = new ArrayList<>();
+    private ModuleAFunction A = new ModuleAFunction();
+    //**************************************************************
     static staffView staffview = new staffView();
     private static Scanner sc = new Scanner(System.in);
     public static int b;
     public static String menu;
     public static String main;
     public static String cusMenu;
+     static String other;
     
     
-        public static void mainMenu() {
+        public void mainMenu() {
         System.out.println("=======================");
         System.out.println("1. Delivery man Log In");
         System.out.println("2. Affiliate Log In");
         System.out.println("3. HR Log In");
         System.out.println("4. Customer Log In");
+        System.out.println("5. Affiliate Registration");
+        System.out.println("6. View Affiliates");
     //    System.out.println("4. test check");
         System.out.println("=======================");
         System.out.print("Enter your selection: ");
@@ -46,6 +60,10 @@ public class Assignment {
                 break;
             }
             case "2": {
+                boolean login;
+                do{
+                login = A.Login(affiliate);
+                }while(login == false);
                 
                 break;
              }
@@ -57,6 +75,16 @@ public class Assignment {
                 customerMenu();
                 break;
              }
+            case "5":{
+                Register();
+                mainMenu();
+                break;
+            }
+            case "6":{
+                ViewAffiliate();
+                mainMenu();
+                break;
+            }
         /*     case "4":{
                 staffview.viewInfo();
                 mainMenu();
@@ -69,7 +97,7 @@ public class Assignment {
         }
     }
         
- public static void User() {
+ public void User() {
         String username;
         String password;
         boolean a = false;
@@ -96,7 +124,7 @@ public class Assignment {
         }
     }
  
-     public static void deliverymanMenu() {
+     public void deliverymanMenu() {
  
         System.out.println("=================================");
         System.out.println("1. Clock in");
@@ -152,7 +180,7 @@ public class Assignment {
         }
     }
  
-     public static void displayMenu() {
+     public void displayMenu() {
         Scanner scanner = new Scanner(System.in);
         int choice;
 
@@ -267,7 +295,7 @@ public class Assignment {
         System.out.println(manList);
     }
     
-    public static void updateDeliManStatus(int id){
+    public void updateDeliManStatus(int id){
         int choice = 0, i;
  
 //        while(j <= manList.getNumberOfEntries()){
@@ -297,8 +325,9 @@ public class Assignment {
                         manList.getEntry(i).setStatus("Resigned");
                         break;
                     case 3:
-                        System.out.println("Please specify: ");
-                        String other = sc.nextLine();
+                        Scanner scanner = new Scanner(System.in); 
+                        System.out.print("Please specify: ");
+                        other = scanner.nextLine();
                         manList.getEntry(i).setStatus(other);
                         break;
                     case 4:
@@ -307,46 +336,21 @@ public class Assignment {
                         System.out.print("Please select your choice (1-4) !");
                         
                 }
-//            }else{
-//                System.out.println("\nInvalid ID!!!\n");
-//                System.out.println(manList.getNumberOfEntries());
-//                System.out.println(manList.getEntry(i).getManID());
-//                System.out.println(id);
-//                System.out.println(i);
-//                displayMenu();
+         
            }
             
           
            }
            
-//                choice = sc.nextInt();
-//                while (choice < 0 || choice > 4) {
-//                    System.out.print("Please enter number 1-4: ");
-//                    choice = sc.nextInt();
-//                }
-//                switch(choice){
-//                    case 1:
-//                        manList.getEntry(i).setStatus("Retired");
-//                        break;
-//                    case 2:
-//                        manList.getEntry(i).setStatus("Resigned");
-//                        break;
-//                    case 3:
-//                        System.out.println("Please specify: ");
-//                        String other = sc.nextLine();
-//                        manList.getEntry(i).setStatus(other);
-//                        break;
-//                    case 4:
-//                        displayMenu();
-//                    default:
-//                        System.out.print("Please select your choice (1-4) !");
-//                        
-//                }
+
                 System.out.println(manList);
                 displayMenu();
-            
-            
+
                 }
+    
+
+    
+
     
     
         
@@ -395,5 +399,68 @@ public class Assignment {
          System.out.print("Log in Again!");
          }*/
     }
-
+    
+//******************************************************************************************************************************    
+//ModuleA
+    public void Register()
+    {   
+        System.out.println("======================");
+        System.out.println("Affiliate Registration");
+        System.out.println("======================");
+        
+        int totalAff = affiliate.size();
+        
+        String Res_id = String.format("R%04d", totalAff + 1);
+        System.out.println("Affiliate ID: " + Res_id);
+        System.out.println("**REMEMBER FOR FUTURE LOGIN PURPOSE**");
+        sc.nextLine();
+        System.out.print("Enter Password for login purpose: ");
+        String password  = sc.nextLine();
+        
+        System.out.print("Enter Restaurant name: ");
+        String Res_name  = sc.nextLine();
+        
+        System.out.print("Enter Owner name: ");
+        String Owner_name  = sc.nextLine();
+        
+        System.out.print("Enter Contact No: ");
+        String contact_no  = sc.nextLine();
+        
+        System.out.print("Enter Restaurant Address: ");
+        String address  = sc.nextLine();
+        
+        System.out.print("\n");
+        
+        Affiliate newAff = new Affiliate(Res_id, password, Res_name, Owner_name, contact_no, address);
+        affiliate.add(newAff);
+        System.out.println("Successfully Registered.");
+        System.out.print("\n");
+    }
+    
+    public void ViewAffiliate()
+    {
+        for(int i = 0 ; i < affiliate.size() ; i++)
+        {           
+            System.out.print("Affiliates ");
+            System.out.println(i+1);
+            System.out.println("===========");
+            System.out.println("Restaurant ID :" + affiliate.get(i).getRes_id());
+            System.out.println("Restaurant Name :" + affiliate.get(i).getRes_name());
+            System.out.println("Owner Name :" + affiliate.get(i).getOwner_name());
+            System.out.println("Contact No :" + affiliate.get(i).getContact_no());
+            System.out.println("Address :" + affiliate.get(i).getAddress());
+            
+        }
+        
+    } 
+    public void initializeList() 
+    {
+        food.add(new Food("FM0004", "Chicken Chop", 9.40, "Food", "A", affiliate.get(1)));
+        food.add(new Food("FM0005", "Orange Juice", 10.50, "Beverage", "A", affiliate.get(1)));
+        food.add(new Food("FM0006", "Aglio Olio", 29.90, "Food", "A", affiliate.get(1)));
+        food.add(new Food("FM0007", "Steak", 9.40, "Set", "Food", affiliate.get(2)));
+        food.add(new Food("FM0008", "Mushroom soup", 10.50, "Soup", "A", affiliate.get(2)));
+        food.add(new Food("FM0009", "Fried rice", 29.90, "Food", "A", affiliate.get(2)));
+    }
+    
 }
