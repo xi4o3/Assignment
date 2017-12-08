@@ -81,4 +81,6 @@ public class Affiliate
     {
         return "Affiliate{" + "Affiliate ID=" + Res_id + ", RestaurantName=" + Res_name + ", OwnerName=" + Owner_name + ", Address=" + address + ", ContactNo=" + contact_no + ", Password=" + password + '}';
     }
+    
+    
 }

@@ -6,29 +6,70 @@
 package assignment;
 
 import java.util.Date;
+import java.util.logging.Logger;
 /**
  *
  * @author DANSO
  */
 public class order {
+    private String orderId;
     private String name;
     private int phone;
     private String address;
+    private int postCode;
     private String food;
+    private int foodAmt;
     private String orderTime;
     private String status;
-    
-    public order(String name,int phone,String address,String food,String orderTime,String status){
+    //private customer custInfo;
+
+    public order(String orderId,String name,int phone,String address,int postCode,String food,int foodAmt,String orderTime,String status){
+        this.orderId = orderId;
         this.name = name;
         this.phone = phone;
         this.address = address;
+        this.postCode = postCode;
         this.food = food;
+        this.foodAmt = foodAmt;
         this.orderTime = orderTime;
         this.status = status;
+        //this.custInfo = custInfo;
     }
 
+    /*public customer getCustInfo() {
+        return custInfo;
+    }
+
+    public void setCustInfo(customer custInfo) {
+        this.custInfo = custInfo;
+    }*/
+
+    public int getPostCode() {
+        return postCode;
+    }
+
+    public void setPostCode(int postCode) {
+        this.postCode = postCode;
+    }
+
+    public int getFoodAmt() {
+        return foodAmt;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+    
     public String getStatus() {
         return status;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
+    }
+
+    public void setFoodAmt(int foodAmt) {
+        this.foodAmt = foodAmt;
     }
 
     public void setStatus(String status) {
@@ -76,6 +117,6 @@ public class order {
     }
     
     public String toString(){
-        return String.format("Customer Name: %s\n Customer Phone: %d\n Customer Address: %s\n Ordered Food: %s\n Ordered Time: %s\n Status: %s\n",name,phone,address,food,orderTime,status);
+        return String.format("Order ID: %s\n Customer Name: %s\n Customer Phone: %d\n Customer Address: %s\n Ordered Food: %s\n Ordered Food Amount: %d\n Ordered Time: %s\n Status: %s\n",orderId,name,phone,address,food,foodAmt,orderTime,status);
     }
 }
