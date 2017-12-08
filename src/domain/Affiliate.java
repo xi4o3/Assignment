@@ -9,6 +9,7 @@ package domain;
  *
  * @author Wingent
  */
+
 public class Affiliate
 {
     private String Res_id;
@@ -75,9 +76,11 @@ public class Affiliate
         this.address = address;
     }
     
-    /**@Override
+    @Override
     public String toString()
     {
         return "Affiliate{" + "Affiliate ID=" + Res_id + ", RestaurantName=" + Res_name + ", OwnerName=" + Owner_name + ", Address=" + address + ", ContactNo=" + contact_no + ", Password=" + password + '}';
-    }**/
+    }
+    
+    
 }
