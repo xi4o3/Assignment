@@ -12,7 +12,7 @@ import assignment.staffView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import assignment.UserStory1;
-import static assignment.UserStory1.order;
+import static assignment.UserStory1.orderList;
 import ModuleA.ModuleAFunction;
 import domain.Affiliate;
 import domain.Food;
@@ -27,8 +27,8 @@ public class Assignment {
     
     public static ListInterface<DeliveryMan> manList = new List<>();
     //***************************module A***********************************
-    private java.util.List<Affiliate> affiliate = new ArrayList<>();
-    private java.util.List<Food> food = new ArrayList<>();
+    public static ListInterface<Affiliate> affiliate = new List<>();
+    public static ListInterface<Food> food = new List<>();
     private ModuleAFunction A = new ModuleAFunction();
     //**************************************************************
     static staffView staffview = new staffView();
@@ -37,10 +37,25 @@ public class Assignment {
     public static String menu;
     public static String main;
     public static String cusMenu;
-     static String other;
+    static String other;
     
+    public Assignment(){
+        //initialize deliveryman
+        DeliveryMan deliMan = new DeliveryMan(10, "Miw","Miw12345" ,"012-3456789", "Jalan Miw", "Employed", null,"Unavailable");
+        manList.add(deliMan);
+        
+        Affiliate aff=new Affiliate("R0000","Tan","tan","123","123","aaa");
+        affiliate.add(aff);
+        //initialize food menu
+        Food food1 = new Food("FM0004", "Chicken Chop", 9.40, "Food", "A",affiliate.getEntry(1));
+        Food food2 = new Food("FM0005", "Fish&Chip", 9.40, "Food", "A",affiliate.getEntry(1));
+        food.add(food1);
+        food.add(food2);
+    }
     
         public void mainMenu() {
+            boolean flag=true;
+            while(flag){
         System.out.println("=======================");
         System.out.println("1. Delivery man Log In");
         System.out.println("2. Affiliate Log In");
@@ -48,7 +63,8 @@ public class Assignment {
         System.out.println("4. Customer Log In");
         System.out.println("5. Affiliate Registration");
         System.out.println("6. View Affiliates");
-    //    System.out.println("4. test check");
+        System.out.println("7. Customer Registration");
+        System.out.println("0. Exit Program");
         System.out.println("=======================");
         System.out.print("Enter your selection: ");
         main = sc.nextLine();
@@ -62,9 +78,9 @@ public class Assignment {
             case "2": {
                 boolean login;
                 do{
-                login = A.Login(affiliate);
+                login = A.Login(affiliate,food);
                 }while(login == false);
-                
+                food=A.getFood();
                 break;
              }
               case "3": {
@@ -85,16 +101,20 @@ public class Assignment {
                 mainMenu();
                 break;
             }
-        /*     case "4":{
-                staffview.viewInfo();
-                mainMenu();
+            case "7":{
+                //cusRegister();
+                break;
+            }
+            case "0":{
+                flag=false;
                 break; 
-             } */
+             } 
             default: {
                 System.out.println("Please enter again !");
                 mainMenu();
             }
-        }
+        }//end switch
+        }//end while
     }
         
  public void User() {
@@ -235,23 +255,27 @@ public class Assignment {
      public static void customerMenu(){
         System.out.println("=======================");
         System.out.println("1. View Order Mmenu");
-        System.out.println("1. -- Log out --");
+        System.out.println("2. Place Order");
+        System.out.println("3. Show Order");
+        System.out.println("4. -- Log out --");
         System.out.println("=======================");
         System.out.print("Enter your selection: ");
         cusMenu = sc.nextLine();
-        
+        UserStory1 us1 = new UserStory1(affiliate,food);
         switch (cusMenu) {
             case "1": {
-                UserStory1 us1 = new UserStory1();
                 us1.orderMenu();
                 break;
-
             }
             case "2": {
-
+                us1.order1();
                 break;
              }
             case "3": {
+                us1.show();
+                break;
+             }
+            case "4": {
                 
                 break;
              }
@@ -357,8 +381,6 @@ public class Assignment {
     
 
     public void addUser() {
-        DeliveryMan deliMan = new DeliveryMan(10, "Miw","Miw12345" ,"012-3456789", "Jalan Miw", "Employed", null,"Unavailable");
-        manList.add(deliMan);
         staffview.setUserList(manList);
         Date date = new Date();
         SimpleDateFormat dateFormatter = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
@@ -399,6 +421,39 @@ public class Assignment {
          System.out.print("Log in Again!");
          }*/
     }
+       /*public void cusRegister(){
+        customer custemp = null;
+        Scanner cus = new Scanner(System.in);
+        String password = null;
+        String cus_name = null;
+        String address = null;
+        int contact_no = 0;
+        int posCod = 0;
+        System.out.println("==========Fastest Delivery System==========");
+        int totalAff = customer.getNumberOfEntries();
+        
+        String cus_id = String.format("C%04d", totalAff + 1);
+        System.out.println("Customer ID: " + cus_id);
+        System.out.print("Enter Password for login purpose: ");
+        password  = cus.nextLine();
+        
+        System.out.print("Enter name: ");
+        cus_name  = cus.nextLine();
+        
+        System.out.print("Enter Contact No: ");
+        contact_no  = Integer.parseInt(cus.nextLine());
+        
+        System.out.print("Enter Restaurant Address: ");
+        address  = cus.nextLine();
+        
+        System.out.println("Enter PostCode:");
+        posCod = Integer.parseInt(cus.nextLine());
+        
+        custemp = new customer(cus_id,password,cus_name,contact_no,address,posCod);
+        customer.add(custemp);
+        System.out.println("Register Successful!!");
+    }*/
+       
     
 //******************************************************************************************************************************    
 //ModuleA
@@ -408,7 +463,7 @@ public class Assignment {
         System.out.println("Affiliate Registration");
         System.out.println("======================");
         
-        int totalAff = affiliate.size();
+        int totalAff = affiliate.getNumberOfEntries();
         
         String Res_id = String.format("R%04d", totalAff + 1);
         System.out.println("Affiliate ID: " + Res_id);
@@ -435,32 +490,33 @@ public class Assignment {
         affiliate.add(newAff);
         System.out.println("Successfully Registered.");
         System.out.print("\n");
+
     }
     
     public void ViewAffiliate()
     {
-        for(int i = 0 ; i < affiliate.size() ; i++)
+        for(int i = 1 ; i <= affiliate.getNumberOfEntries(); i++)
         {           
             System.out.print("Affiliates ");
             System.out.println(i+1);
             System.out.println("===========");
-            System.out.println("Restaurant ID :" + affiliate.get(i).getRes_id());
-            System.out.println("Restaurant Name :" + affiliate.get(i).getRes_name());
-            System.out.println("Owner Name :" + affiliate.get(i).getOwner_name());
-            System.out.println("Contact No :" + affiliate.get(i).getContact_no());
-            System.out.println("Address :" + affiliate.get(i).getAddress());
+            System.out.println("Restaurant ID :" + affiliate.getEntry(i).getRes_id());
+            System.out.println("Restaurant Name :" + affiliate.getEntry(i).getRes_name());
+            System.out.println("Owner Name :" + affiliate.getEntry(i).getOwner_name());
+            System.out.println("Contact No :" + affiliate.getEntry(i).getContact_no());
+            System.out.println("Address :" + affiliate.getEntry(i).getAddress());
             
         }
         
     } 
-    public void initializeList() 
+    /*public void initializeList() 
     {
-        food.add(new Food("FM0004", "Chicken Chop", 9.40, "Food", "A", affiliate.get(1)));
-        food.add(new Food("FM0005", "Orange Juice", 10.50, "Beverage", "A", affiliate.get(1)));
-        food.add(new Food("FM0006", "Aglio Olio", 29.90, "Food", "A", affiliate.get(1)));
-        food.add(new Food("FM0007", "Steak", 9.40, "Set", "Food", affiliate.get(2)));
-        food.add(new Food("FM0008", "Mushroom soup", 10.50, "Soup", "A", affiliate.get(2)));
-        food.add(new Food("FM0009", "Fried rice", 29.90, "Food", "A", affiliate.get(2)));
-    }
+        food.add(new Food("FM0004", "Chicken Chop", 9.40, "Food", "A", affiliate.getEntry(1)));
+        food.add(new Food("FM0005", "Orange Juice", 10.50, "Beverage", "A", affiliate.getEntry(1)));
+        food.add(new Food("FM0006", "Aglio Olio", 29.90, "Food", "A", affiliate.getEntry(2)));
+        food.add(new Food("FM0007", "Steak", 9.40, "Set", "Food", affiliate.getEntry(2)));
+        food.add(new Food("FM0008", "Mushroom soup", 10.50, "Soup", "A", affiliate.getEntry(2)));
+        food.add(new Food("FM0009", "Fried rice", 29.90, "Food", "A", affiliate.getEntry(2)));
+    }*/
     
 }
