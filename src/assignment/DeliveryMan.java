@@ -21,6 +21,7 @@ public class DeliveryMan {
     private String status;
     private Date DateTime;
     private String workingStatus;
+    private int deliveryAssigned;
 
     public DeliveryMan() {
     }
@@ -51,7 +52,7 @@ public class DeliveryMan {
         this.name = name;
     }
 
-    public DeliveryMan(int manID, String name, String pw,String contactNum, String adds, String status, Date DateTime, String workingStatus) {
+    public DeliveryMan(int manID, String name, String pw,String contactNum, String adds, String status, Date DateTime, String workingStatus, int deliveryAssigned) {
         this.manID = nextManID++;
         this.pw = pw;
         this.name = name;
@@ -60,6 +61,7 @@ public class DeliveryMan {
         this.status = status;
         this.DateTime = DateTime;
         this.workingStatus = workingStatus;
+        this.deliveryAssigned = deliveryAssigned;
     }
     
     public int getManID() {
@@ -119,9 +121,17 @@ public class DeliveryMan {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public int getDeliveryAssigned() {
+        return deliveryAssigned;
+    }
+
+    public void setDeliveryAssigned(int deliveryAssigned) {
+        this.deliveryAssigned = deliveryAssigned;
+    }
     
     public String toString(){
-        return String.format("No. %-10d %-20s %-20s %-20s  %-20s ", manID, name,contactNum,adds,status);
+        return String.format("No. %-10d %-20s %-20s %-20s  %-20s %-10d ", manID, name,contactNum,adds,status,deliveryAssigned);
     }
     
     
