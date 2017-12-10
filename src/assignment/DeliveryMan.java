@@ -21,6 +21,24 @@ public class DeliveryMan {
     private String status;
     private Date DateTime;
     private String workingStatus;
+    private String orderCharge;
+    private int maxDelivery;
+
+    public String getOrderCharge() {
+        return orderCharge;
+    }
+
+    public void setOrderCharge(String orderCharge) {
+        this.orderCharge = orderCharge;
+    }
+
+    public int getMaxDelivery() {
+        return maxDelivery;
+    }
+
+    public void setMaxDelivery(int maxDelivery) {
+        this.maxDelivery = maxDelivery;
+    }
 
     public DeliveryMan() {
     }
@@ -51,7 +69,7 @@ public class DeliveryMan {
         this.name = name;
     }
 
-    public DeliveryMan(int manID, String name, String pw,String contactNum, String adds, String status, Date DateTime, String workingStatus) {
+    public DeliveryMan(int manID, String name, String pw,String contactNum, String adds, String status, Date DateTime, String workingStatus, String orderCharge, int maxDelivery) {
         this.manID = nextManID++;
         this.pw = pw;
         this.name = name;
@@ -60,6 +78,8 @@ public class DeliveryMan {
         this.status = status;
         this.DateTime = DateTime;
         this.workingStatus = workingStatus;
+        this.orderCharge = orderCharge;
+        this.maxDelivery = maxDelivery;
     }
     
     public int getManID() {

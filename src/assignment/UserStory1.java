@@ -100,7 +100,7 @@ public class UserStory1 {
         int i = 0;
         String statusD = "NotDelivered";
         int foodAmt = 0;
-        int totalAff = affiliate.getNumberOfEntries();
+        int orld = orderList.getNumberOfEntries();
         String option = null;
         System.out.println("Restaurant Name: ");
         resName = order1.nextLine();
@@ -113,7 +113,7 @@ public class UserStory1 {
                 //customerMenu();
             }
         }
-        String order_id = String.format("P%04d", totalAff + 1);
+        String order_id = String.format("P%04d", orld + 1);
         System.out.println("Order ID: " + order_id);
         System.out.println("Name: ");
         name =order1.nextLine();
