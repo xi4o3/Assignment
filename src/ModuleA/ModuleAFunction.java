@@ -5,9 +5,10 @@
  */
 package ModuleA;
 
+import assignment.*;
 import java.util.Scanner;
-import java.util.List;
-import java.util.ArrayList;
+//import java.util.List;
+//import java.util.ArrayList;
 import domain.*;
 
 /**
@@ -17,15 +18,19 @@ import domain.*;
 public class ModuleAFunction 
 {
     Scanner scanner = new Scanner(System.in);
-    private List<Affiliate> affiliate = new ArrayList<>();
-    private List<Food> food = new ArrayList<>();
+    public ListInterface<Affiliate> affiliate = new List<>();
+    public static ListInterface<Food> food = new List<>();
     
+    private Affiliate curAffiliate;
+    private int idIndex;
     public ModuleAFunction() 
     {
     }
          
-    public boolean Login(List<Affiliate> affiliate) 
+    public boolean Login(ListInterface<Affiliate> getaffiliate,ListInterface<Food> oldFood) 
     {
+        this.affiliate=getaffiliate;
+        this.food=oldFood;
         int idcount = 0;
         boolean password = false;
         while (idcount == 0) {
@@ -33,21 +38,22 @@ public class ModuleAFunction
             System.out.println("Affiliate Login");
             System.out.println("===============");
             System.out.print("Restaurant ID: ");
-            String id = scanner.nextLine().toUpperCase();
-            for (int i=0 ; i<affiliate.size() ; i++) 
+            String id = scanner.nextLine();
+            for (int i= 1; i<=affiliate.getNumberOfEntries(); i++) 
             {
-                if (id.equals(affiliate.get(i).getRes_id())) 
+                if (id.equals(affiliate.getEntry(i).getRes_id())) 
                 {
                     while (!password) 
                     {
                         System.out.print("Password: ");
                         String pass = scanner.nextLine();
                         idcount = 1;
-                        if (pass.equals(affiliate.get(i).getPassword())) 
+                        if (pass.equals(affiliate.getEntry(i).getPassword())) 
                         {
                             password = true;
                             System.out.println("Successfully Login");
-                            Menu(affiliate.get(i));
+                            curAffiliate=affiliate.getEntry(i);
+                            Menu();
                         } else 
                         {
                             System.out.println("Invalid password");
@@ -63,7 +69,7 @@ public class ModuleAFunction
         return password;
     }
 
-    public void Menu(Affiliate A) {
+    public void Menu() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("1. Add New Menu");
         System.out.println("2. Update Item Details");
@@ -78,44 +84,40 @@ public class ModuleAFunction
         {
             case 1: 
             {
-                addFood(A);
+                addFood();
                 break;
             }
             case 2: 
             {
-                updateFood(A);
+                updateFood();
                 scanner.nextLine();
                 break;
             }
             case 3: 
             {
-                deleteFood(A);
+                deleteFood();
                 break;
             }
             case 0: 
             {
                 System.out.println("Successfully Logout");
-                
-                boolean login;
-                do{
-                login = Login(affiliate);
-                }while(login == false);
+                break;
             }
             default: 
             {
                 System.out.println("Please select again...");
-                Menu(A);
+                Menu();
                 break;
             }
         }
     }
 
-    public void addFood(Affiliate A){
+    public void addFood(){
         System.out.println("========");
         System.out.println("New Food");
         System.out.println("========");
         
-        int totalFood = food.size();
+        int totalFood = food.getNumberOfEntries();
         String foodID = String.format("F%04d", totalFood + 1);
         System.out.println("FoodID: " + foodID);
         System.out.print("Food Name: ");
@@ -127,7 +129,7 @@ public class ModuleAFunction
         String Category = scanner.nextLine();
         String foodAVA = "YES";
         
-        Food f = new Food(foodID, foodName, Price, Category, foodAVA, A);
+        Food f = new Food(foodID, foodName, Price, Category, foodAVA, curAffiliate);
         food.add(f);
         
         System.out.println("New Food Added !");
@@ -137,46 +139,46 @@ public class ModuleAFunction
         System.out.println("Category: " + Category);
         System.out.println("Availability: YES");
         
-        Menu(A);
+        Menu();
     }
 
-    public void FoodList(Affiliate A)
+    public void FoodList()
     {
-        for(int i=0 ; i<food.size() ; i++)
+        for(int i=1; i<=food.getNumberOfEntries(); i++)
         {
-            if(A.equals(food.get(i).getRestaurant())&&food.get(i).getFoodAVA()=="YES"||food.get(i).getFoodAVA()=="NO")
+            if(affiliate.equals(food.getEntry(i).getRestaurant())&&food.getEntry(i).getFoodAVA()=="YES"||food.getEntry(i).getFoodAVA()=="NO")
             {
-                System.out.println("FoodID: "+food.get(i).getFoodID()+" Food Name: "+food.get(i).getFoodName()+" Food Price: RM" +food.get(i).getPrice()+" Food Availability: "+food.get(i).getFoodAVA());   
+                System.out.println("FoodID: "+food.getEntry(i).getFoodID()+" Food Name: "+food.getEntry(i).getFoodName()+" Food Price: RM" +food.getEntry(i).getPrice()+" Food Availability: "+food.getEntry(i).getFoodAVA());   
             }
         }
     }
     
-    public void updateFood(Affiliate A)
+    public void updateFood()
     {
         int id = 99;
         System.out.println("==================");
         System.out.println("Update Item Detail");
         System.out.println("==================");
-        System.out.println("Welcome ! " + A.getRes_name());
-        FoodList(A);
+        System.out.println("Welcome ! " + curAffiliate.getRes_name());
+        FoodList();
         System.out.print("Enter FoodID: ");
         String FoodID = scanner.nextLine().toUpperCase();
         
-        int i=0; 
-        while(i < food.size())
+        int i=1; 
+        while(i <= food.getNumberOfEntries())
         {
-            if(FoodID.equals(food.get(i).getFoodID())&& A.equals(food.get(i).getRestaurant()))
+            if(FoodID.equals(food.getEntry(i).getFoodID())&& curAffiliate.equals(food.getEntry(i).getRestaurant()))
             {        
-                System.out.println("FoodID: " + food.get(i).getFoodID());
-                System.out.println("Food Name: " + food.get(i).getFoodName());
-                System.out.println("Price: RM" + food.get(i).getPrice());
-                System.out.println("Food Type: " + food.get(i).getCategory());
-                System.out.println("Food Availability: " + food.get(i).getFoodAVA());
+                System.out.println("FoodID: " + food.getEntry(i).getFoodID());
+                System.out.println("Food Name: " + food.getEntry(i).getFoodName());
+                System.out.println("Price: RM" + food.getEntry(i).getPrice());
+                System.out.println("Food Type: " + food.getEntry(i).getCategory());
+                System.out.println("Food Availability: " + food.getEntry(i).getFoodAVA());
                 
-                Food F = food.get(i);
+                Food F = food.getEntry(i);
                 
                 id = 0; 
-                updateFoodDetail(A,F);
+                updateFoodDetail(curAffiliate,F);
                 
                    
             }
@@ -186,11 +188,11 @@ public class ModuleAFunction
             {
                 System.out.println("FoodID not found...");
                 System.out.println("Please enter again !");
-                updateFood(A);
+                updateFood();
             }      
     }
     
-    public void updateFoodDetail(Affiliate A, Food F)
+    public void updateFoodDetail(Affiliate A,Food F)
     {
         System.out.println("Select any detail to update...");
         System.out.println("1.Food Name");
@@ -210,7 +212,7 @@ public class ModuleAFunction
                 String NewName = scanner.nextLine();
                 F.setFoodName(NewName);
                 System.out.println("Update successfully!");
-                Menu(A);
+                Menu();
                 break;
             }
             case 2:
@@ -220,7 +222,7 @@ public class ModuleAFunction
                 double NewPrice = scanner.nextDouble();
                 F.setPrice(NewPrice);
                 System.out.println("Update successfully!");
-                Menu(A);
+                Menu();
                 break;
             }
             case 3:
@@ -232,12 +234,12 @@ public class ModuleAFunction
                 status = status.toUpperCase();
                 F.setFoodAVA(status);
                 System.out.println("Update successfully!");
-                Menu(A);
+                Menu();
                 break;
             }
             case 4:
             {
-                Menu(A);
+                Menu();
                 break;
             }
             default:
@@ -247,18 +249,18 @@ public class ModuleAFunction
         }
     }
     
-    public void deleteFood(Affiliate A){
+    public void deleteFood(){
         int d=0;
         System.out.println("================");
         System.out.println("Delete Food Menu");
         System.out.println("================");
-        FoodList(A);
+        FoodList();
         System.out.print("Enter FoodID to delete: ");
         String foodID = scanner.nextLine().toUpperCase();
         
-        for(int i =0 ; i<food.size() ; i++)
+        for(int i =1 ; i<=food.getNumberOfEntries(); i++)
         {
-                if(foodID.equals(food.get(i).getFoodID())&& A.equals(food.get(i).getRestaurant()))
+                if(foodID.equals(food.getEntry(i).getFoodID())&& affiliate.getEntry(idIndex).equals(food.getEntry(i).getRestaurant()))
                 {
                     System.out.println("Confirm to delete?");
                     System.out.print("Enter your selection (y/n):");
@@ -268,22 +270,22 @@ public class ModuleAFunction
                         case 'Y':
                         {
                             System.out.println("Delete successfully!");
-                            food.get(i).setFoodAVA("Deleted");
+                            food.getEntry(i).setFoodAVA("Deleted");
                             d=1;
-                            Menu(A);
+                            Menu();
                             break;
                         }
                         case 'N':
                         {
                             d=1;
-                            Menu(A);
+                            Menu();
                             break;
                         }
                         default:
                         {
                             d=0;
                             System.out.println("Please enter again...");
-                            Menu(A);
+                            Menu();
                             break;
                         }
                     }
@@ -292,16 +294,21 @@ public class ModuleAFunction
             if(d==0)
             {
                 System.out.println("Please enter again...");
-                deleteFood(A);
+                deleteFood();
             }
     }
-    public void setAffiliate(List<Affiliate> affiliate) {
+    public void setAffiliate(ListInterface<Affiliate> affiliate) {
         this.affiliate = affiliate;
     }
     
-    public void setFood(List<Food> food){
+    public void setFood(ListInterface<Food> food){
         this.food = food;
     }
+    
+    public ListInterface<Food> getFood(){
+        return food;
+    }
+    
 }
 
 
