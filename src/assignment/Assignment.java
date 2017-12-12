@@ -222,7 +222,7 @@ public class Assignment {
         Scanner scanner = new Scanner(System.in);
         int choice;
 
-        System.out.println("Staff Menu");
+        System.out.println("HR Menu");
         System.out.println("=========================\n");
         System.out.println("1. Add new delivery man");
         System.out.println("2. View delivery man details");
