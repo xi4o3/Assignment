@@ -21,6 +21,8 @@ public class ModuleAFunction
     public ListInterface<Affiliate> affiliate = new List<>();
     public static ListInterface<Food> food = new List<>();
     
+    
+    
     private Affiliate curAffiliate;
     private int idIndex;
     public ModuleAFunction() 
@@ -74,6 +76,7 @@ public class ModuleAFunction
         System.out.println("1. Add New Menu");
         System.out.println("2. Update Item Details");
         System.out.println("3. Remove Items");
+        System.out.println("4. View Items");
         System.out.println("0. Log Out");
         
         System.out.print("Enter your selection: ");
@@ -96,6 +99,12 @@ public class ModuleAFunction
             case 3: 
             {
                 deleteFood();
+                break;
+            }
+            case 4: 
+            {
+                FoodList();
+                Menu();
                 break;
             }
             case 0: 
@@ -129,6 +138,7 @@ public class ModuleAFunction
         String Category = scanner.nextLine();
         String foodAVA = "YES";
         
+        
         Food f = new Food(foodID, foodName, Price, Category, foodAVA, curAffiliate);
         food.add(f);
         
@@ -144,13 +154,27 @@ public class ModuleAFunction
 
     public void FoodList()
     {
+        int no=1;
+        
+        System.out.println("*******************************************************************************");
+        System.out.println("No\tFood ID\t\tFood Name\tFood Price(RM)\tFood Availability");
+        
         for(int i=1; i<=food.getNumberOfEntries(); i++)
         {
-            if(affiliate.equals(food.getEntry(i).getRestaurant())&&food.getEntry(i).getFoodAVA()=="YES"||food.getEntry(i).getFoodAVA()=="NO")
-            {
-                System.out.println("FoodID: "+food.getEntry(i).getFoodID()+" Food Name: "+food.getEntry(i).getFoodName()+" Food Price: RM" +food.getEntry(i).getPrice()+" Food Availability: "+food.getEntry(i).getFoodAVA());   
+            //if(affiliate.equals(food.getEntry(i).getRestaurant())&&food.getEntry(i).getFoodAVA()=="YES"||food.getEntry(i).getFoodAVA()=="NO")
+            //{
+            if(food.getEntry(i).getFoodAVA().equals("A")){
+                System.out.println(no +".\t"+ food.getEntry(i).getFoodID()+"\t\t"+food.getEntry(i).getFoodName()+"\t" +food.getEntry(i).getPrice()+"\t\t"+food.getEntry(i).getFoodAVA());   
+                no++;
             }
         }
+        
+        System.out.println("*******************************************************************************");
+    }
+    
+    public void viewFoodList()
+    {
+        
     }
     
     public void updateFood()
@@ -260,7 +284,7 @@ public class ModuleAFunction
         
         for(int i =1 ; i<=food.getNumberOfEntries(); i++)
         {
-                if(foodID.equals(food.getEntry(i).getFoodID())&& affiliate.getEntry(idIndex).equals(food.getEntry(i).getRestaurant()))
+                if(foodID.equals(food.getEntry(i).getFoodID())/**&& affiliate.getEntry(idIndex).equals(food.getEntry(i).getRestaurant())**/)
                 {
                     System.out.println("Confirm to delete?");
                     System.out.print("Enter your selection (y/n):");

@@ -51,13 +51,15 @@ public class Assignment {
         manList.add(deliMan1);
         manList.add(deliMan2);
         
-        Affiliate aff=new Affiliate("R0000","Tan","tan","123","123","aaa");
+        Affiliate aff=new Affiliate("R0000","pswd","tan","123","123","aaa");
         affiliate.add(aff);
         //initialize food menu
-        Food food1 = new Food("FM0004", "Chicken Chop", 9.40, "Food", "A",affiliate.getEntry(1));
-        Food food2 = new Food("FM0005", "Fish&Chip", 9.40, "Food", "A",affiliate.getEntry(1));
-        food.add(food1);
-        food.add(food2);
+        food.add(new Food("F0001", "Wingent Meal", 100, "Food", "A", affiliate.getEntry(1)));
+        food.add(new Food("F0002", "Happy Meal", 89, "Food", "Deleted", affiliate.getEntry(1)));
+        food.add(new Food("F0003", "Pork Chop", 100, "Food", "A", affiliate.getEntry(1)));
+        food.add(new Food("F0004", "Fries Rice", 89, "Food", "A", affiliate.getEntry(1)));
+        food.add(new Food("F0005", "Chicken Chop", 9.40, "Food", "A",affiliate.getEntry(1)));
+        food.add(new Food("F0006", "Fish&Chip", 9.40, "Food", "A",affiliate.getEntry(1)));
         
         order order = new order("R001","Abu",01234567,"Jalan Abu",14000,"Hamplang Chop",20,"00:00","Pending",deliMan);
         order order1 = new order("R002","Ata",01234567,"Jalan Duck",53300,"Banana Chop",20,"12:00","Completed",deliMan1);
@@ -69,6 +71,8 @@ public class Assignment {
         orderL.add(order2);
         orderL.add(order3);
         orderL.add(order4);
+        
+        
     }
     
         public void mainMenu() {
