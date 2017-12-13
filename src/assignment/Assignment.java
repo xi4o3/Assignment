@@ -17,6 +17,7 @@ import ModuleA.ModuleAFunction;
 import domain.Affiliate;
 import domain.Food;
 import java.util.ArrayList;
+import assignment.order;
 
 /**
  *
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 public class Assignment {
 
     public static ListInterface<DeliveryMan> manList = new List<>();
+    public static ListInterface<order> orderL = new List<>();
     //***************************module A***********************************
     public static ListInterface<Affiliate> affiliate = new List<>();
     public static ListInterface<Food> food = new List<>();
@@ -40,21 +42,35 @@ public class Assignment {
 
     public Assignment() {
         //initialize deliveryman
-        DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0);
+
+        DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0, 1);
+        DeliveryMan deliMan1 = new DeliveryMan(20, "Albert", "1234", "012-8723124", "Jalan Pisang", "Employed", null, "Unavailable", "None", 0, 0);
+        DeliveryMan deliMan2 = new DeliveryMan(30, "Thomas", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3);
         manList.add(deliMan);
+        manList.add(deliMan1);
+        manList.add(deliMan2);
 
         Affiliate aff = new Affiliate("R0000", "Tan", "tan", "123", "123", "aaa");
         affiliate.add(aff);
-        //initialize food menu
-        Food food1 = new Food("FM0004", "Chicken Chop", 9.40, "Food", "A", affiliate.getEntry(1));
-        Food food2 = new Food("FM0005", "Fish&Chip", 9.40, "Food", "A", affiliate.getEntry(1));
-        food.add(food1);
-        food.add(food2);
 
-        order Order = new order("P0001", "Miw", 12345, "qwer", 5400, "chicken chop", 2, null, "none");
-        order Order1 = new order("P0002", "Yjun", 23456, "asdf", 5300, "chicken chop", 5, null, "none");
-        orderList.add(Order);
-        orderList.add(Order1);
+        food.add(new Food("F0001", "Wingent Meal", 100, "Food", "A", affiliate.getEntry(1)));
+        food.add(new Food("F0002", "Happy Meal", 89, "Food", "Deleted", affiliate.getEntry(1)));
+        food.add(new Food("F0003", "Pork Chop", 100, "Food", "A", affiliate.getEntry(1)));
+        food.add(new Food("F0004", "Fries Rice", 89, "Food", "A", affiliate.getEntry(1)));
+        food.add(new Food("F0005", "Chicken Chop", 9.40, "Food", "A", affiliate.getEntry(1)));
+        food.add(new Food("F0006", "Fish&Chip", 9.40, "Food", "A", affiliate.getEntry(1)));
+
+        order order = new order("R001", "Abu", 01234567, "Jalan Abu", 5400, "Hamplang Chop", 20, null, "Pending", deliMan);
+        order order1 = new order("R002", "Ata", 01234567, "Jalan Duck", 5300, "Banana Chop", 20, null, "Completed", deliMan1);
+        order order2 = new order("R003", "Ali", 01234567, "Jalan Diao", 5300, "Banana Chop", 20, null, "Pending", deliMan2);
+        order order3 = new order("R004", "Agi", 01234567, "Jalan Halo", 5400, "Banana Chop", 20, null, "Pending", deliMan2);
+        order order4 = new order("R005", "Ahi", 01234567, "Jalan Hiao", 5300, "Banana Chop", 20, null, "Pending", deliMan2);
+        orderL.add(order);
+        orderL.add(order1);
+        orderL.add(order2);
+        orderL.add(order3);
+        orderL.add(order4);
+
     }
 
     public void mainMenu() {
@@ -208,19 +224,20 @@ public class Assignment {
         Scanner scanner = new Scanner(System.in);
         int choice;
 
-        System.out.println("Staff Menu");
+        System.out.println("HR Menu");
         System.out.println("=========================\n");
         System.out.println("1. Add new delivery man");
         System.out.println("2. View delivery man details");
         System.out.println("3. View delivery man working status");
         System.out.println("4. Update delivery man status");
         System.out.println("5. Assign job for delivery man");
-        System.out.println("6. -- Log out --");
+        System.out.println("6. View pending deliveries");
+        System.out.println("7. -- Log out --");
         System.out.println("=========================\n");
         System.out.print("\nPlease select your choice: ");
         choice = scanner.nextInt();
-        while (choice < 0 || choice > 6) {
-            System.out.print("Please enter number 1-5: ");
+        while (choice < 0 || choice > 7) {
+            System.out.print("Please enter number 1-7: ");
             choice = scanner.nextInt();
         }
 
@@ -249,8 +266,10 @@ public class Assignment {
                 assignDeliver();
                 break;
             case 6:
+                viewPendingDeliveries();
+                break;
+            case 7:
                 mainMenu();
-                //      System.exit(0);
                 break;
             default:
                 System.out.println("Please enter again !");
@@ -376,6 +395,46 @@ public class Assignment {
         System.out.println(manList);
         displayMenu();
 
+    }
+
+    public void viewPendingDeliveries() {
+        Scanner scanner = new Scanner(System.in);
+        int num = 1;
+        String option = "";
+        do {
+            num = 1;
+            for (int i = 1; i <= manList.getNumberOfEntries(); i++) {
+                int onHold = manList.getEntry(i).getDeliveryAssigned();
+                String name = manList.getEntry(i).getName();
+                if (onHold > 0) {
+                    System.out.println(num + ". ( ID: " + manList.getEntry(i).getManID() + " ) " + name + "  [ Pending Deliveries: " + manList.getEntry(i).getDeliveryAssigned() + " ]");
+                    num++;
+                }
+            }
+            System.out.print("Enter the delivery man ID to view more details: ");
+
+            int selection = scanner.nextInt();
+            String name = "";
+            for (int i = 1; i <= manList.getNumberOfEntries(); i++) {
+                if (selection == (manList.getEntry(i).getManID())) {
+                    name = manList.getEntry(i).getName();
+                }
+            }
+
+            for (int i = 1; i <= orderL.getNumberOfEntries(); i++) {
+                order order = orderL.getEntry(i);
+                if (name.equals(orderL.getEntry(i).getDeliveryMan().getName())) {
+                    String st = String.format("%10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t", order.getOrderId(), order.getName(), order.getAddress(), order.getPostCode(), order.getOrderTime(), order.getStatus());
+                    System.out.println(st);
+
+                }
+
+            }
+            System.out.print("Do you wish to continue?(y/n): ");
+            Scanner scanner1 = new Scanner(System.in);
+            option = scanner1.nextLine();
+
+        } while (option.equals("y"));
     }
 
     public void addUser() {

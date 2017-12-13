@@ -14,7 +14,8 @@ public class List<T> implements ListInterface<T> {
 
   private Node firstNode; // reference to first node
   private int numberOfEntries;  	// number of entries in list
-
+  private int length;
+  
   public List() {
     clear();
   }
@@ -157,6 +158,10 @@ public class List<T> implements ListInterface<T> {
     result = numberOfEntries == 0;
 
     return result;
+  }
+  
+    public int getLength() {
+    return length;
   }
 
   @Override

@@ -21,9 +21,10 @@ public class order {
     private int foodAmt;
     private String orderTime;
     private String status;
+    private DeliveryMan deliveryMan;
     //private customer custInfo;
 
-    public order(String orderId,String name,int phone,String address,int postCode,String food,int foodAmt,String orderTime,String status){
+    public order(String orderId,String name,int phone,String address,int postCode,String food,int foodAmt,String orderTime,String status, DeliveryMan deliveryMan){
         this.orderId = orderId;
         this.name = name;
         this.phone = phone;
@@ -33,6 +34,7 @@ public class order {
         this.foodAmt = foodAmt;
         this.orderTime = orderTime;
         this.status = status;
+        this.deliveryMan = deliveryMan;
         //this.custInfo = custInfo;
     }
 
@@ -116,7 +118,16 @@ public class order {
         return orderTime;
     }
     
+    public DeliveryMan getDeliveryMan() {
+        return deliveryMan;
+    }
+    
+     public void setDeliveryMan(DeliveryMan deliveryMan) {
+        this.deliveryMan = deliveryMan;
+    }
+  
+    
     public String toString(){
-        return String.format("Order ID: %s\n Customer Name: %s\n Customer Phone: %d\n Customer Address: %s\n Ordered Food: %s\n Ordered Food Amount: %d\n Ordered Time:HH:mm:ss %s\n Status: %s\n",orderId,name,phone,address,food,foodAmt,orderTime,status);
+        return String.format("Order ID: %s\n Customer Name: %s\n Customer Phone: %d\n Customer Address: %s\n Ordered Food: %s\n Ordered Food Amount: %d\n Ordered Time: %s\n Status: %s\n DM: %s\n",orderId,name,phone,address,food,foodAmt,orderTime,status,deliveryMan);
     }
 }
