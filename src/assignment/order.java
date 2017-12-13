@@ -117,6 +117,6 @@ public class order {
     }
     
     public String toString(){
-        return String.format("Order ID: %s\n Customer Name: %s\n Customer Phone: %d\n Customer Address: %s\n Ordered Food: %s\n Ordered Food Amount: %d\n Ordered Time: %s\n Status: %s\n",orderId,name,phone,address,food,foodAmt,orderTime,status);
+        return String.format("Order ID: %s\n Customer Name: %s\n Customer Phone: %d\n Customer Address: %s\n Ordered Food: %s\n Ordered Food Amount: %d\n Ordered Time:HH:mm:ss %s\n Status: %s\n",orderId,name,phone,address,food,foodAmt,orderTime,status);
     }
 }

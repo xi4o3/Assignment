@@ -10,6 +10,7 @@ import java.util.Scanner;
 import assignment.staffView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Calendar;
 import assignment.UserStory1;
 import static assignment.UserStory1.orderList;
 import ModuleA.ModuleAFunction;
@@ -50,7 +51,10 @@ public class Assignment {
         food.add(food1);
         food.add(food2);
 
-        //order Order = new order();
+        order Order = new order("P0001", "Miw", 12345, "qwer", 5400, "chicken chop", 2, null, "none");
+        order Order1 = new order("P0002", "Yjun", 23456, "asdf", 5300, "chicken chop", 5, null, "none");
+        orderList.add(Order);
+        orderList.add(Order1);
     }
 
     public void mainMenu() {
@@ -261,7 +265,8 @@ public class Assignment {
         System.out.println("1. View Order Mmenu");
         System.out.println("2. Place Order");
         System.out.println("3. Show Order");
-        System.out.println("4. -- Log out --");
+        System.out.println("4. Check delivery order reamaining time");
+        System.out.println("5. -- Log out --");
         System.out.println("=======================");
         System.out.print("Enter your selection: ");
         cusMenu = sc.nextLine();
@@ -280,7 +285,7 @@ public class Assignment {
                 break;
             }
             case "4": {
-
+                checkTime();
                 break;
             }
             default: {
@@ -398,6 +403,12 @@ public class Assignment {
     }
 
     public static void main(String[] args) {
+//        Date date=new Date();
+//        SimpleDateFormat sdf=new SimpleDateFormat("HH:mm");
+//        Calendar cal= Calendar.getInstance();
+//        cal.add(Calendar.MINUTE, 10);
+//        System.out.println(sdf.format(cal));
+
         Assignment assign = new Assignment();
         assign.addUser();
         assign.mainMenu();
@@ -504,24 +515,23 @@ public class Assignment {
         System.out.println("deliveryManID\t\t\tName\t\t\tWorkingStatus\t\t\torderInCharge");
         System.out.println("====================================================================================================");
         for (int i = 1; i <= manList.getNumberOfEntries(); i++) {
-          //  System.out.println("deliveryManID\t\t\tName\t\t\tWorkingStatus\t\t\torderInCharge");
-          //  System.out.println("====================================================================================================");
+            //  System.out.println("deliveryManID\t\t\tName\t\t\tWorkingStatus\t\t\torderInCharge");
+            //  System.out.println("====================================================================================================");
             System.out.println(manList.getEntry(i).getManID() + "\t\t\t\t" + manList.getEntry(i).getName() + "\t\t\t" + manList.getEntry(i).getWorkingStatus() + "\t\t\t" + manList.getEntry(i).getOrderCharge());
         }
         System.out.println("");
         System.out.println("OrderID\t\t\tPhoneNum\t\tDeliveryAddress");
         System.out.println("====================================================================================================");
         for (int a = 1; a <= orderList.getNumberOfEntries(); a++) {
-         //   System.out.println("");
-          //  System.out.println("OrderID\t\t\tPhoneNum\t\t\t\t\tDeliveryAddress");
-          //  System.out.println("====================================================================================================");
-        System.out.println(orderList.getEntry(a).getOrderId() + "\t\t\t" + orderList.getEntry(a).getPhone() + "\t\t\t" + orderList.getEntry(a).getAddress());
+            //   System.out.println("");
+            //  System.out.println("OrderID\t\t\tPhoneNum\t\t\t\t\tDeliveryAddress");
+            //  System.out.println("====================================================================================================");
+            System.out.println(orderList.getEntry(a).getOrderId() + "\t\t\t" + orderList.getEntry(a).getPhone() + "\t\t\t" + orderList.getEntry(a).getAddress());
         }
     }
 
     public void assignDeliver() {
 
-        int count = 0;
         boolean countinue = true;
 
         while (countinue) {
@@ -538,21 +548,22 @@ public class Assignment {
                     for (int i = 1; i <= manList.getNumberOfEntries(); i++) {
                         if (deliverDeliveryMan == manList.getEntry(i).getManID()) {
                             //   System.out.println("456");
-                            if (manList.getEntry(i).getMaxDelivery() == 3 || manList.getEntry(i).getWorkingStatus().equals("Unavailable") ||
-                                    deliverOrder.equals(manList.getEntry(i). getOrderCharge())){
+                            if (manList.getEntry(i).getMaxDelivery() == 3 || manList.getEntry(i).getOrderCharge().contains(deliverOrder)) {
                                 if (manList.getEntry(i).getMaxDelivery() == 3) {
                                     System.out.println("Deliveryman can only accept maximum 3 deliverys !");
                                     find = true;
-                                } else if(manList.getEntry(i).getWorkingStatus().equals("Unavailable")){
+                                } else if (manList.getEntry(i).getWorkingStatus().equalsIgnoreCase("Unavailable")) {
                                     System.out.println("The delivery man working status is currently UNAVAILABLE !");
                                     find = true;
-                                }else{
-                                    System.out.println("Current order had been assigned !");
+                                } else if (manList.getEntry(i).getOrderCharge().contains(deliverOrder)) {
+                                    System.out.println("Current order has been assigned !");
+                                } else {
+                                    System.out.println("System error.");
                                 }
                             } else {
                                 manList.getEntry(i).setWorkingStatus("OnDelivery");
-                                manList.getEntry(i).setOrderCharge(deliverOrder);
-                                manList.getEntry(i).setMaxDelivery(count + 1);
+                                manList.getEntry(i).setOrderCharge(manList.getEntry(i).getOrderCharge() + "," + deliverOrder);
+                                manList.getEntry(i).setMaxDelivery(manList.getEntry(i).getMaxDelivery() + 1);
                                 System.out.println("Sccussfully assigned !");
                                 find = true;
                             }
@@ -581,5 +592,38 @@ public class Assignment {
          food.add(new Food("FM0008", "Mushroom soup", 10.50, "Soup", "A", affiliate.getEntry(2)));
          food.add(new Food("FM0009", "Fried rice", 29.90, "Food", "A", affiliate.getEntry(2)));
          }*/
+    }
+
+    public static void checkTime() {
+
+        System.out.println("Enter your OrderID: ");
+        boolean found = false;
+        String orderID = sc.nextLine();
+        for (int a = 1; a <= orderList.getNumberOfEntries() && !found; a++) {
+            if (orderID.equals(orderList.getEntry(a).getOrderId())) {
+                found = true;
+                System.out.println("Your order time: " + orderList.getEntry(a).getOrderTime());
+
+                switch (orderList.getEntry(a).getPostCode()) {
+
+                    case 5400: {
+                        System.out.println("Your delivery will be recieved in 15 mins !");
+                        break;
+                    }
+                    case 5300: {
+                        System.out.println("Your delivery will be recieved in 30 mins !");
+                        break;
+                    }
+                    default: {
+                        System.out.println("Your postcode is out of range or wrong postcode was given !");
+                        break;
+                    }
+
+                }
+            }
+        }
+        if (!found) {
+            System.out.println("Please enter the correct OrderID !");
+        }
     }
 }
