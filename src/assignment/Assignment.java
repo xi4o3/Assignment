@@ -60,11 +60,11 @@ public class Assignment {
         food.add(new Food("F0005", "Chicken Chop", 9.40, "Food", "A", affiliate.getEntry(1)));
         food.add(new Food("F0006", "Fish&Chip", 9.40, "Food", "A", affiliate.getEntry(1)));
 
-        order order = new order("R001", "Abu", 01234567, "Jalan Abu", 5400, "Hamplang Chop", 20, null, "Pending", deliMan);
-        order order1 = new order("R002", "Ata", 01234567, "Jalan Duck", 5300, "Banana Chop", 20, null, "Completed", deliMan1);
-        order order2 = new order("R003", "Ali", 01234567, "Jalan Diao", 5300, "Banana Chop", 20, null, "Pending", deliMan2);
-        order order3 = new order("R004", "Agi", 01234567, "Jalan Halo", 5400, "Banana Chop", 20, null, "Pending", deliMan2);
-        order order4 = new order("R005", "Ahi", 01234567, "Jalan Hiao", 5300, "Banana Chop", 20, null, "Pending", deliMan2);
+        order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 5400, "Hamplang Chop", 20, null, "Pending", deliMan);
+        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 5300, "Banana Chop", 20, null, "Completed", deliMan1);
+        order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 5300, "Banana Chop", 20, null, "Pending", deliMan2);
+        order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 5400, "Banana Chop", 20, null, "Pending", deliMan2);
+        order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 5300, "Banana Chop", 20, null, "Pending", deliMan2);
         orderL.add(order);
         orderL.add(order1);
         orderL.add(order2);
@@ -607,7 +607,7 @@ public class Assignment {
                     for (int i = 1; i <= manList.getNumberOfEntries(); i++) {
                         if (deliverDeliveryMan == manList.getEntry(i).getManID()) {
                             //   System.out.println("456");
-                            if (manList.getEntry(i).getMaxDelivery() == 3 || manList.getEntry(i).getOrderCharge().contains(deliverOrder)) {
+                            if (manList.getEntry(i).getMaxDelivery() == 3 ||manList.getEntry(i).getOrderCharge().contains(deliverOrder) || manList.getEntry(i).getOrderCharge().equals(deliverOrder)) {
                                 if (manList.getEntry(i).getMaxDelivery() == 3) {
                                     System.out.println("Deliveryman can only accept maximum 3 deliverys !");
                                     find = true;
