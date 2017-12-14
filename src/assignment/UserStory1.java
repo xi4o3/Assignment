@@ -2,6 +2,7 @@ package assignment;
 
 import domain.Affiliate;
 import domain.Food;
+import assignment.order;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -99,8 +100,10 @@ public class UserStory1 {
         String food1 = null;
         int i = 0;
         String statusD = "NotDelivered";
+        
+            
         int foodAmt = 0;
-        int totalAff = affiliate.getNumberOfEntries();
+        int orld = orderList.getNumberOfEntries();
         String option = null;
         System.out.println("Restaurant Name: ");
         resName = order1.nextLine();
@@ -113,7 +116,7 @@ public class UserStory1 {
                 //customerMenu();
             }
         }
-        String order_id = String.format("P%04d", totalAff + 1);
+        String order_id = String.format("P%04d", orld + 1);
         System.out.println("Order ID: " + order_id);
         System.out.println("Name: ");
         name =order1.nextLine();
@@ -127,7 +130,7 @@ public class UserStory1 {
         food1 = order1.nextLine();
         System.out.println("Food Amount: ");
         foodAmt=Integer.parseInt(order1.nextLine());
-        temp = new order(order_id,name,phone,address,post,food1,foodAmt,todaydate,statusD);
+        temp = new order(order_id,name,phone,address,post,food1,foodAmt,todaydate,statusD,null);
         orderList.add(temp);
         System.out.println("Do you want to order other food?[y/n]");
         option = order1.nextLine();
@@ -136,7 +139,7 @@ public class UserStory1 {
             food1 = order1.nextLine();
             System.out.println("Food Amount: ");
             foodAmt=Integer.parseInt(order1.nextLine());
-            temp = new order(order_id,name,phone,address,post,food1,foodAmt,todaydate,statusD);
+            temp = new order(order_id,name,phone,address,post,food1,foodAmt,todaydate,statusD,null);
             orderList.add(temp);
             System.out.println("Do you want to order other food?[y/n]");
             option = order1.nextLine();
