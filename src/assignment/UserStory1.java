@@ -86,7 +86,7 @@ public class UserStory1 {
 
     }
     
-    public static void orderF(){
+        public static void orderF(){
         order temp = null;
         Scanner order1 = new Scanner(System.in);
         SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -100,11 +100,11 @@ public class UserStory1 {
         String food1 = null;
         int i = 0;
         String statusD = "NotDelivered";
-        
-            
+        String statusD1 = "OrderCancel";
         int foodAmt = 0;
-        int orld = orderList.getNumberOfEntries();
+        int orId = orderList.getNumberOfEntries();
         String option = null;
+        String option2 = null;
         System.out.println("Restaurant Name: ");
         resName = order1.nextLine();
         order1.nextLine();
@@ -116,7 +116,7 @@ public class UserStory1 {
                 //customerMenu();
             }
         }
-        String order_id = String.format("P%04d", orld + 1);
+        String order_id = String.format("P%04d", orId + 1);
         System.out.println("Order ID: " + order_id);
         System.out.println("Name: ");
         name =order1.nextLine();
@@ -144,11 +144,23 @@ public class UserStory1 {
             System.out.println("Do you want to order other food?[y/n]");
             option = order1.nextLine();
         }else if(option.equals("n")){
-            System.out.println("Order Sucessfully added!");
+            System.out.println("Do you comfirm the order?[y/n]");
+            option2 = order1.nextLine();
+            if(option2.equals("y")){
+                System.out.println("Order Sucessfully added!");
+            }else if(option2.equals("n")){
+                for(int b = 1;b<=orderList.getNumberOfEntries();b++){
+                    if(order_id.equals(orderList.getEntry(b).getOrderId())){
+                        temp = new order(order_id,name,phone,address,post,food1,foodAmt,todaydate,statusD1,null);
+                        orderList.replace(b, temp); 
+                    }
+                }
+                System.out.println("Order has been cancel!");
+            }
         }
-        
-    }
+        }
+}
     
 
     
-}
+
