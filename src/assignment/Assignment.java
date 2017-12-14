@@ -407,7 +407,7 @@ public class Assignment {
                 int onHold = manList.getEntry(i).getDeliveryAssigned();
                 String name = manList.getEntry(i).getName();
                 if (onHold > 0) {
-                    System.out.println(num + ". ( ID: " + manList.getEntry(i).getManID() + " ) " + name + "  [ Pending Deliveries: " + manList.getEntry(i).getDeliveryAssigned() + " ]");
+                    System.out.println(num + ". ( ID: " + manList.getEntry(i).getManID() + " ) " + name + "  [Total Pending Deliveries: " + manList.getEntry(i).getDeliveryAssigned() + " ]");
                     num++;
                 }
             }
