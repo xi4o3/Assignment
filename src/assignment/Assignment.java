@@ -18,6 +18,7 @@ import domain.Affiliate;
 import domain.Food;
 import java.util.ArrayList;
 import assignment.order;
+import domain.HR;
 
 /**
  *
@@ -26,6 +27,7 @@ import assignment.order;
 public class Assignment {
 
     public static ListInterface<DeliveryMan> manList = new List<>();
+    public static ListInterface<HR> HRList = new List<>();
     public static ListInterface<order> orderL = new List<>();
     //***************************module A***********************************
     public static ListInterface<Affiliate> affiliate = new List<>();
@@ -42,7 +44,11 @@ public class Assignment {
 
     public Assignment() {
         //initialize deliveryman
-
+        HR hr = new HR("HR0001","1234"); 
+        HR hr1 = new HR("HR0002","5678"); 
+        HRList.add(hr);
+        HRList.add(hr1);
+        
         DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0, 1);
         DeliveryMan deliMan1 = new DeliveryMan(20, "Albert", "1234", "012-8723124", "Jalan Pisang", "Employed", null, "Unavailable", "None", 0, 0);
         DeliveryMan deliMan2 = new DeliveryMan(30, "Thomas", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3);
@@ -104,6 +110,7 @@ public class Assignment {
                     break;
                 }
                 case "3": {
+//                    verifyHRLogin();
                     displayMenu();
                     break;
                 }
@@ -162,6 +169,26 @@ public class Assignment {
             System.out.println("Log in Again!");
             User();
         }
+    }
+    
+    public void verifyHRLogin(){
+        boolean pass = false;
+        System.out.print("HR ID: ");
+        String id = sc.nextLine();
+        System.out.print("HR Password: ");
+        String pw = sc.nextLine();
+            for (int i = 1; i <= HRList.getNumberOfEntries(); i++) {
+                HR hr = HRList.getEntry(i);
+                if(id.equals(hr.getStaffID()) && pw.equals(hr.getPassword())){
+                    displayMenu();
+                    pass = true;
+                }
+            }
+            if(pass == false){
+                System.out.println("Invalid id or password!");
+                System.out.println("Please try again!!");
+            }
+                
     }
 
     public void deliverymanMenu() {
@@ -224,8 +251,8 @@ public class Assignment {
         Scanner scanner = new Scanner(System.in);
         int choice;
 
-        System.out.println("HR Menu");
-        System.out.println("=========================\n");
+        System.out.println("\t\tHR Menu");
+        System.out.println("=====================================");
         System.out.println("1. Add new delivery man");
         System.out.println("2. View delivery man details");
         System.out.println("3. View delivery man working status");
@@ -233,7 +260,7 @@ public class Assignment {
         System.out.println("5. Assign job for delivery man");
         System.out.println("6. View pending deliveries");
         System.out.println("7. -- Log out --");
-        System.out.println("=========================\n");
+        System.out.println("====================================\n");
         System.out.print("\nPlease select your choice: ");
         choice = scanner.nextInt();
         while (choice < 0 || choice > 7) {
@@ -249,6 +276,7 @@ public class Assignment {
 
                 break;
             case 2:
+                System.out.println("\t       Name\t\tContact No.\tAddress\tStatus\t Total Pending Deliveries");
                 System.out.println(manList);
                 displayMenu();
                 break;
