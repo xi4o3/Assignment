@@ -2,7 +2,7 @@ package assignment;
 
 import domain.Affiliate;
 import domain.Food;
-import assignment.order;
+import domain.order;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;

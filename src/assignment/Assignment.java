@@ -5,6 +5,7 @@
  */
 package assignment;
 
+import domain.DeliveryMan;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
 import assignment.staffView;
@@ -14,10 +15,12 @@ import java.util.Calendar;
 import assignment.UserStory1;
 import static assignment.UserStory1.orderList;
 import ModuleA.ModuleAFunction;
+import adt.DMSortedArrayList;
+import adt.DMSortedListInterface;
 import domain.Affiliate;
 import domain.Food;
 import java.util.ArrayList;
-import assignment.order;
+import domain.order;
 import domain.HR;
 
 /**
@@ -26,6 +29,7 @@ import domain.HR;
  */
 public class Assignment {
 
+//    public static DMSortedListInterface<DeliveryMan> manList = new DMSortedArrayList<DeliveryMan>();
     public static ListInterface<DeliveryMan> manList = new List<>();
     public static ListInterface<HR> HRList = new List<>();
     public static ListInterface<order> orderL = new List<>();

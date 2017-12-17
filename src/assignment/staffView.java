@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package assignment;
+import domain.DeliveryMan;
 import static assignment.Assignment.manList;
 import java.text.SimpleDateFormat;
 /**
