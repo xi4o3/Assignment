@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package domain;
+package entity;
 
-import domain.DeliveryMan;
+import entity.DeliveryMan;
 import java.util.Date;
 import java.util.logging.Logger;
 /**

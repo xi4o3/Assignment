@@ -1,8 +1,8 @@
-package assignment;
+package driver;
 
-import domain.Affiliate;
-import domain.Food;
-import domain.order;
+import entity.Affiliate;
+import entity.Food;
+import entity.order;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;

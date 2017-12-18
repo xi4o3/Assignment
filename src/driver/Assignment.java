@@ -3,25 +3,25 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package assignment;
+package driver;
 
-import domain.DeliveryMan;
+import entity.DeliveryMan;
 import java.text.SimpleDateFormat;
 import java.util.Scanner;
-import assignment.staffView;
+import driver.staffView;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Calendar;
-import assignment.UserStory1;
-import static assignment.UserStory1.orderList;
+import driver.UserStory1;
+import static driver.UserStory1.orderList;
 import ModuleA.ModuleAFunction;
-import adt.DMSortedArrayList;
+import adt.DMSortedLinkedList;
 import adt.DMSortedListInterface;
-import domain.Affiliate;
-import domain.Food;
+import entity.Affiliate;
+import entity.Food;
 import java.util.ArrayList;
-import domain.order;
-import domain.HR;
+import entity.order;
+import entity.HR;
 
 /**
  *
@@ -29,10 +29,11 @@ import domain.HR;
  */
 public class Assignment {
 
-//    public static DMSortedListInterface<DeliveryMan> manList = new DMSortedArrayList<DeliveryMan>();
-    public static ListInterface<DeliveryMan> manList = new List<>();
+    public static DMSortedListInterface<DeliveryMan> manList = new DMSortedLinkedList<>();
+//    public static ListInterface<DeliveryMan> manList = new List<>();
     public static ListInterface<HR> HRList = new List<>();
     public static ListInterface<order> orderL = new List<>();
+    
     //***************************module A***********************************
     public static ListInterface<Affiliate> affiliate = new List<>();
     public static ListInterface<Food> food = new List<>();
@@ -53,9 +54,9 @@ public class Assignment {
         HRList.add(hr);
         HRList.add(hr1);
         
-        DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0, 1);
-        DeliveryMan deliMan1 = new DeliveryMan(20, "Albert", "1234", "012-8723124", "Jalan Pisang", "Employed", null, "Unavailable", "None", 0, 0);
-        DeliveryMan deliMan2 = new DeliveryMan(30, "Thomas", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3);
+        DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0, 1, 4.5);
+        DeliveryMan deliMan1 = new DeliveryMan(20, "Albert", "1234", "012-8723124", "Jalan Pisang", "Employed", null, "Unavailable", "None", 0, 0, 4.0);
+        DeliveryMan deliMan2 = new DeliveryMan(30, "Thomas", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 5.0);
         manList.add(deliMan);
         manList.add(deliMan1);
         manList.add(deliMan2);
@@ -158,7 +159,7 @@ public class Assignment {
         System.out.print("Enter your password:");
         password = sc.nextLine();
 
-        for (i = 1; i <= manList.getNumberOfEntries(); i++) {
+        for (i = 1; i <= manList.getLength(); i++) {
             if (username.equals(manList.getEntry(i).getName()) && password.equals(manList.getEntry(i).getPw())) {
                 a = true;
                 b = i;
@@ -385,7 +386,7 @@ public class Assignment {
 //        while(j <= manList.getNumberOfEntries()){
 //            j++;
 //        }
-        for (i = 1; i <= manList.getNumberOfEntries(); i++) {
+        for (i = 1; i <= manList.getLength(); i++) {
             if (id == manList.getEntry(i).getManID()) {
                 System.out.println(manList.getEntry(i).getManID());
 
@@ -435,7 +436,7 @@ public class Assignment {
         String option = "";
         do {
             num = 1;
-            for (int i = 1; i <= manList.getNumberOfEntries(); i++) {
+            for (int i = 1; i <= manList.getLength(); i++) {
                 int onHold = manList.getEntry(i).getDeliveryAssigned();
                 String name = manList.getEntry(i).getName();
                 if (onHold > 0) {
@@ -447,7 +448,7 @@ public class Assignment {
 
             int selection = scanner.nextInt();
             String name = "";
-            for (int i = 1; i <= manList.getNumberOfEntries(); i++) {
+            for (int i = 1; i <= manList.getLength(); i++) {
                 if (selection == (manList.getEntry(i).getManID())) {
                     name = manList.getEntry(i).getName();
                 }
@@ -605,7 +606,7 @@ public class Assignment {
 
         System.out.println("deliveryManID\t\t\tName\t\t\tWorkingStatus\t\t\torderInCharge");
         System.out.println("====================================================================================================");
-        for (int i = 1; i <= manList.getNumberOfEntries(); i++) {
+        for (int i = 1; i <= manList.getLength(); i++) {
             //  System.out.println("deliveryManID\t\t\tName\t\t\tWorkingStatus\t\t\torderInCharge");
             //  System.out.println("====================================================================================================");
             System.out.println(manList.getEntry(i).getManID() + "\t\t\t\t" + manList.getEntry(i).getName() + "\t\t\t" + manList.getEntry(i).getWorkingStatus() + "\t\t\t" + manList.getEntry(i).getOrderCharge());
@@ -636,7 +637,7 @@ public class Assignment {
             for (int a = 1; a <= orderList.getNumberOfEntries(); a++) {
                 if (deliverOrder.equals(orderList.getEntry(a).getOrderId())) {
                     //   System.out.println("123");
-                    for (int i = 1; i <= manList.getNumberOfEntries(); i++) {
+                    for (int i = 1; i <= manList.getLength(); i++) {
                         if (deliverDeliveryMan == manList.getEntry(i).getManID()) {
                             //   System.out.println("456");
                             if (manList.getEntry(i).getMaxDelivery() == 3 ||manList.getEntry(i).getOrderCharge().contains(deliverOrder) || manList.getEntry(i).getOrderCharge().equals(deliverOrder)) {
