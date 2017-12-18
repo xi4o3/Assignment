@@ -54,9 +54,9 @@ public class Assignment {
         HRList.add(hr);
         HRList.add(hr1);
         
-        DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0, 1, 4.5);
-        DeliveryMan deliMan1 = new DeliveryMan(20, "Albert", "1234", "012-8723124", "Jalan Pisang", "Employed", null, "Unavailable", "None", 0, 0, 4.0);
-        DeliveryMan deliMan2 = new DeliveryMan(30, "Thomas", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 5.0);
+        DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0, 1, 4.5,50);
+        DeliveryMan deliMan1 = new DeliveryMan(20, "Albert", "1234", "012-8723124", "Jalan Pisang", "Employed", null, "Unavailable", "None", 0, 0, 4.0,50);
+        DeliveryMan deliMan2 = new DeliveryMan(30, "Thomas", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 5.0,50);
         manList.add(deliMan);
         manList.add(deliMan1);
         manList.add(deliMan2);
@@ -281,8 +281,26 @@ public class Assignment {
 
                 break;
             case 2:
-                System.out.println("\t       Name\t\tContact No.\tAddress\tStatus\t Total Pending Deliveries");
-                System.out.println(manList);
+                String ratingStar = "";
+                System.out.printf("%3s %5s      %-20s %-15s %-20s %-19s %-10s %-10s\n","No","ID","Name","Contact No.","Address","Status","Rating","Total Deliveries");
+                System.out.printf("%3s %5s      %-20s %-15s %-20s %-19s %-10s %-10s\n","--","--","----","-----------","-------","------","------","----------------");
+                 for (int i = 1; i <= manList.getLength(); ++i) {
+                     DeliveryMan dm = manList.getEntry(i);
+                     if(dm.getRating() >=1 && dm.getRating() <2 )
+                         ratingStar = "*";
+                     else if(dm.getRating() >=2  && dm.getRating() <3)
+                         ratingStar = "* *";
+                     else if(dm.getRating() >=3  && dm.getRating() <4)
+                         ratingStar = "* * *";
+                     else if(dm.getRating() >=4  && dm.getRating() <5)
+                         ratingStar = "* * * *";
+                     else if(dm.getRating() >=5)
+                         ratingStar = "* * * * *";
+                     else
+                          ratingStar = "POOR";
+                     System.out.printf("%3d %5d      %-20s %-15s %-20s %-15s %10s %20d\n",i,dm.getManID(),dm.getName(),dm.getContactNum(),dm.getAdds(),dm.getStatus(),ratingStar,dm.getTotalDeliveries());
+                 }
+                
                 displayMenu();
                 break;
             case 3:
@@ -357,7 +375,7 @@ public class Assignment {
             System.out.print("Enter name: ");
             String name = scanner.nextLine();
             deliMan1.setName(name);
-            System.out.print("Enter Password: ");
+            System.out.print("Set Login Password: ");
             String pw = scanner.nextLine();
             deliMan1.setPw(pw);
             System.out.print("Enter contact number: ");
@@ -434,41 +452,73 @@ public class Assignment {
         Scanner scanner = new Scanner(System.in);
         int num = 1;
         String option = "";
-        do {
-            num = 1;
-            for (int i = 1; i <= manList.getLength(); i++) {
-                int onHold = manList.getEntry(i).getDeliveryAssigned();
-                String name = manList.getEntry(i).getName();
-                if (onHold > 0) {
-                    System.out.println(num + ". ( ID: " + manList.getEntry(i).getManID() + " ) " + name + "  [Total Pending Deliveries: " + manList.getEntry(i).getDeliveryAssigned() + " ]");
-                    num++;
+        boolean data = false;
+         for (int i = 1; i <= manList.getLength(); i++) {
+                 DeliveryMan dm = manList.getEntry(i);
+                 if(dm.getDeliveryAssigned()>=1)
+                    data = true;
+                 else
+                    data = false;
+         }
+         if(data == false){
+             System.out.println("All delivery man has completed the deliveries.");
+             System.out.println("No pending deliveries available");
+         }
+         else{
+            do {
+                num = 1;
+                System.out.printf("%3s %5s      %-20s %-15s %-30s\n","No","ID","Name","Contact No.","Total Pending Deliveries");
+                System.out.printf("%3s %5s      %-20s %-15s %-30s\n","--","--","----","-----------","------------------------");
+                for (int i = 1; i <= manList.getLength(); i++) {
+                    DeliveryMan dm = manList.getEntry(i);
+                    int onHold = manList.getEntry(i).getDeliveryAssigned();
+                    if (onHold > 0) {
+    //                    System.out.println(num + ". ( ID: " + manList.getEntry(i).getManID() + " ) " + name + "  [Total Pending Deliveries: " + manList.getEntry(i).getDeliveryAssigned() + " ]");
+                         System.out.printf("%3d %5d      %-20s %-15s %24d\n",num,dm.getManID(),dm.getName(),dm.getContactNum(),dm.getDeliveryAssigned());
+                        num++;
+                    }
                 }
-            }
-            System.out.print("Enter the delivery man ID to view more details: ");
+                System.out.print("Enter the delivery man ID to view more details: ");
 
-            int selection = scanner.nextInt();
-            String name = "";
-            for (int i = 1; i <= manList.getLength(); i++) {
-                if (selection == (manList.getEntry(i).getManID())) {
-                    name = manList.getEntry(i).getName();
+                int selection = scanner.nextInt();
+                String name = "";
+                boolean gtPendingOrder = false;
+                for (int i = 1; i <= manList.getLength(); i++) {
+                    if (selection == (manList.getEntry(i).getManID())) {
+                        name = manList.getEntry(i).getName();
+                        if(manList.getEntry(i).getDeliveryAssigned()>=1){
+                            gtPendingOrder = true;
+                        }
+                        else
+                            gtPendingOrder = false;
+                    }
                 }
-            }
+                
+                if(gtPendingOrder = true){
+                 System.out.printf("%10s \t%-15s %-25s %-15s %-15s %-10s\n","OrderID", "Name", "Address", "Postcode", "OrderTime", "OrderStatus");
+                 System.out.printf("%10s \t%-15s %-25s %-15s %-15s %-10s\n","-------", "----", "-------", "--------", "---------", "-----------");
+                for (int i = 1; i <= orderL.getNumberOfEntries(); i++) {
+                    order order = orderL.getEntry(i);
+                    if (name.equals(orderL.getEntry(i).getDeliveryMan().getName())) {
+                       
+                        String st = String.format("%10s \t%-15s %-25s %-15s %-15s %-10s", order.getOrderId(), order.getName(), order.getAddress(), order.getPostCode(), order.getOrderTime(), order.getStatus());
+                        System.out.println(st);
 
-            for (int i = 1; i <= orderL.getNumberOfEntries(); i++) {
-                order order = orderL.getEntry(i);
-                if (name.equals(orderL.getEntry(i).getDeliveryMan().getName())) {
-                    String st = String.format("%10s\t%-10s\t%-10s\t%-10s\t%-10s\t%-10s\t", order.getOrderId(), order.getName(), order.getAddress(), order.getPostCode(), order.getOrderTime(), order.getStatus());
-                    System.out.println(st);
+                    }
 
                 }
+                System.out.print("Do you wish to continue?(y/n): ");
+                Scanner scanner1 = new Scanner(System.in);
+                option = scanner1.nextLine();
 
-            }
-            System.out.print("Do you wish to continue?(y/n): ");
-            Scanner scanner1 = new Scanner(System.in);
-            option = scanner1.nextLine();
+                }else
+                System.out.println("No pending deliveries.");
 
-        } while (option.equals("y"));
+            } while (option.equals("y"));
+                     
+        }
     }
+    
 
     public void addUser() {
         staffview.setUserList(manList);

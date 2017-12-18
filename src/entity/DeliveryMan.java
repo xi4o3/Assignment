@@ -26,6 +26,7 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
     private int maxDelivery;
     private int deliveryAssigned;
     private double rating;
+    private int totalDeliveries;
     
     
 
@@ -90,7 +91,7 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
         this.deliveryAssigned = deliveryAssigned;
     }
     
-      public DeliveryMan(int manID, String name, String pw,String contactNum, String adds, String status, Date DateTime, String workingStatus, String orderCharge, int maxDelivery, int deliveryAssigned, double rating) {
+      public DeliveryMan(int manID, String name, String pw,String contactNum, String adds, String status, Date DateTime, String workingStatus, String orderCharge, int maxDelivery, int deliveryAssigned, double rating, int totalDeliveries) {
 
         this.manID = nextManID++;
         this.pw = pw;
@@ -104,6 +105,7 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
         this.maxDelivery = maxDelivery;
         this.deliveryAssigned = deliveryAssigned;
         this.rating = rating;
+        this.totalDeliveries = totalDeliveries;
     }
       
       
@@ -181,8 +183,16 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
         this.deliveryAssigned = deliveryAssigned;
     }
     
+    public int getTotalDeliveries() {
+        return totalDeliveries;
+    }
+
+    public void setTotalDeliveries(int totalDeliveries) {
+        this.totalDeliveries = totalDeliveries;
+    }
+    
     public String toString(){
-        return String.format("No. %-10d %-20s %-20s %-20s  %-20s %-10d %.1f", manID, name,contactNum,adds,status,deliveryAssigned,rating);
+        return String.format("No. %-10d %-20s %-20s %-20s  %-20s %.1f %4d", manID, name,contactNum,adds,status,rating,totalDeliveries);
     }
     
     @Override
