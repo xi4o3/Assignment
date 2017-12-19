@@ -59,6 +59,7 @@ public class Assignment {
         DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0, 1, 4.5,50);
         DeliveryMan deliMan1 = new DeliveryMan(20, "Albert", "1234", "012-8723124", "Jalan Pisang", "Employed", null, "Unavailable", "None", 0, 0, 4.0,50);
         DeliveryMan deliMan2 = new DeliveryMan(30, "Thomas", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 5.0,50);
+
         manList.add(deliMan);
         manList.add(deliMan1);
         manList.add(deliMan2);
@@ -75,10 +76,10 @@ public class Assignment {
 
       
         
-        order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 5400, "Hamplang Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan);
-        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 5300, "Banana Chop", 20, "2017/12/19 12:08:43", "Completed", deliMan1);
-        order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 5300, "Banana Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan2);
-        order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 5400, "Banana Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan2);
+        order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 1400, "Hamplang Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan1);
+        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 2300, "Banana Chop", 20, "2017/12/19 12:08:43", "Completed", deliMan);
+        order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 3300, "Banana Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan1);
+        order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 4400, "Banana Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan);
         order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 5300, "Banana Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan2);
         orderL.add(order);
         orderL.add(order1);
@@ -528,31 +529,67 @@ public class Assignment {
     }
     
     public void viewDailyReport(){
-       int count = 0;
+       int count =0;
        int num = 1;
+       int distance = 0;
+       int totalDistance = 0;
        String today = "";
        String orderTime = "";
+       int orderID = 0;
+       String orderDMHPNo = "";
+       String orderDM = "";
        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
        Date date = new Date();
        today = dateFormat.format(date).substring(0, 10);
-        System.out.println(dateFormat.format(date).substring(0, 10));
-        System.out.println("\t\t\t\t\tDAILY REPORT OF DELIVERY MAN");
-        System.out.println("\t\t\t\t\tCreate at: "+dateFormat.format(date));
-        System.out.printf("%3s %5s      %-20s %-15s %-30s\n","No","ID","Name","Contact No.","Total Deliveries");
-        System.out.printf("%3s %5s      %-20s %-15s %-30s\n","--","--","----","-----------","----------------");
-       
-        for(int i =1 ; i < orderL.getNumberOfEntries() ; i++){
-           order ord = orderL.getEntry(i);   
-           orderTime = ord.getOrderTime().substring(0,10);
-           if(orderTime.equals(today)){
-               System.out.println("abc");
-               System.out.println(ord.getDeliveryMan().getName());
-               count++;
-           }
-            
-            
+
+        System.out.println("\t\t\t\tDAILY REPORT OF DELIVERY MAN");
+        System.out.println("\t\t\t\tCreate at: "+dateFormat.format(date)+"\n");
+        System.out.printf("%3s %5s      %-20s %-15s %-30s %-20s\n","No","ID","Name","Contact No.","Total Deliveries","Total Distance");
+        System.out.printf("%3s %5s      %-20s %-15s %-30s %-20s\n","--","--","----","-----------","----------------","--------------");
+      
+         for (int i = 1; i <= manList.getLength(); i++) {
+                   count = 0;
+                   totalDistance = 0;
+                   DeliveryMan dm = manList.getEntry(i);
+                   String name = dm.getName();
+
+            for(int j =1 ; j <= orderL.getNumberOfEntries() ; j++){
+                
+                order ord = orderL.getEntry(j);   
+                orderTime = ord.getOrderTime().substring(0,10);
+                if(orderTime.equals(today) && ord.getDeliveryMan().getName().equals(name)){
+                    orderID = ord.getDeliveryMan().getManID();
+                    orderDM = ord.getDeliveryMan().getName();
+                    orderDMHPNo = ord.getDeliveryMan().getContactNum();
+                    count++;
+                    if(ord.getPostCode()>=1000 && ord.getPostCode()<2000)
+                        distance = 1;
+                    else if(ord.getPostCode()>=2000 && ord.getPostCode()<3000)
+                        distance = 2;
+                    else if(ord.getPostCode()>=3000 && ord.getPostCode()<4000)
+                        distance = 3;
+                    else if(ord.getPostCode()>=4000 && ord.getPostCode()<5000)
+                        distance = 4;
+                    else if(ord.getPostCode()>=5000 && ord.getPostCode()<6000)
+                        distance = 5;
+                    else if(ord.getPostCode()>=6000 && ord.getPostCode()<7000)
+                        distance = 6;
+                    else 
+                        distance = 100;
+                    
+                }
+                System.out.println(totalDistance);
+                System.out.println(distance);
+                totalDistance += distance;
+//            
         }
-    }
+            System.out.printf("%3s %5s      %-20s %-15s %16s %5d\n",num ,orderID,orderDM,orderDMHPNo,count, distance);
+            num++;
+//            System.out.println(name + count);
+       }
+//            
+        }
+    
     
 
     public void addUser() {
