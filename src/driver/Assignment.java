@@ -545,7 +545,7 @@ public class Assignment {
        today = dateFormat.format(date).substring(0, 10);
 
         System.out.println("\t\t\t\tDAILY REPORT OF DELIVERY MAN");
-        System.out.println("\t\t\t\tCreate at: "+dateFormat.format(date)+"\n");
+        System.out.println("\t\t\t       Create at: "+dateFormat.format(date)+"\n");
 //        System.out.printf("%3s %5s      %-20s %-15s %-23s %-20s\n","--","--","----","-----------","----------------","--------------");
         System.out.println("------------------------------------------------------------------------------------------");
         System.out.printf("%3s %5s      %-20s %-15s %-23s %-20s\n","No","ID","Name","Contact No.","Total Deliveries","Total Distance");
@@ -598,7 +598,8 @@ public class Assignment {
          System.out.printf("%48s %27s %6d\n","","Grand Total Deliveries Completed :",grandDeliveries);
          System.out.printf("%48s %27s %3d km \n","","Grand Total Distances Travelled  :",grandDistance);
 //         System.out.println("       \t\t\t\t\t\t\t\tGrand Total Deliveries:"+grandDeliveries);
-        System.out.println("------------------------------------------------------------------------------------------\n\n\n");
+        System.out.println("------------------------------------------------------------------------------------------\n");
+        System.out.println("\t\t\t\t\tEND OF REPORT\n\n\n");
 //        System.out.println("==========================================================================================");
 //            
         }
