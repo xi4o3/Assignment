@@ -66,6 +66,7 @@ public class List<T> implements ListInterface<T> {
       }
 
       numberOfEntries++;
+     
     } else {
       isSuccessful = false;
     }

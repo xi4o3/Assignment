@@ -22,6 +22,7 @@ import entity.Food;
 import java.util.ArrayList;
 import entity.order;
 import entity.HR;
+import java.text.DateFormat;
 
 /**
  *
@@ -47,6 +48,7 @@ public class Assignment {
     public static String cusMenu;
     static String other;
 
+
     public Assignment() {
         //initialize deliveryman
         HR hr = new HR("HR0001","1234"); 
@@ -71,11 +73,13 @@ public class Assignment {
         food.add(new Food("F0005", "Chicken Chop", 9.40, "Food", "A", affiliate.getEntry(1)));
         food.add(new Food("F0006", "Fish&Chip", 9.40, "Food", "A", affiliate.getEntry(1)));
 
-        order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 5400, "Hamplang Chop", 20, null, "Pending", deliMan);
-        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 5300, "Banana Chop", 20, null, "Completed", deliMan1);
-        order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 5300, "Banana Chop", 20, null, "Pending", deliMan2);
-        order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 5400, "Banana Chop", 20, null, "Pending", deliMan2);
-        order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 5300, "Banana Chop", 20, null, "Pending", deliMan2);
+      
+        
+        order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 5400, "Hamplang Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan);
+        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 5300, "Banana Chop", 20, "2017/12/19 12:08:43", "Completed", deliMan1);
+        order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 5300, "Banana Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan2);
+        order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 5400, "Banana Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan2);
+        order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 5300, "Banana Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan2);
         orderL.add(order);
         orderL.add(order1);
         orderL.add(order2);
@@ -264,12 +268,13 @@ public class Assignment {
         System.out.println("4. Update delivery man status");
         System.out.println("5. Assign job for delivery man");
         System.out.println("6. View pending deliveries");
-        System.out.println("7. -- Log out --");
+        System.out.println("7. View daily report");
+        System.out.println("8. -- Log out --");
         System.out.println("====================================\n");
         System.out.print("\nPlease select your choice: ");
         choice = scanner.nextInt();
-        while (choice < 0 || choice > 7) {
-            System.out.print("Please enter number 1-7: ");
+        while (choice < 0 || choice > 8) {
+            System.out.print("Please enter number 1-8: ");
             choice = scanner.nextInt();
         }
 
@@ -320,6 +325,9 @@ public class Assignment {
                 viewPendingDeliveries();
                 break;
             case 7:
+                viewDailyReport();
+                break;
+            case 8:
                 mainMenu();
                 break;
             default:
@@ -501,7 +509,7 @@ public class Assignment {
                     order order = orderL.getEntry(i);
                     if (name.equals(orderL.getEntry(i).getDeliveryMan().getName())) {
                        
-                        String st = String.format("%10s \t%-15s %-25s %-15s %-15s %-10s", order.getOrderId(), order.getName(), order.getAddress(), order.getPostCode(), order.getOrderTime(), order.getStatus());
+                        String st = String.format("%10s \t%-15s %-25s %-15s %-15s %-10s", order.getOrderId(), order.getName(), order.getAddress(), order.getPostCode(), order.getOrderTime(), order.getOrderTime());
                         System.out.println(st);
 
                     }
@@ -516,6 +524,33 @@ public class Assignment {
 
             } while (option.equals("y"));
                      
+        }
+    }
+    
+    public void viewDailyReport(){
+       int count = 0;
+       int num = 1;
+       String today = "";
+       String orderTime = "";
+       DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+       Date date = new Date();
+       today = dateFormat.format(date).substring(0, 10);
+        System.out.println(dateFormat.format(date).substring(0, 10));
+        System.out.println("\t\t\t\t\tDAILY REPORT OF DELIVERY MAN");
+        System.out.println("\t\t\t\t\tCreate at: "+dateFormat.format(date));
+        System.out.printf("%3s %5s      %-20s %-15s %-30s\n","No","ID","Name","Contact No.","Total Deliveries");
+        System.out.printf("%3s %5s      %-20s %-15s %-30s\n","--","--","----","-----------","----------------");
+       
+        for(int i =1 ; i < orderL.getNumberOfEntries() ; i++){
+           order ord = orderL.getEntry(i);   
+           orderTime = ord.getOrderTime().substring(0,10);
+           if(orderTime.equals(today)){
+               System.out.println("abc");
+               System.out.println(ord.getDeliveryMan().getName());
+               count++;
+           }
+            
+            
         }
     }
     
