@@ -538,6 +538,7 @@ public class Assignment {
        String reportDate = "";
        String orderTime = "";
        int orderID = 0;
+       int reportData = 0;
        String orderDMHPNo = "";
        String orderDM = "";
        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -590,20 +591,29 @@ public class Assignment {
                 distance = 0;
         }
             
-            if(totalDistance == 0){
-                
-            }else{
-                System.out.printf("%3s %5s      %-20s %-15s %16s %18d km\n",num ,orderID,orderDM,orderDMHPNo,count, totalDistance);
-                num++;
-                grandDeliveries += count;
-                grandDistance += totalDistance;
-            }
+                if(totalDistance == 0){
+
+                }else{
+                    System.out.printf("%3s %5s      %-20s %-15s %16s %18d km\n",num ,orderID,orderDM,orderDMHPNo,count, totalDistance);
+                    reportData++;
+                    num++;
+                    grandDeliveries += count;
+                    grandDistance += totalDistance;
+                }
             
        }
+         if(reportData == 0){
+             System.out.println("No record available!");
+         }
 //         System.out.println("==========================================================================================");
          System.out.println("\n------------------------------------------------------------------------------------------");
+         if(grandDeliveries == 0){
+           System.out.printf("%48s %27s %6s\n","","Grand Total Deliveries Completed :","-");
+             System.out.printf("%48s %27s %3s km \n","","Grand Total Distances Travelled  :","-");
+         }else{
          System.out.printf("%48s %27s %6d\n","","Grand Total Deliveries Completed :",grandDeliveries);
          System.out.printf("%48s %27s %3d km \n","","Grand Total Distances Travelled  :",grandDistance);
+         }
 //         System.out.println("       \t\t\t\t\t\t\t\tGrand Total Deliveries:"+grandDeliveries);
         System.out.println("------------------------------------------------------------------------------------------\n");
         System.out.println("\t\t\t\t     END OF REPORT");
