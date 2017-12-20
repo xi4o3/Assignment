@@ -5,11 +5,13 @@
  */
 package ModuleA;
 
-import assignment.*;
+import driver.List;
+import driver.ListInterface;
+import entity.Affiliate;
+import entity.Food;
 import java.util.Scanner;
 //import java.util.List;
 //import java.util.ArrayList;
-import domain.*;
 
 /**
  *

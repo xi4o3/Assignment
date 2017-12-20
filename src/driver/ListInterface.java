@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package assignment;
+package driver;
 
-import domain.Food;
+import entity.Food;
 
 /**
  *
@@ -105,5 +105,6 @@ public interface ListInterface<T> {
    */
   public boolean isFull();
   public int getLength();
+
 
 }
