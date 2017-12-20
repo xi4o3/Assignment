@@ -76,11 +76,11 @@ public class Assignment {
 
       
         
-        order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 14000, "Hamplang Chop", 20, "2017/12/20 12:08:43", "Pending", deliMan1);
-        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 23000, "Banana Chop", 20, "2017/12/20 12:08:43", "Completed", deliMan);
-        order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20, "2017/12/20 12:08:43", "Pending", deliMan1);
+        order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 14000, "Hamplang Chop", 20, "2017/12/17 12:08:43", "Pending", deliMan1);
+        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 23000, "Banana Chop", 20, "2017/12/28 12:08:43", "Completed", deliMan);
+        order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan1);
         order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 44000, "Banana Chop", 20, "2017/12/20 12:08:43", "Pending", deliMan);
-        order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 50300, "Banana Chop", 20, "2017/12/20 12:08:43", "Pending", deliMan2);
+        order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 50300, "Banana Chop", 20, "2017/12/21 12:08:43", "Pending", deliMan2);
         orderL.add(order);
         orderL.add(order1);
         orderL.add(order2);
@@ -535,17 +535,18 @@ public class Assignment {
        int totalDistance = 0;
        int grandDistance = 0;
        int grandDeliveries = 0;
-       String today = "";
+       String reportDate = "";
        String orderTime = "";
        int orderID = 0;
        String orderDMHPNo = "";
        String orderDM = "";
        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
        Date date = new Date();
-       today = dateFormat.format(date).substring(0, 10);
-
-        System.out.println("\t\t\t\tDAILY REPORT OF DELIVERY MAN");
-        System.out.println("\t\t\t       Create at: "+dateFormat.format(date)+"\n");
+       System.out.print("Enter the day of the report(yyyy/mm/dd)： ");
+       reportDate = sc.nextLine();
+        System.out.println("\n\t\t\t\tDAILY DELIVERY MAN REPORT");
+        System.out.println("\t\t\t\t       of "+ reportDate);
+        
 //        System.out.printf("%3s %5s      %-20s %-15s %-23s %-20s\n","--","--","----","-----------","----------------","--------------");
         System.out.println("------------------------------------------------------------------------------------------");
         System.out.printf("%3s %5s      %-20s %-15s %-23s %-20s\n","No","ID","Name","Contact No.","Total Deliveries","Total Distance");
@@ -563,7 +564,7 @@ public class Assignment {
                 
                 order ord = orderL.getEntry(j);   
                 orderTime = ord.getOrderTime().substring(0,10);
-                if(orderTime.equals(today) && ord.getDeliveryMan().getName().equals(name)){
+                if(orderTime.equals(reportDate) && ord.getDeliveryMan().getName().equals(name)){
                     orderID = ord.getDeliveryMan().getManID();
                     orderDM = ord.getDeliveryMan().getName();
                     orderDMHPNo = ord.getDeliveryMan().getContactNum();
@@ -588,18 +589,25 @@ public class Assignment {
                 totalDistance +=  distance;
                 distance = 0;
         }
-            System.out.printf("%3s %5s      %-20s %-15s %16s %18d km\n",num ,orderID,orderDM,orderDMHPNo,count, totalDistance);
-            num++;
-            grandDeliveries += count;
-            grandDistance += totalDistance;
+            
+            if(totalDistance == 0){
+                
+            }else{
+                System.out.printf("%3s %5s      %-20s %-15s %16s %18d km\n",num ,orderID,orderDM,orderDMHPNo,count, totalDistance);
+                num++;
+                grandDeliveries += count;
+                grandDistance += totalDistance;
+            }
+            
        }
 //         System.out.println("==========================================================================================");
-         System.out.println("------------------------------------------------------------------------------------------");
+         System.out.println("\n------------------------------------------------------------------------------------------");
          System.out.printf("%48s %27s %6d\n","","Grand Total Deliveries Completed :",grandDeliveries);
          System.out.printf("%48s %27s %3d km \n","","Grand Total Distances Travelled  :",grandDistance);
 //         System.out.println("       \t\t\t\t\t\t\t\tGrand Total Deliveries:"+grandDeliveries);
         System.out.println("------------------------------------------------------------------------------------------\n");
-        System.out.println("\t\t\t\t\tEND OF REPORT\n\n\n");
+        System.out.println("\t\t\t\t     END OF REPORT");
+        System.out.println("\t\t\t    Generated at: "+dateFormat.format(date)+"\n\n\n");
 //        System.out.println("==========================================================================================");
 //            
         }
