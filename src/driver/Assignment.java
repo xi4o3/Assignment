@@ -22,6 +22,7 @@ import entity.Food;
 import java.util.ArrayList;
 import entity.order;
 import entity.HR;
+import entity.customer;
 import java.text.DateFormat;
 
 /**
@@ -34,7 +35,8 @@ public class Assignment {
 //    public static ListInterface<DeliveryMan> manList = new List<>();
     public static ListInterface<HR> HRList = new List<>();
     public static ListInterface<order> orderL = new List<>();
-    
+    public static ListInterface<customer> customer = new List<>();
+    private UserStory1 a = new UserStory1(affiliate, food, customer);
     //***************************module A***********************************
     public static ListInterface<Affiliate> affiliate = new List<>();
     public static ListInterface<Food> food = new List<>();
@@ -69,6 +71,9 @@ public class Assignment {
         Affiliate aff = new Affiliate("R0000", "Tan", "tan", "123", "123", "aaa");
         affiliate.add(aff);
 
+        customer cust1= new customer("C0000","123","Tan",0123,"Jalan raya",12345);
+        customer.add(cust1);
+        
         food.add(new Food("F0001", "Wingent Meal", 100, "Food", "A", affiliate.getEntry(1)));
         food.add(new Food("F0002", "Happy Meal", 89, "Food", "Deleted", affiliate.getEntry(1)));
         food.add(new Food("F0003", "Pork Chop", 100, "Food", "A", affiliate.getEntry(1)));
@@ -78,11 +83,11 @@ public class Assignment {
 
       
         
-        order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 14000, "Hamplang Chop", 20, "2017/12/17 12:08:43", "Pending", deliMan3);
-        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 23000, "Banana Chop", 20, "2017/12/17 12:08:43", "Completed", deliMan2);
-        order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20, "2017/12/17 12:08:43", "Pending", deliMan1);
-        order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 44000, "Banana Chop", 20, "2017/12/17 12:08:43", "Pending", deliMan2);
-        order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 50300, "Banana Chop", 20, "2017/12/17 12:08:43", "Pending", deliMan1);
+        order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 14000, "Hamplang Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan3,customer.getEntry(1));
+        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 23000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Completed", deliMan2,customer.getEntry(1));
+        order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan1,customer.getEntry(1));
+        order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 44000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan2,customer.getEntry(1));
+        order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 50300, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan1,customer.getEntry(1));
         orderL.add(order);
         orderL.add(order1);
         orderL.add(order2);
@@ -127,6 +132,10 @@ public class Assignment {
                     break;
                 }
                 case "4": {
+                    boolean custLog;
+                    do{
+                        custLog = a.custLogin();
+                    }while(custLog==false);
                     customerMenu();
                     break;
                 }
@@ -141,7 +150,8 @@ public class Assignment {
                     break;
                 }
                 case "7": {
-                    //cusRegister();
+                    
+                    cusRegister();
                     break;
                 }
                 case "0": {
@@ -351,10 +361,10 @@ public class Assignment {
         System.out.println("=======================");
         System.out.print("Enter your selection: ");
         cusMenu = sc.nextLine();
-        UserStory1 us1 = new UserStory1(affiliate, food);
+        UserStory1 us1 = new UserStory1(affiliate, food, customer);
         switch (cusMenu) {
             case "1": {
-                us1.orderMenu();
+                //us1.orderMenu();
                 break;
             }
             case "2": {
@@ -675,7 +685,7 @@ public class Assignment {
          System.out.print("Log in Again!");
          }*/
     }
-    /*public void cusRegister(){
+    public void cusRegister(){
      customer custemp = null;
      Scanner cus = new Scanner(System.in);
      String password = null;
@@ -697,7 +707,7 @@ public class Assignment {
      System.out.print("Enter Contact No: ");
      contact_no  = Integer.parseInt(cus.nextLine());
         
-     System.out.print("Enter Restaurant Address: ");
+     System.out.print("Enter Address: ");
      address  = cus.nextLine();
         
      System.out.println("Enter PostCode:");
@@ -706,7 +716,7 @@ public class Assignment {
      custemp = new customer(cus_id,password,cus_name,contact_no,address,posCod);
      customer.add(custemp);
      System.out.println("Register Successful!!");
-     }*/
+     }
 
 //******************************************************************************************************************************    
 //ModuleA

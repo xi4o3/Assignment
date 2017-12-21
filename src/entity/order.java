@@ -20,12 +20,14 @@ public class order {
     private int postCode;
     private String food;
     private int foodAmt;
+    private double toPrice;
     private String orderTime;
     private String status;
     private DeliveryMan deliveryMan;
-    //private customer custInfo;
+    private customer custInfo;
+    
 
-    public order(String orderId,String name,int phone,String address,int postCode,String food,int foodAmt,String orderTime,String status, DeliveryMan deliveryMan){
+    public order(String orderId,String name,int phone,String address,int postCode,String food,int foodAmt,double toPrice,String orderTime,String status,DeliveryMan deliveryMan,customer custInfo){
         this.orderId = orderId;
         this.name = name;
         this.phone = phone;
@@ -33,20 +35,21 @@ public class order {
         this.postCode = postCode;
         this.food = food;
         this.foodAmt = foodAmt;
+        this.toPrice = toPrice;
         this.orderTime = orderTime;
         this.status = status;
         this.deliveryMan = deliveryMan;
-        //this.custInfo = custInfo;
-    }
-
-    /*public customer getCustInfo() {
-        return custInfo;
-    }
-
-    public void setCustInfo(customer custInfo) {
         this.custInfo = custInfo;
-    }*/
+    }
 
+    public void setToPrice(double toPrice) {
+        this.toPrice = toPrice;
+    }
+
+    public double getToPrice() {
+        return toPrice;
+    }
+    
     public int getPostCode() {
         return postCode;
     }
@@ -126,9 +129,13 @@ public class order {
      public void setDeliveryMan(DeliveryMan deliveryMan) {
         this.deliveryMan = deliveryMan;
     }
+
+    public customer getCustInfo() {
+        return custInfo;
+    }
   
     
     public String toString(){
-        return String.format("Order ID: %s\n Customer Name: %s\n Customer Phone: %d\n Customer Address: %s\n Ordered Food: %s\n Ordered Food Amount: %d\n Ordered Time: %s\n Status: %s\n DM: %s\n",orderId,name,phone,address,food,foodAmt,orderTime,status,deliveryMan);
+        return String.format("Order ID: %s\n Customer Name: %s\n Customer Phone: %d\n Customer Address: %s\n Ordered Food: %s\n Ordered Food Amount: %d\n Total Price: %.2f\n Ordered Time: %s\n Status: %s\n DM: %s\n",orderId,name,phone,address,food,foodAmt,toPrice,orderTime,status,deliveryMan);
     }
 }
