@@ -42,7 +42,7 @@ public class Assignment {
     public static ListInterface<Food> food = new List<>();
     private ModuleAFunction A = new ModuleAFunction();
     //**************************************************************
-//    static staffView staffview = new staffView();  //111
+    static staffView staffview = new staffView();  
     private static Scanner sc = new Scanner(System.in);
     public static int b;
     public static String menu;
@@ -330,7 +330,7 @@ public class Assignment {
                 displayMenu();
                 break;
             case 3:
-//                staffview.viewInfo(); //222
+                staffview.viewInfo(); 
                 displayMenu();
                 break;
             case 4:
@@ -648,7 +648,7 @@ public class Assignment {
     
 
     public void addUser() {
-//        staffview.setUserList(manList); //333
+        staffview.setUserList(manList); 
         Date date = new Date();
         SimpleDateFormat dateFormatter = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
         try {
