@@ -56,13 +56,15 @@ public class Assignment {
         HRList.add(hr);
         HRList.add(hr1);
         
-        DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0, 1, 4.5,50);
-        DeliveryMan deliMan1 = new DeliveryMan(20, "Albert", "1234", "012-8723124", "Jalan Pisang", "Employed", null, "Unavailable", "None", 0, 0, 4.0,50);
-        DeliveryMan deliMan2 = new DeliveryMan(30, "Thomas", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 5.0,50);
-
+        DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0, 1, 3.5,50);
+        DeliveryMan deliMan1 = new DeliveryMan(20, "Albert", "1234", "012-8723124", "Jalan Pisang", "Employed", null, "Unavailable", "None", 0, 0, 5.0,50);
+        DeliveryMan deliMan2 = new DeliveryMan(30, "Thomas", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 4.0,50);
+        DeliveryMan deliMan3 = new DeliveryMan(40, "Jack", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 5.0,50);
+        
         manList.add(deliMan);
         manList.add(deliMan1);
         manList.add(deliMan2);
+        manList.add(deliMan3);
 
         Affiliate aff = new Affiliate("R0000", "Tan", "tan", "123", "123", "aaa");
         affiliate.add(aff);
@@ -76,11 +78,11 @@ public class Assignment {
 
       
         
-        order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 1400, "Hamplang Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan1);
-        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 2300, "Banana Chop", 20, "2017/12/19 12:08:43", "Completed", deliMan);
-        order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 3300, "Banana Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan1);
-        order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 4400, "Banana Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan);
-        order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 5300, "Banana Chop", 20, "2017/12/19 12:08:43", "Pending", deliMan2);
+        order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 14000, "Hamplang Chop", 20, "2017/12/17 12:08:43", "Pending", deliMan3);
+        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 23000, "Banana Chop", 20, "2017/12/17 12:08:43", "Completed", deliMan2);
+        order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20, "2017/12/17 12:08:43", "Pending", deliMan1);
+        order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 44000, "Banana Chop", 20, "2017/12/17 12:08:43", "Pending", deliMan2);
+        order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 50300, "Banana Chop", 20, "2017/12/17 12:08:43", "Pending", deliMan1);
         orderL.add(order);
         orderL.add(order1);
         orderL.add(order2);
@@ -533,23 +535,31 @@ public class Assignment {
        int num = 1;
        int distance = 0;
        int totalDistance = 0;
-       String today = "";
+       int grandDistance = 0;
+       int grandDeliveries = 0;
+       String reportDate = "";
        String orderTime = "";
        int orderID = 0;
+       int reportData = 0;
        String orderDMHPNo = "";
        String orderDM = "";
        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
        Date date = new Date();
-       today = dateFormat.format(date).substring(0, 10);
-
-        System.out.println("\t\t\t\tDAILY REPORT OF DELIVERY MAN");
-        System.out.println("\t\t\t\tCreate at: "+dateFormat.format(date)+"\n");
-        System.out.printf("%3s %5s      %-20s %-15s %-30s %-20s\n","No","ID","Name","Contact No.","Total Deliveries","Total Distance");
-        System.out.printf("%3s %5s      %-20s %-15s %-30s %-20s\n","--","--","----","-----------","----------------","--------------");
+       System.out.print("Enter the day of the report(yyyy/mm/dd)： ");
+       reportDate = sc.nextLine();
+        System.out.println("\n\t\t\t\tDAILY DELIVERY MAN REPORT");
+        System.out.println("\t\t\t\t       of "+ reportDate);
+        
+//        System.out.printf("%3s %5s      %-20s %-15s %-23s %-20s\n","--","--","----","-----------","----------------","--------------");
+        System.out.println("------------------------------------------------------------------------------------------");
+        System.out.printf("%3s %5s      %-20s %-15s %-23s %-20s\n","No","ID","Name","Contact No.","Total Deliveries","Total Distance");
+        System.out.println("------------------------------------------------------------------------------------------");
+//        System.out.printf("%3s %5s      %-20s %-15s %-23s %-20s\n","--","--","----","-----------","----------------","--------------");
       
          for (int i = 1; i <= manList.getLength(); i++) {
                    count = 0;
                    totalDistance = 0;
+                   
                    DeliveryMan dm = manList.getEntry(i);
                    String name = dm.getName();
 
@@ -557,36 +567,62 @@ public class Assignment {
                 
                 order ord = orderL.getEntry(j);   
                 orderTime = ord.getOrderTime().substring(0,10);
-                if(orderTime.equals(today) && ord.getDeliveryMan().getName().equals(name)){
+                if(orderTime.equals(reportDate) && ord.getDeliveryMan().getName().equals(name)){
                     orderID = ord.getDeliveryMan().getManID();
                     orderDM = ord.getDeliveryMan().getName();
                     orderDMHPNo = ord.getDeliveryMan().getContactNum();
                     count++;
-                    if(ord.getPostCode()>=1000 && ord.getPostCode()<2000)
+                    if(ord.getPostCode()>=10000 && ord.getPostCode()<20000)
                         distance = 1;
-                    else if(ord.getPostCode()>=2000 && ord.getPostCode()<3000)
+                    else if(ord.getPostCode()>=20000 && ord.getPostCode()<30000)
                         distance = 2;
-                    else if(ord.getPostCode()>=3000 && ord.getPostCode()<4000)
+                    else if(ord.getPostCode()>=30000 && ord.getPostCode()<40000)
                         distance = 3;
-                    else if(ord.getPostCode()>=4000 && ord.getPostCode()<5000)
+                    else if(ord.getPostCode()>=40000 && ord.getPostCode()<50000)
                         distance = 4;
-                    else if(ord.getPostCode()>=5000 && ord.getPostCode()<6000)
+                    else if(ord.getPostCode()>=50000 && ord.getPostCode()<60000)
                         distance = 5;
-                    else if(ord.getPostCode()>=6000 && ord.getPostCode()<7000)
+                    else if(ord.getPostCode()>=60000 && ord.getPostCode()<70000)
                         distance = 6;
                     else 
                         distance = 100;
                     
                 }
-                System.out.println(totalDistance);
-                System.out.println(distance);
-                totalDistance += distance;
-//            
+                
+                totalDistance +=  distance;
+                distance = 0;
         }
-            System.out.printf("%3s %5s      %-20s %-15s %16s %5d\n",num ,orderID,orderDM,orderDMHPNo,count, distance);
-            num++;
-//            System.out.println(name + count);
+            
+                if(totalDistance == 0){
+
+                }else{
+                    System.out.printf("%3s %5s      %-20s %-15s %16s %18d km\n",num ,orderID,orderDM,orderDMHPNo,count, totalDistance);
+                    reportData++;
+                    num++;
+                    grandDeliveries += count;
+                    grandDistance += totalDistance;
+                    dm.setDayTotalDeliveries(count);
+                }
+            
        }
+         if(reportData == 0){
+             System.out.println("No record available!");
+         }
+//         System.out.println("==========================================================================================");
+         System.out.println("\n------------------------------------------------------------------------------------------");
+         if(grandDeliveries == 0){
+           System.out.printf("%48s %27s %6s\n","","Grand Total Deliveries Completed :","-");
+             System.out.printf("%48s %27s %3s km \n","","Grand Total Distances Travelled  :","-");
+         }else{
+         System.out.printf("%48s %27s %6d\n","","Grand Total Deliveries Completed :",grandDeliveries);
+         System.out.printf("%48s %27s %3d km \n","","Grand Total Distances Travelled  :",grandDistance);
+         }
+//         System.out.println("       \t\t\t\t\t\t\t\tGrand Total Deliveries:"+grandDeliveries);
+        System.out.println("------------------------------------------------------------------------------------------\n");
+        System.out.println("\t\t\t\t     END OF REPORT");
+        System.out.println("\t\t\t    Generated at: "+dateFormat.format(date)+"\n\n\n");
+//        System.out.println("==========================================================================================");
+        
 //            
         }
     

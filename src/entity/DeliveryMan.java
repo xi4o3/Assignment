@@ -27,6 +27,7 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
     private int deliveryAssigned;
     private double rating;
     private int totalDeliveries;
+    private int dayTotalDeliveries;
     
     
 
@@ -175,6 +176,14 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
         this.status = status;
     }
 
+    public int getDayTotalDeliveries() {
+        return dayTotalDeliveries;
+    }
+
+    public void setDayTotalDeliveries(int dayTotalDeliveries) {
+        this.dayTotalDeliveries = dayTotalDeliveries;
+    }
+
     public int getDeliveryAssigned() {
         return deliveryAssigned;
     }
@@ -198,18 +207,17 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
     @Override
     public int compareTo(DeliveryMan T){
         int nextrow = 1;
-        String strI = Integer.toString(this.getManID());
-      //compare rating
-        if(this.rating >= T.getRating())
+      //compare priority level
+        if(this.dayTotalDeliveries >= T.getDayTotalDeliveries())
         {
-            //same rating
-            if(this.rating == T.getRating())
+            //same priority level
+            if(this.dayTotalDeliveries== T.getDayTotalDeliveries())
             {
-                // if ManID < then next ManID means the ManID happens first
-                // compare the ManID
-                if(Integer.toString(this.getManID()).compareTo(Integer.toString((T.getManID())))>0)
+                // if reqNo < then next reqNo means the reqNo happens first
+                // compare the reqNo
+                if(Integer.toString(this.getManID()).compareTo(Integer.toString(T.getManID()))>0)
                 {
-                    nextrow = 1; //if next new man is lower rating
+                    nextrow = 1; //if next/new request is lower priority
                 }
                 else{
                     nextrow = 0;
@@ -224,26 +232,9 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
         }
         return nextrow;
     }
+}
     
-DMSortedListInterface<DeliveryMan> manList;
-    public int compare(){
-        int position = 1;
-        DeliveryMan currentMan;
-        DeliveryMan previousMan;
-       for (int i =1; i < manList.getLength(); i++){
-           //getNumberOfEntries()
-           currentMan = manList.getEntry(i);
-           previousMan = manList.getEntry(i-1);
-           if(this.rating>=currentMan.getRating()){
-               if(currentMan == null || previousMan.getRating()<=this.rating)
-               {
-                   position++;
-               }
-           
-           }
-       }
-       return position;
-    }
+
+
 
     
-}
