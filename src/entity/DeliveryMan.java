@@ -205,17 +205,46 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
     }
     
     @Override
-    public int compareTo(DeliveryMan T){
+//    public int compareTo(DeliveryMan T){
+//        int nextrow = 1;
+//      //compare total delivery 
+//        if(this.dayTotalDeliveries <= T.getDayTotalDeliveries())
+//        {
+//            
+//            if(this.dayTotalDeliveries== T.getDayTotalDeliveries())
+//            {
+//                // if reqNo < then next reqNo means the reqNo happens first
+//                // compare the reqNo
+//                if(Integer.toString(this.getManID()).compareTo(Integer.toString(T.getManID()))>0)
+//                {
+//                    nextrow = 1; //if next/new request is lower priority
+//                }
+//                else{
+//                    nextrow = 0;
+//                }
+//            }
+//            else{
+//                nextrow = 1;
+//            }
+//        }
+//        else{
+//            nextrow = 0;
+//        }
+//        return nextrow;
+//    }
+
+//    
+     public int compareTo(DeliveryMan T){
         int nextrow = 1;
       //compare priority level
-        if(this.dayTotalDeliveries >= T.getDayTotalDeliveries())
+        if(this.rating <= T.getRating())
         {
             //same priority level
-            if(this.dayTotalDeliveries== T.getDayTotalDeliveries())
+            if(this.rating == T.getRating())
             {
                 // if reqNo < then next reqNo means the reqNo happens first
                 // compare the reqNo
-                if(Integer.toString(this.getManID()).compareTo(Integer.toString(T.getManID()))>0)
+                 if(Integer.toString(this.getManID()).compareTo(Integer.toString(T.getManID()))>0)
                 {
                     nextrow = 1; //if next/new request is lower priority
                 }
@@ -233,6 +262,7 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
         return nextrow;
     }
 }
+
     
 
 
