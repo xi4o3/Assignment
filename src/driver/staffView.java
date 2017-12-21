@@ -3,15 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package assignment;
-import static assignment.Assignment.manList;
+package driver;
+import adt.DMSortedLinkedList;
+import adt.DMSortedListInterface;
+import entity.DeliveryMan;
+//import static driver.Assignment.manList;
 import java.text.SimpleDateFormat;
 /**
  *
  * @author User
  */
 public class staffView{
-    ListInterface<DeliveryMan> manList = new List<>();
+//    ListInterface<DeliveryMan> manList = new List<>();
+    DMSortedListInterface<DeliveryMan> manList = new DMSortedLinkedList<>();
     
     public void viewInfo(){
         SimpleDateFormat dateFormatter = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
@@ -20,7 +24,7 @@ public class staffView{
         String statusoutput = "";
         System.out.println("Username" + "               " + "Clock in/out(Date & Time)" +"                          "+ "Status");
         System.out.println("-----------------------------------------------------------------------------------------");
-        for (a = 1 ; a <= manList.getNumberOfEntries(); a++){
+        for (a = 1 ; a <= manList.getLength(); a++){
 
             if(manList.getEntry(a).getDateTime() == null || manList.getEntry(a).getWorkingStatus() == null ){
               dateoutput = "no record";
@@ -34,11 +38,11 @@ public class staffView{
         }
     }
 
-    public ListInterface<DeliveryMan> getUserList() {
+    public DMSortedListInterface<DeliveryMan> getUserList() {
         return manList;
     }
 
-    public void setUserList(ListInterface<DeliveryMan> manList) {
+    public void setUserList(DMSortedListInterface<DeliveryMan> manList) {
         this.manList = manList;
     }
 

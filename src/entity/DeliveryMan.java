@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package assignment;
+package entity;
 
+import adt.DMSortedListInterface;
 import java.util.Date;
 
 /**
  *
  * @author MSI-
  */
-public class DeliveryMan {
+public class DeliveryMan implements Comparable<DeliveryMan> {
     private int manID;
     private String pw;
     private static int nextManID = 0001;
@@ -24,6 +25,11 @@ public class DeliveryMan {
     private String orderCharge;
     private int maxDelivery;
     private int deliveryAssigned;
+    private double rating;
+    private int totalDeliveries;
+    private int dayTotalDeliveries;
+    
+    
 
     public String getOrderCharge() {
         return orderCharge;
@@ -86,6 +92,25 @@ public class DeliveryMan {
         this.deliveryAssigned = deliveryAssigned;
     }
     
+      public DeliveryMan(int manID, String name, String pw,String contactNum, String adds, String status, Date DateTime, String workingStatus, String orderCharge, int maxDelivery, int deliveryAssigned, double rating, int totalDeliveries) {
+
+        this.manID = nextManID++;
+        this.pw = pw;
+        this.name = name;
+        this.contactNum = contactNum;
+        this.adds = adds;
+        this.status = status;
+        this.DateTime = DateTime;
+        this.workingStatus = workingStatus;
+        this.orderCharge = orderCharge;
+        this.maxDelivery = maxDelivery;
+        this.deliveryAssigned = deliveryAssigned;
+        this.rating = rating;
+        this.totalDeliveries = totalDeliveries;
+    }
+      
+      
+    
     public int getManID() {
         return manID;
     }
@@ -118,6 +143,13 @@ public class DeliveryMan {
         this.name = name;
     }
 
+     public double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
     
     
     public String getContactNum() {
@@ -144,6 +176,14 @@ public class DeliveryMan {
         this.status = status;
     }
 
+    public int getDayTotalDeliveries() {
+        return dayTotalDeliveries;
+    }
+
+    public void setDayTotalDeliveries(int dayTotalDeliveries) {
+        this.dayTotalDeliveries = dayTotalDeliveries;
+    }
+
     public int getDeliveryAssigned() {
         return deliveryAssigned;
     }
@@ -152,10 +192,49 @@ public class DeliveryMan {
         this.deliveryAssigned = deliveryAssigned;
     }
     
-    public String toString(){
-        return String.format("No. %-10d %-20s %-20s %-20s  %-20s %-10d ", manID, name,contactNum,adds,status,deliveryAssigned);
+    public int getTotalDeliveries() {
+        return totalDeliveries;
+    }
+
+    public void setTotalDeliveries(int totalDeliveries) {
+        this.totalDeliveries = totalDeliveries;
     }
     
+    public String toString(){
+        return String.format("No. %-10d %-20s %-20s %-20s  %-20s %.1f %4d", manID, name,contactNum,adds,status,rating,totalDeliveries);
+    }
     
-    
+    @Override
+    public int compareTo(DeliveryMan T){
+        int nextrow = 1;
+      //compare priority level
+        if(this.dayTotalDeliveries >= T.getDayTotalDeliveries())
+        {
+            //same priority level
+            if(this.dayTotalDeliveries== T.getDayTotalDeliveries())
+            {
+                // if reqNo < then next reqNo means the reqNo happens first
+                // compare the reqNo
+                if(Integer.toString(this.getManID()).compareTo(Integer.toString(T.getManID()))>0)
+                {
+                    nextrow = 1; //if next/new request is lower priority
+                }
+                else{
+                    nextrow = 0;
+                }
+            }
+            else{
+                nextrow = 1;
+            }
+        }
+        else{
+            nextrow = 0;
+        }
+        return nextrow;
+    }
 }
+    
+
+
+
+    
