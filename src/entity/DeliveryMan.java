@@ -220,6 +220,7 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
     
     public String toString(){
         return String.format("No. %-10d %-20s %-20s %-20s  %-20s %.1f %4d", manID, name,contactNum,adds,status,rating,totalDeliveries);
+//        return String.format("No. %-10d %-20s %-20s %-20s  %-20s %.1f %4d  %4d", manID, name,contactNum,adds,status,rating,totalDeliveries, dayTotalDeliveries);
     }
     
     @Override

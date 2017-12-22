@@ -57,10 +57,10 @@ public class Assignment {
         HRList.add(hr);
         HRList.add(hr1);
         
-        DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0, 1, 2.0,50,3);
-        DeliveryMan deliMan1 = new DeliveryMan(20, "Albert", "1234", "012-8723124", "Jalan Pisang", "Employed", null, "Unavailable", "None", 0, 0, 3.0,50,2);
-        DeliveryMan deliMan2 = new DeliveryMan(30, "Thomas", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 3.0,50,1);
-        DeliveryMan deliMan3 = new DeliveryMan(40, "Jack", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 2.0,50,2);
+        DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0, 1, 2.0,50,2);
+        DeliveryMan deliMan1 = new DeliveryMan(20, "Albert", "1234", "012-8723124", "Jalan Pisang", "Employed", null, "Unavailable", "None", 0, 0, 3.0,50,1);
+        DeliveryMan deliMan2 = new DeliveryMan(30, "Thomas", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 3.0,50,2);
+        DeliveryMan deliMan3 = new DeliveryMan(40, "Jack", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 2.0,50,3);
         
         manList.add(deliMan);
         manList.add(deliMan1);
@@ -83,10 +83,10 @@ public class Assignment {
       
         
         order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 14000, "Hamplang Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan,customer.getEntry(1));
-        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 23000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Completed", deliMan,customer.getEntry(1));
+        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 23000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Completed", deliMan3,customer.getEntry(1));
         order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan,customer.getEntry(1));
         order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 44000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan1,customer.getEntry(1));
-        order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 50300, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan1,customer.getEntry(1));
+        order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 50300, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan2,customer.getEntry(1));
          order order5 = new order("P0003", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan2,customer.getEntry(1));
         order order6 = new order("P0004", "Agi", 01234567, "Jalan Halo", 44000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan3,customer.getEntry(1));
         order order7 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 50300, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan3,customer.getEntry(1));
@@ -286,15 +286,16 @@ public class Assignment {
         System.out.println("2. View delivery man details");
         System.out.println("3. View delivery man working status");
         System.out.println("4. Update delivery man status");
-        System.out.println("5. Assign job for delivery man");
-        System.out.println("6. View pending deliveries");
-        System.out.println("7. View daily report");
-        System.out.println("8. -- Log out --");
+        System.out.println("5. Update delivery man details");
+        System.out.println("6. Assign job for delivery man");
+        System.out.println("7. View pending deliveries");
+        System.out.println("8. View daily report");
+        System.out.println("9. -- Log out --");
         System.out.println("====================================\n");
         System.out.print("\nPlease select your choice: ");
         choice = scanner.nextInt();
-        while (choice < 0 || choice > 8) {
-            System.out.print("Please enter number 1-8: ");
+        while (choice < 0 || choice > 9) {
+            System.out.print("Please enter number 1-9: ");
             choice = scanner.nextInt();
         }
 
@@ -339,16 +340,21 @@ public class Assignment {
                 updateDeliManStatus(id);
                 break;
             case 5:
+                System.out.print("Please enter the delivery man ID: ");
+                int updateId = sc.nextInt();
+                updateDeliManDetails(updateId);
+                break; 
+            case 6:
                 viewDelivery();
                 assignDeliver();
                 break;
-            case 6:
+            case 7:
                 viewPendingDeliveries();
                 break;
-            case 7:
+            case 8:
                 viewDailyReport();
                 break;
-            case 8:
+            case 9:
                 mainMenu();
                 break;
             default:
@@ -476,6 +482,55 @@ public class Assignment {
         displayMenu();
 
     }
+    
+    public void updateDeliManDetails(int updateId) {
+        int choice = 0, i;
+        Scanner scanner = new Scanner(System.in);
+//        while(j <= manList.getNumberOfEntries()){
+//            j++;
+//        }
+        for (i = 1; i <= manList.getLength(); i++) {
+            if (updateId == manList.getEntry(i).getManID()) {
+                System.out.println(manList.getEntry(i).getManID());
+
+                System.out.println("Update the delivery man details: ");
+                System.out.println("1. Contact Number");
+                System.out.println("2. Address");
+                System.out.println("3. Back to HR main page");
+                System.out.print("\nYour choice: ");
+                choice = sc.nextInt();
+                while (choice < 0 || choice > 3) {
+                    System.out.print("Please enter number 1-3: ");
+                    choice = sc.nextInt();
+                }
+                switch (choice) {
+                    case 1:
+                        System.out.println(manList.getEntry(i).getContactNum());
+                        System.out.print("Enter new contact number: ");
+                        String contactNo = scanner.nextLine();
+                        manList.getEntry(i).setContactNum(contactNo);
+                        break;
+                    case 2:
+                        System.out.println(manList.getEntry(i).getAdds());
+                        System.out.print("Enter new address: ");
+                        String adds = scanner.nextLine();
+                        manList.getEntry(i).setAdds(adds);
+                        break;
+                    case 3:
+                        displayMenu();
+                    default:
+                        System.out.print("Please select your choice (1-3) !");
+
+                }
+
+            }
+
+        }
+
+        System.out.println(manList);
+        displayMenu();
+
+    }
 
     public void viewPendingDeliveries() {
         Scanner scanner = new Scanner(System.in);
@@ -549,6 +604,7 @@ public class Assignment {
     }
     
     public void viewDailyReport(){
+
        int count =0;
        int num = 1;
        int distance = 0;
@@ -557,7 +613,9 @@ public class Assignment {
        int grandDeliveries = 0;
        String reportDate = "";
        String orderTime = "";
-       int orderID = 0;
+       int dmID = 0;
+       int deli = 0;
+     
        int reportData = 0;
        String orderDMHPNo = "";
        String orderDM = "";
@@ -574,7 +632,7 @@ public class Assignment {
         System.out.println("------------------------------------------------------------------------------------------");
 //        System.out.printf("%3s %5s      %-20s %-15s %-23s %-20s\n","--","--","----","-----------","----------------","--------------");
       
-         for (int i = 1; i <= manList.getLength(); i++) {
+         for (int i = 1 ; i <= manList.getLength(); i++) {
                    count = 0;
                    totalDistance = 0;
                    
@@ -586,7 +644,7 @@ public class Assignment {
                 order ord = orderL.getEntry(j);   
                 orderTime = ord.getOrderTime().substring(0,10);
                 if(orderTime.equals(reportDate) && ord.getDeliveryMan().getName().equals(name)){
-                    orderID = ord.getDeliveryMan().getManID();
+                    dmID = ord.getDeliveryMan().getManID();
                     orderDM = ord.getDeliveryMan().getName();
                     orderDMHPNo = ord.getDeliveryMan().getContactNum();
                     count++;
@@ -612,18 +670,28 @@ public class Assignment {
         }
             
                 if(totalDistance == 0){
-
+                      dm.setDayTotalDeliveries(0);
+                      manList.remove(i);
+                      manList.add(dm);
+                    
                 }else{
                     dm.setDayTotalDeliveries(count);
-                    System.out.printf("%3s %5s      %-20s %-15s %16s %18d km\n",num ,orderID,orderDM,orderDMHPNo,dm.getDayTotalDeliveries(), totalDistance);
+                    manList.remove(i);
+                    manList.add(dm);
+                    System.out.printf("%3s %5s      %-20s %-15s %16s %18d km\n",num ,dmID,orderDM,orderDMHPNo,dm.getDayTotalDeliveries(), totalDistance);
                     reportData++;
-                    num++;
-                    grandDeliveries += count;
-                    grandDistance += totalDistance;
                     
+                    grandDeliveries += count;
+                    grandDistance += totalDistance; 
+                    num++;
+                   
                 }
+                    
+                
+                  
             
        }
+     
          if(reportData == 0){
              System.out.println("No record available!");
          }
@@ -641,7 +709,7 @@ public class Assignment {
         System.out.println("\t\t\t\t     END OF REPORT");
         System.out.println("\t\t\t    Generated at: "+dateFormat.format(date)+"\n\n\n");
 //        System.out.println("==========================================================================================");
-        
+         
 //            
         }
     
