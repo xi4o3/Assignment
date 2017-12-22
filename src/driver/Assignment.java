@@ -14,15 +14,16 @@ import java.util.Date;
 import java.util.Calendar;
 import driver.UserStory1;
 import static driver.UserStory1.orderList;
-import ModuleA.ModuleAFunction;
 import adt.DMSortedLinkedList;
 import adt.DMSortedListInterface;
+import adt.SortedDoublyLinkedList;
 import entity.Affiliate;
 import entity.Food;
 import java.util.ArrayList;
 import entity.order;
 import entity.HR;
 import java.text.DateFormat;
+import entity.SummaryReport;
 
 /**
  *
@@ -36,10 +37,12 @@ public class Assignment {
     public static ListInterface<order> orderL = new List<>();
     
     //***************************module A***********************************
-    public static ListInterface<Affiliate> affiliate = new List<>();
-    public static ListInterface<Food> food = new List<>();
-    private ModuleAFunction A = new ModuleAFunction();
-    //**************************************************************
+    private static SortedDoublyLinkedList<Affiliate> affiliate = new SortedDoublyLinkedList<>();
+    public static SortedDoublyLinkedList<Food> food = new SortedDoublyLinkedList<>();
+    public static SortedDoublyLinkedList<SummaryReport> SR; 
+    
+    private Affiliate curAffiliate;
+    //**********************************************************************
     static staffView staffview = new staffView();
     private static Scanner sc = new Scanner(System.in);
     public static int b;
@@ -64,18 +67,43 @@ public class Assignment {
         manList.add(deliMan1);
         manList.add(deliMan2);
 
-        Affiliate aff = new Affiliate("R0000", "Tan", "tan", "123", "123", "aaa");
-        affiliate.add(aff);
+        Affiliate aff1 = new Affiliate("R0000","1234","Crab and Lobster", "Tan ah meng", "2,Jalan Besar", "011-20993388");
+        Affiliate aff2 = new Affiliate("R0001","1234","Arabica Estate", "Johnson tan", "3,Jalan Kecil", "012-99384756");
+        Affiliate aff3 = new Affiliate("R0002","1234","Sushi King", "Desmond Lee", "5,Lorong Residensi 2", "019-27374656");
+        Affiliate aff4 = new Affiliate("R0003","1234","McDonald", "Joshua Tan", "7,Persiaran SS15", "011-29384765");
+        affiliate.insert(aff3);
+        affiliate.insert(aff4);
+        affiliate.insert(aff1);
+        affiliate.insert(aff2);
 
-        food.add(new Food("F0001", "Wingent Meal", 100, "Food", "A", affiliate.getEntry(1)));
-        food.add(new Food("F0002", "Happy Meal", 89, "Food", "Deleted", affiliate.getEntry(1)));
-        food.add(new Food("F0003", "Pork Chop", 100, "Food", "A", affiliate.getEntry(1)));
-        food.add(new Food("F0004", "Fries Rice", 89, "Food", "A", affiliate.getEntry(1)));
-        food.add(new Food("F0005", "Chicken Chop", 9.40, "Food", "A", affiliate.getEntry(1)));
-        food.add(new Food("F0006", "Fish&Chip", 9.40, "Food", "A", affiliate.getEntry(1)));
-
-      
+        food.insert(new Food("F0001", "Chicken Chop", 100.00, "Food", "YES", affiliate.getAtPosition(3), "YES"));
+        food.insert(new Food("F0002", "Steak", 50.00, "Food", "YES", affiliate.getAtPosition(3), "YES"));
+        food.insert(new Food("F0003", "Fish & Chip", 20.00, "Snack", "YES", affiliate.getAtPosition(3), "NO"));
+        food.insert(new Food("F0004", "Lamb Chop", 30.00, "Food", "YES", affiliate.getAtPosition(3), "YES"));
+        food.insert(new Food("F0005", "Ice cream", 5.00, "Beverage", "YES", affiliate.getAtPosition(3), "YES"));
+        food.insert(new Food("F0006", "Mushroom Soup", 25.00, "Snack", "YES", affiliate.getAtPosition(3), "YES"));
+        food.insert(new Food("F0010", "Steak", 20.00, "Desert", "YES", affiliate.getAtPosition(3), "YES"));
+        food.insert(new Food("F0011", "Pumpkin soup", 30.00, "Desert", "YES", affiliate.getAtPosition(3), "NO"));
+        food.insert(new Food("F0012", "beef soup", 100.00, "Desert", "YES", affiliate.getAtPosition(3), "NO"));
         
+        food.insert(new Food("F0001", "Fish & Chip", 20.00, "Food", "YES", affiliate.getAtPosition(2), "NO"));
+        food.insert(new Food("F0002", "Lamb Chop", 30.00, "Food", "YES", affiliate.getAtPosition(2), "YES"));
+        food.insert(new Food("F0003", "Ice cream", 5.00, "Beverage", "YES", affiliate.getAtPosition(2), "YES"));
+        food.insert(new Food("F0004", "Mushroom Soup", 25.00, "Beverage", "YES", affiliate.getAtPosition(2), "YES"));
+        food.insert(new Food("F0005", "Steak", 20.00, "Desert", "YES", affiliate.getAtPosition(2), "YES"));
+        food.insert(new Food("F0006", "Pumpkin soup", 30.00, "Snack", "YES", affiliate.getAtPosition(2), "NO"));
+        food.insert(new Food("F0007", "beef soup", 100.00, "Desert", "YES", affiliate.getAtPosition(2), "NO"));
+        
+        food.insert(new Food("F0003", "Ice cream", 5.00, "Beverage", "YES", affiliate.getAtPosition(1), "YES"));
+        food.insert(new Food("F0004", "Mushroom Soup", 25.00, "Snack", "YES", affiliate.getAtPosition(1), "YES"));
+        food.insert(new Food("F0005", "Steak", 20.00, "Desert", "YES", affiliate.getAtPosition(1), "YES"));
+        food.insert(new Food("F0006", "Pumpkin soup", 30.00, "Desert", "YES", affiliate.getAtPosition(1), "NO"));
+        food.insert(new Food("F0007", "beef soup", 100.00, "Desert", "YES", affiliate.getAtPosition(1), "NO"));
+        
+        food.insert(new Food("F0001", "Steak", 20.00, "Snack", "YES", affiliate.getAtPosition(4), "YES"));
+        food.insert(new Food("F0002", "Pumpkin soup", 30.00, "Desert", "YES", affiliate.getAtPosition(4), "NO"));
+        food.insert(new Food("F0003", "beef soup", 100.00, "Desert", "YES", affiliate.getAtPosition(3), "NO"));
+             
         order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 14000, "Hamplang Chop", 20, "2017/12/20 12:08:43", "Pending", deliMan1);
         order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 23000, "Banana Chop", 20, "2017/12/20 12:08:43", "Completed", deliMan);
         order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20, "2017/12/20 12:08:43", "Pending", deliMan1);
@@ -86,7 +114,6 @@ public class Assignment {
         orderL.add(order2);
         orderL.add(order3);
         orderL.add(order4);
-
     }
 
     public void mainMenu() {
@@ -100,6 +127,7 @@ public class Assignment {
             System.out.println("5. Affiliate Registration");
             System.out.println("6. View Affiliates");
             System.out.println("7. Customer Registration");
+            System.out.println("8. Report");
             System.out.println("0. Exit Program");
             System.out.println("=======================");
             System.out.print("Enter your selection: ");
@@ -114,9 +142,8 @@ public class Assignment {
                 case "2": {
                     boolean login;
                     do {
-                        login = A.Login(affiliate, food);
+                        login = Login();
                     } while (login == false);
-                    food = A.getFood();
                     break;
                 }
                 case "3": {
@@ -140,6 +167,10 @@ public class Assignment {
                 }
                 case "7": {
                     //cusRegister();
+                    break;
+                }
+                case "8": {
+                    GenerateMenuSummRpt();
                     break;
                 }
                 case "0": {
@@ -604,8 +635,6 @@ public class Assignment {
 //            
         }
     
-    
-
     public void addUser() {
         staffview.setUserList(manList);
         Date date = new Date();
@@ -693,7 +722,7 @@ public class Assignment {
         System.out.println("Affiliate Registration");
         System.out.println("======================");
 
-        int totalAff = affiliate.getNumberOfEntries();
+        int totalAff = affiliate.getSize();
 
         String Res_id = String.format("R%04d", totalAff + 1);
         System.out.println("Affiliate ID: " + Res_id);
@@ -717,27 +746,402 @@ public class Assignment {
         System.out.print("\n");
 
         Affiliate newAff = new Affiliate(Res_id, password, Res_name, Owner_name, contact_no, address);
-        affiliate.add(newAff);
+        affiliate.insert(newAff);
         System.out.println("Successfully Registered.");
         System.out.print("\n");
 
     }
-
-    public void ViewAffiliate() {
-        for (int i = 1; i <= affiliate.getNumberOfEntries(); i++) {
-            System.out.print("Affiliates ");
-            System.out.println(i + 1);
-            System.out.println("===========");
-            System.out.println("Restaurant ID :" + affiliate.getEntry(i).getRes_id());
-            System.out.println("Restaurant Name :" + affiliate.getEntry(i).getRes_name());
-            System.out.println("Owner Name :" + affiliate.getEntry(i).getOwner_name());
-            System.out.println("Contact No :" + affiliate.getEntry(i).getContact_no());
-            System.out.println("Address :" + affiliate.getEntry(i).getAddress());
-
+    
+    public boolean Login() 
+    {
+        
+        int idcount = 0;
+        boolean password = false;
+        while (idcount == 0) {
+            System.out.println("===============");
+            System.out.println("Affiliate Login");
+            System.out.println("===============");
+            System.out.print("Restaurant ID: ");
+            String id = sc.nextLine();
+            for (int i= 1; i<=affiliate.getSize(); i++) 
+            {
+                if (id.equals(affiliate.getAtPosition(i).getRes_id())) 
+                {
+                    while (!password) 
+                    {
+                        System.out.print("Password: ");
+                        String pass = sc.nextLine();
+                        idcount = 1;
+                        if (pass.equals(affiliate.getAtPosition(i).getPassword())) 
+                        {
+                            password = true;
+                            System.out.println("Successfully Login");
+                            curAffiliate=affiliate.getAtPosition(i);
+                            Menu();
+                        } else 
+                        {
+                            System.out.println("Invalid password");
+                        }
+                    }
+                }
+            }
+            if (idcount == 0) 
+            {
+                System.out.println("No ID found");
+            }
         }
-
+        return password;
     }
 
+    public void Menu() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("1. Add New Menu");
+        System.out.println("2. Update Item Details");
+        System.out.println("3. Remove Items");
+        System.out.println("4. View Items");
+        System.out.println("0. Log Out");
+        
+        System.out.print("Enter your selection: ");
+        
+        int selection = scanner.nextInt();
+        scanner.nextLine();
+        switch (selection) 
+        {
+            case 1: 
+            {
+                addFood();
+                break;
+            }
+            case 2: 
+            {
+                updateFood();
+                scanner.nextLine();
+                break;
+            }
+            case 3: 
+            {
+                deleteFood();
+                break;
+            }
+            case 4: 
+            {
+                FoodList();
+                Menu();
+                
+                break;
+            }
+            case 0: 
+            {
+                System.out.println("Successfully Logout");
+                break;
+            }
+            default: 
+            {
+                System.out.println("Please select again...");
+                Menu();
+                break;
+            }
+        }
+    }
+
+    public void addFood(){
+        System.out.println("========");
+        System.out.println("New Food");
+        System.out.println("========");
+        
+        int totalFood = food.getSize();
+        String foodID = String.format("F%04d", totalFood + 1);
+        System.out.println("FoodID: " + foodID);
+        System.out.print("Food Name: ");
+        String foodName = sc.nextLine();
+        System.out.print("Price: ");
+        Double Price = sc.nextDouble();
+        sc.nextLine();
+        System.out.print("Category: ");
+        String Category = sc.nextLine();
+        String foodAVA = "YES";
+        System.out.print("Promotion Item (Yes/No): ");
+        String promotion = sc.nextLine();
+        
+        
+        Food f = new Food(foodID, foodName, Price, Category, foodAVA, curAffiliate, promotion);
+        food.insert(f);
+
+        System.out.println("New Food Added !");
+        System.out.println("FoodID: " + foodID);
+        System.out.println("Food Name: " + foodName);
+        System.out.println("Price: RM" + Price);
+        System.out.println("Category: " + Category);
+        System.out.println("Availability: YES");
+        System.out.println("Promotion Status: " + promotion);
+
+        Menu();
+    }
+    
+     public void deleteFood(){
+        int d=0;
+        System.out.println("================");
+        System.out.println("Delete Food Menu");
+        System.out.println("================");
+        FoodList();
+        System.out.print("Enter FoodID to delete: ");
+        String foodID = sc.nextLine().toUpperCase();
+        
+        for(int i =1 ; i<=food.getSize(); i++)
+        {
+                if(foodID.equals(food.getAtPosition(i).getFoodID())&& curAffiliate.getRes_id().equals(food.getAtPosition(i).getRestaurant().getRes_id())/**&& affiliate.getEntry(idIndex).equals(food.getEntry(i).getRestaurant())**/)
+                {
+                    System.out.println("Confirm to delete?");
+                    System.out.print("Enter your selection (y/n):");
+                    char selection = Character.toUpperCase(sc.nextLine().charAt(0));
+                    switch(selection)
+                    {
+                        case 'Y':
+                        {
+                            System.out.println("Delete successfully!");
+                            food.getAtPosition(i).setFoodAVA("Deleted");
+                            food.deleteAtPos(i);
+                            d=1;
+                            Menu();
+                            break;
+                        }
+                        case 'N':
+                        {
+                            d=1;
+                            Menu();
+                            break;
+                        }
+                        default:
+                        {
+                            d=0;
+                            System.out.println("Please enter again...");
+                            Menu();
+                            break;
+                        }
+                    }
+                }
+            }
+            if(d==0)
+            {
+                System.out.println("Please enter again...");
+                deleteFood();
+            }
+            
+            
+    }
+     
+    public void updateFood(){
+        int id = 99;
+        System.out.println("==================");
+        System.out.println("Update Item Detail");
+        System.out.println("==================");
+        System.out.println("Welcome ! " + curAffiliate.getRes_name());
+        FoodList();
+        System.out.print("Enter FoodID: ");
+        String FoodID = sc.nextLine().toUpperCase();
+        
+        int i=1; 
+        while(i <= food.getSize())
+        {
+            if(FoodID.equals(food.getAtPosition(i).getFoodID())&& curAffiliate.getRes_id().equals(food.getAtPosition(i).getRestaurant().getRes_id())/*&& curAffiliate.equals(food.getAtPosition(i).getRestaurant())*/)
+            {        
+                System.out.println("FoodID: " + food.getAtPosition(i).getFoodID());
+                System.out.println("Food Name: " + food.getAtPosition(i).getFoodName());
+                System.out.println("Price: RM" + food.getAtPosition(i).getPrice());
+                System.out.println("Food Type: " + food.getAtPosition(i).getCategory());
+                System.out.println("Food Availability: " + food.getAtPosition(i).getFoodAVA());
+                System.out.println("Promotion: " + food.getAtPosition(i).getPromotion());
+                
+                Food F = food.getAtPosition(i);
+                
+                id = 0; 
+                updateFoodDetail(curAffiliate,F);
+                
+                   
+            }
+            i++;
+        }
+            if(id == 99)
+            {
+                System.out.println("FoodID not found...");
+                System.out.println("Please enter again !");
+                updateFood();
+            }      
+    }
+    
+    public void FoodList(){
+        int no=1;
+        System.out.println("-----------------------------------------------------------------------------------------------------------------------");
+        System.out.printf("%3s %10s %20s %20s %20s %20s %20s\n", "No", "Food ID", "Food Name", "Food Price", "Caterory", "Availability", "Promotion");
+        System.out.println("-----------------------------------------------------------------------------------------------------------------------");   
+        for(int i=1; i<=food.getSize(); i++)
+        {
+            if(food.getAtPosition(i).getFoodAVA().equals("YES") && curAffiliate.getRes_id().equals(food.getAtPosition(i).getRestaurant().getRes_id()))
+            {
+                String formatPrice = String.format("RM %5.2f", food.getAtPosition(i).getPrice());
+                System.out.printf("%3d %10s %20s %20s %20s %20s %20s\n", no, food.getAtPosition(i).getFoodID(), food.getAtPosition(i).getFoodName(), formatPrice, food.getAtPosition(i).getCategory(), food.getAtPosition(i).getFoodAVA(), food.getAtPosition(i).getPromotion());
+                //food.display();
+                //System.out.println(no +".\t"+ food.getAtPosition(i).getFoodID()+"\t\t"+food.getAtPosition(i).getFoodName()+"\t\t" +food.getAtPosition(i).getPrice()+"\t\t"+food.getAtPosition(i).getCategory()+"\t"+food.getAtPosition(i).getFoodAVA()+"\t\t"+food.getAtPosition(i).getPromotion());   
+                no++;
+            }
+        }
+        System.out.println("-----------------------------------------------------------------------------------------------------------------------");
+    }
+       
+    public void updateFoodDetail(Affiliate A,Food F){
+        System.out.println("Select any detail to update...");
+        System.out.println("1.Food Name");
+        System.out.println("2.Food Price");
+        System.out.println("3.Food Availability");
+        System.out.println("4.Promotion status");
+        System.out.println("5.Back");
+        System.out.print("Enter your selection: ");
+        int choices =sc.nextInt();
+        
+        switch(choices)
+        {
+            case 1:
+            {
+                System.out.println("Food Name: " + F.getFoodName());
+                System.out.print("New Food Name: ");
+                sc.nextLine();
+                String NewName = sc.nextLine();
+                F.setFoodName(NewName);
+                for(int i = 1 ; i < food.getSize() ; i++){
+                    if(food.getAtPosition(i).getFoodID().equals(F.getFoodID())){
+                        food.update(i, F);
+                    }
+                }
+                System.out.println("Update successfully!");
+                Menu();
+                break;
+            }
+            case 2:
+            {
+                System.out.println("Food Price: RM" + F.getPrice());
+                System.out.print("New Food Price: RM");
+                double NewPrice = sc.nextDouble();
+                F.setPrice(NewPrice);
+                for(int i = 1 ; i < food.getSize() ; i++){
+                    if(food.getAtPosition(i).getFoodID().equals(F.getFoodID())){
+                        food.update(i, F);
+                    }
+                }
+                System.out.println("Update successfully!");
+                Menu();
+                break;
+            }
+            case 3:
+            {
+                System.out.println("Food Availability: "+ F.getFoodAVA()); 
+                System.out.print("Latest Availability: ");
+                sc.nextLine();
+                String status = sc.nextLine();
+                status = status.toUpperCase();
+                F.setFoodAVA(status);
+                for(int i = 1 ; i < food.getSize() ; i++){
+                    if(food.getAtPosition(i).getFoodID().equals(F.getFoodID())){
+                        food.update(i, F);
+                    }
+                }
+                System.out.println("Update successfully!");
+                Menu();
+                break;
+            }
+            case 4:
+            {
+                System.out.println("Promotion Ststus: "+ F.getPromotion()); 
+                System.out.print("New Promotion Status: ");
+                sc.nextLine();
+                String promotion = sc.nextLine();
+                promotion = promotion.toUpperCase();
+                F.setPromotion(promotion);
+                for(int i = 1 ; i < food.getSize() ; i++){
+                    if(food.getAtPosition(i).getFoodID().equals(F.getFoodID())){
+                        food.update(i, F);
+                    }
+                }
+                System.out.println("Update successfully!");
+                Menu();
+                break;
+            }
+            case 5:
+            {
+                Menu();
+                break;
+            }
+            default:
+            {
+                System.out.println("Please select again...");
+            }
+        }
+    }
+      
+    public void ViewAffiliate() {
+        System.out.println("-------------------------------------------------------------------------------------------------------------");
+        System.out.printf("%3s %15s %15s %20s %20s %20s\n","No", "Restaurant ID", "OwnerName","Restaurant Name", "Contact.No", "Address");
+        System.out.println("-------------------------------------------------------------------------------------------------------------");
+        affiliate.display();
+        System.out.println("-------------------------------------------------------------------------------------------------------------");
+    }
+    
+    public void GenerateSummaryReport()
+    {
+        int foodqty;
+        int bevqty;
+        int snackqty;
+        int desertqty;
+        
+        SummaryReport ASR; 
+        SR = new SortedDoublyLinkedList<>();
+        for(int i =1;i<=affiliate.getSize();i++)
+        {
+            foodqty=0;
+            bevqty=0;
+            snackqty=0;
+            desertqty=0;
+            Affiliate Restaurant=affiliate.getAtPosition(i);
+            for(int j=1;j<=food.getSize();j++)
+            {
+                
+                if(Restaurant.getRes_name().equals(food.getAtPosition(j).getRestaurant().getRes_name()) && food.getAtPosition(j).getCategory().equals("Food"))
+                {
+                    foodqty ++;
+                }
+                else if(Restaurant.getRes_name().equals(food.getAtPosition(j).getRestaurant().getRes_name()) && food.getAtPosition(j).getCategory().equals("Beverage"))
+                {
+                    bevqty ++;
+                }
+                else if(Restaurant.getRes_name().equals(food.getAtPosition(j).getRestaurant().getRes_name()) && food.getAtPosition(j).getCategory().equals("Snack"))
+                {
+                    snackqty ++;
+                }
+                else if(Restaurant.getRes_name().equals(food.getAtPosition(j).getRestaurant().getRes_name()) && food.getAtPosition(j).getCategory().equals("Desert"))
+                {
+                    desertqty ++;
+                }
+            }
+            ASR=new SummaryReport(foodqty, bevqty, snackqty, desertqty, Restaurant);
+            SR.insert(ASR);
+        }
+    }
+    
+    public void GenerateMenuSummRpt(){
+        GenerateSummaryReport();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        Calendar c = Calendar.getInstance();
+        
+        System.out.printf("\n%20sTotal Menu Item For Each Restaurant Report\n\n"," ");
+        System.out.printf("Date: %s\t\t\t\t\t\t\tTime: %s\n\n",dateFormat.format(c.getTime()),timeFormat.format(c.getTime()));
+        System.out.println("****************************************************************************************");
+        System.out.printf("%3s %20s %12s %12s %12s %11s %12s","No","Restaurant Name","Food","Beverage","Snack","Desert","Total\n");
+        System.out.printf("----------------------------------------------------------------------------------------\n");
+        SR.display();
+        System.out.printf("----------------------------------------------------------------------------------------\n");
+    }
+    
+    //**************************************************************************************************************************
     public void viewDelivery() {
 
         System.out.println("deliveryManID\t\t\tName\t\t\tWorkingStatus\t\t\torderInCharge");
@@ -854,4 +1258,5 @@ public class Assignment {
             System.out.println("Please enter the correct OrderID !");
         }
     }
+          
 }
