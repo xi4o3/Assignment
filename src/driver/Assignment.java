@@ -322,10 +322,15 @@ public class Assignment {
                          ratingStar = "* * * *";
                      else if(dm.getRating() >=5)
                          ratingStar = "* * * * *";
-                     else
+                     else if(dm.getRating() >0 && dm.getRating() <1)
                           ratingStar = "POOR";
+                     else if(dm.getRating() == 0)
+                          ratingStar = "TBD";
+                     else
+                         ratingStar = "unknown";
+                     
                      System.out.printf("%3d %5d      %-20s %-15s %-20s %-15s %10s %20d\n",i,dm.getManID(),dm.getName(),dm.getContactNum(),dm.getAdds(),dm.getStatus(),ratingStar,dm.getTotalDeliveries());
-                     System.out.println(dm.getDayTotalDeliveries());
+                
                  }
                 
                 displayMenu();
