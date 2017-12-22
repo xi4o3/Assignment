@@ -980,8 +980,6 @@ public class Assignment {
             {
                 String formatPrice = String.format("RM %5.2f", food.getAtPosition(i).getPrice());
                 System.out.printf("%3d %10s %20s %20s %20s %20s %20s\n", no, food.getAtPosition(i).getFoodID(), food.getAtPosition(i).getFoodName(), formatPrice, food.getAtPosition(i).getCategory(), food.getAtPosition(i).getFoodAVA(), food.getAtPosition(i).getPromotion());
-                //food.display();
-                //System.out.println(no +".\t"+ food.getAtPosition(i).getFoodID()+"\t\t"+food.getAtPosition(i).getFoodName()+"\t\t" +food.getAtPosition(i).getPrice()+"\t\t"+food.getAtPosition(i).getCategory()+"\t"+food.getAtPosition(i).getFoodAVA()+"\t\t"+food.getAtPosition(i).getPromotion());   
                 no++;
             }
         }
