@@ -10,7 +10,7 @@ package entity;
  * @author Wingent
  */
 
-public class Affiliate
+public class Affiliate implements Comparable<Affiliate>
 {
     private String Res_id;
     private String Res_name;
@@ -79,8 +79,22 @@ public class Affiliate
     @Override
     public String toString()
     {
-        return "Affiliate{" + "Affiliate ID=" + Res_id + ", RestaurantName=" + Res_name + ", OwnerName=" + Owner_name + ", Address=" + address + ", ContactNo=" + contact_no + ", Password=" + password + '}';
+        return String.format(" %10s %20s %20s %20s %25s\n",Res_id, Res_name, Owner_name, address, contact_no);
     }
     
-    
+    @Override
+    public int compareTo(Affiliate affiliate) {
+        if(Res_name.compareTo(affiliate.getRes_name()) < 0)
+        {
+            return 1;
+        }
+        else if(Res_name.compareTo(affiliate.getRes_name()) == 0)
+        {
+                return 0;
+        }            
+        else
+        {
+                return -1;
+        }
+    }
 }

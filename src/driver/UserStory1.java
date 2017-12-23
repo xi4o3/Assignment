@@ -1,5 +1,6 @@
 package driver;
 
+import adt.SortedDoublyLinkedList;
 import entity.Affiliate;
 import entity.Food;
 import entity.customer;
@@ -21,7 +22,7 @@ import java.util.Scanner;
 public class UserStory1 {
 
     public static ListInterface<order> orderList = new List<>();
-    public static ListInterface<Affiliate> affiliate = new List<>();
+    private SortedDoublyLinkedList<Affiliate> affiliate = new SortedDoublyLinkedList<>();
     public static ListInterface<Food> food = new List<>();
     public static ListInterface<customer> customer = new List<>();
 
@@ -31,13 +32,26 @@ public class UserStory1 {
     //private static String[] resbArray = {"B1. 1/4 Chicken-RM17.90", "B2. 1/2 Chicken-RM27.90", "B3. Whole Chicken-RM43.90", "B4. 5 Chicken Wings-RM26.90"};
     //private static String[] rescArray = {"C1. 2pc Combo-RM11.90", "C2. 3pc Combo-RM14.90", "C3. Zinger set-RM13.90", "C4. 9pc Family Combo-Rm49.90"};
     //private static String[] resdArray = {"D1. Mc Chicken set-RM8.90", "D2. Double Cheeseburger set-RM10.90", "D3. 2pc Ayam Goreng set-RM12.90", "D4. Fish burger set-Rm14.90"};
+ ModuleA
+
+    public UserStory1(SortedDoublyLinkedList<Affiliate> getaffiliate,ListInterface<Food> getfood) {
+=======
     public UserStory1(ListInterface<Affiliate> getaffiliate, ListInterface<Food> getfood, ListInterface<customer> getCust) {
+ master
         this.affiliate = getaffiliate;
         this.food = getfood;
         this.customer = getCust;
     }
 
+ ModuleA
+    UserStory1(SortedDoublyLinkedList<Affiliate> affiliate, SortedDoublyLinkedList<Food> food) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void orderMenu() {
+=======
     /*public void orderMenu() {
+ master
         Scanner user = new Scanner(System.in);
         String mn;
         mainRestaurant();
@@ -107,15 +121,20 @@ public class UserStory1 {
         }
     }
 
-    public static void mainRestaurant() {
+    public void mainRestaurant() {
         System.out.println("==========Fastest Delivery System==========");
+ ModuleA
+        for(int i=1;i<=affiliate.getSize();i++){
+           System.out.println(affiliate.getAtPosition(i).getRes_name());
+=======
         for (int i = 1; i <= affiliate.getNumberOfEntries(); i++) {
             System.out.println(affiliate.getEntry(i).getRes_name());
+ master
         }
         System.out.println("Back");
     }
 
-    public static void mainBlue() {
+    public void mainBlue() {
         System.out.println("==========Fastest Delivery System==========");
 
     }
