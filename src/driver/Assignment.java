@@ -22,6 +22,7 @@ import entity.Food;
 import java.util.ArrayList;
 import entity.order;
 import entity.HR;
+import entity.customer;
 import java.text.DateFormat;
 import entity.SummaryReport;
 
@@ -35,8 +36,10 @@ public class Assignment {
 //    public static ListInterface<DeliveryMan> manList = new List<>();
     public static ListInterface<HR> HRList = new List<>();
     public static ListInterface<order> orderL = new List<>();
-    
+    public static ListInterface<customer> customer = new List<>();
+    private UserStory1 a = new UserStory1(affiliate, food, customer);
     //***************************module A***********************************
+  ModuleA
     private static SortedDoublyLinkedList<Affiliate> affiliate = new SortedDoublyLinkedList<>();
     public static SortedDoublyLinkedList<Food> food = new SortedDoublyLinkedList<>();
     public static SortedDoublyLinkedList<SummaryReport> SR; 
@@ -44,13 +47,19 @@ public class Assignment {
     private Affiliate curAffiliate;
     //**********************************************************************
     static staffView staffview = new staffView();
+=======
+    public static ListInterface<Affiliate> affiliate = new List<>();
+    public static ListInterface<Food> food = new List<>();
+    private ModuleAFunction A = new ModuleAFunction();
+    //**************************************************************
+    static staffView staffview = new staffView();  
+  master
     private static Scanner sc = new Scanner(System.in);
     public static int b;
     public static String menu;
     public static String main;
     public static String cusMenu;
     static String other;
-
 
     public Assignment() {
         //initialize deliveryman
@@ -59,14 +68,17 @@ public class Assignment {
         HRList.add(hr);
         HRList.add(hr1);
         
-        DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0, 1, 4.5,50);
-        DeliveryMan deliMan1 = new DeliveryMan(20, "Albert", "1234", "012-8723124", "Jalan Pisang", "Employed", null, "Unavailable", "None", 0, 0, 4.0,50);
-        DeliveryMan deliMan2 = new DeliveryMan(30, "Thomas", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 5.0,50);
-
+        DeliveryMan deliMan = new DeliveryMan(10, "Miw", "Miw12345", "012-3456789", "Jalan Miw", "Employed", null, "Unavailable", "None", 0, 1, 2.0,50,2);
+        DeliveryMan deliMan1 = new DeliveryMan(20, "Albert", "1234", "012-8723124", "Jalan Pisang", "Employed", null, "Unavailable", "None", 0, 0, 3.0,50,1);
+        DeliveryMan deliMan2 = new DeliveryMan(30, "Thomas", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 3.0,50,2);
+        DeliveryMan deliMan3 = new DeliveryMan(40, "Jack", "1234", "012-8132234", "Jalan Rambutan", "Employed", null, "Unavailable", "None", 0, 3, 2.0,50,3);
+        
         manList.add(deliMan);
         manList.add(deliMan1);
         manList.add(deliMan2);
+        manList.add(deliMan3);
 
+ ModuleA
         Affiliate aff1 = new Affiliate("R0000","1234","Crab and Lobster", "Tan ah meng", "2,Jalan Besar", "011-20993388");
         Affiliate aff2 = new Affiliate("R0001","1234","Arabica Estate", "Johnson tan", "3,Jalan Kecil", "012-99384756");
         Affiliate aff3 = new Affiliate("R0002","1234","Sushi King", "Desmond Lee", "5,Lorong Residensi 2", "019-27374656");
@@ -109,11 +121,45 @@ public class Assignment {
         order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20, "2017/12/20 12:08:43", "Pending", deliMan1);
         order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 44000, "Banana Chop", 20, "2017/12/20 12:08:43", "Pending", deliMan);
         order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 50300, "Banana Chop", 20, "2017/12/20 12:08:43", "Pending", deliMan2);
+=======
+        Affiliate aff = new Affiliate("R0000", "Tan", "tan", "123", "123", "aaa");
+        affiliate.add(aff);
+
+        customer cust1= new customer("C0000","123","Tan",0123,"Jalan raya",12345);
+        customer.add(cust1);
+        
+        food.add(new Food("F0001", "Wingent Meal", 100, "Food", "A", affiliate.getEntry(1)));
+        food.add(new Food("F0002", "Happy Meal", 89, "Food", "Deleted", affiliate.getEntry(1)));
+        food.add(new Food("F0003", "Pork Chop", 100, "Food", "A", affiliate.getEntry(1)));
+        food.add(new Food("F0004", "Fries Rice", 89, "Food", "A", affiliate.getEntry(1)));
+        food.add(new Food("F0005", "Chicken Chop", 9.40, "Food", "A", affiliate.getEntry(1)));
+        food.add(new Food("F0006", "Fish&Chip", 9.40, "Food", "A", affiliate.getEntry(1)));
+
+      
+        
+        order order = new order("P0001", "Abu", 01234567, "Jalan Abu", 14000, "Hamplang Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan,customer.getEntry(1));
+        order order1 = new order("P0002", "Ata", 01234567, "Jalan Duck", 23000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Completed", deliMan3,customer.getEntry(1));
+        order order2 = new order("P0003", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan,customer.getEntry(1));
+        order order3 = new order("P0004", "Agi", 01234567, "Jalan Halo", 44000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan1,customer.getEntry(1));
+        order order4 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 50300, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan2,customer.getEntry(1));
+         order order5 = new order("P0003", "Ali", 01234567, "Jalan Diao", 33000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan2,customer.getEntry(1));
+        order order6 = new order("P0004", "Agi", 01234567, "Jalan Halo", 44000, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan3,customer.getEntry(1));
+        order order7 = new order("P0005", "Ahi", 01234567, "Jalan Hiao", 50300, "Banana Chop", 20,20, "2017/12/17 12:08:43", "Pending", deliMan3,customer.getEntry(1));
+        
+ master
         orderL.add(order);
         orderL.add(order1);
         orderL.add(order2);
         orderL.add(order3);
         orderL.add(order4);
+      ModuleA
+=======
+        orderL.add(order5);
+        orderL.add(order6);
+        orderL.add(order7);
+        
+
+ master
     }
 
     public void mainMenu() {
@@ -152,6 +198,10 @@ public class Assignment {
                     break;
                 }
                 case "4": {
+                    boolean custLog;
+                    do{
+                        custLog = a.custLogin();
+                    }while(custLog==false);
                     customerMenu();
                     break;
                 }
@@ -166,7 +216,8 @@ public class Assignment {
                     break;
                 }
                 case "7": {
-                    //cusRegister();
+                    
+                    cusRegister();
                     break;
                 }
                 case "8": {
@@ -298,15 +349,16 @@ public class Assignment {
         System.out.println("2. View delivery man details");
         System.out.println("3. View delivery man working status");
         System.out.println("4. Update delivery man status");
-        System.out.println("5. Assign job for delivery man");
-        System.out.println("6. View pending deliveries");
-        System.out.println("7. View daily report");
-        System.out.println("8. -- Log out --");
+        System.out.println("5. Update delivery man details");
+        System.out.println("6. Assign job for delivery man");
+        System.out.println("7. View pending deliveries");
+        System.out.println("8. View daily report");
+        System.out.println("9. -- Log out --");
         System.out.println("====================================\n");
         System.out.print("\nPlease select your choice: ");
         choice = scanner.nextInt();
-        while (choice < 0 || choice > 8) {
-            System.out.print("Please enter number 1-8: ");
+        while (choice < 0 || choice > 9) {
+            System.out.print("Please enter number 1-9: ");
             choice = scanner.nextInt();
         }
 
@@ -333,15 +385,21 @@ public class Assignment {
                          ratingStar = "* * * *";
                      else if(dm.getRating() >=5)
                          ratingStar = "* * * * *";
-                     else
+                     else if(dm.getRating() >0 && dm.getRating() <1)
                           ratingStar = "POOR";
+                     else if(dm.getRating() == 0)
+                          ratingStar = "TBD";
+                     else
+                         ratingStar = "unknown";
+                     
                      System.out.printf("%3d %5d      %-20s %-15s %-20s %-15s %10s %20d\n",i,dm.getManID(),dm.getName(),dm.getContactNum(),dm.getAdds(),dm.getStatus(),ratingStar,dm.getTotalDeliveries());
+                
                  }
                 
                 displayMenu();
                 break;
             case 3:
-                staffview.viewInfo();
+                staffview.viewInfo(); 
                 displayMenu();
                 break;
             case 4:
@@ -350,16 +408,21 @@ public class Assignment {
                 updateDeliManStatus(id);
                 break;
             case 5:
+                System.out.print("Please enter the delivery man ID: ");
+                int updateId = sc.nextInt();
+                updateDeliManDetails(updateId);
+                break; 
+            case 6:
                 viewDelivery();
                 assignDeliver();
                 break;
-            case 6:
+            case 7:
                 viewPendingDeliveries();
                 break;
-            case 7:
+            case 8:
                 viewDailyReport();
                 break;
-            case 8:
+            case 9:
                 mainMenu();
                 break;
             default:
@@ -380,10 +443,10 @@ public class Assignment {
         System.out.println("=======================");
         System.out.print("Enter your selection: ");
         cusMenu = sc.nextLine();
-        UserStory1 us1 = new UserStory1(affiliate, food);
+        UserStory1 us1 = new UserStory1(affiliate, food, customer);
         switch (cusMenu) {
             case "1": {
-                us1.orderMenu();
+                //us1.orderMenu();
                 break;
             }
             case "2": {
@@ -487,6 +550,55 @@ public class Assignment {
         displayMenu();
 
     }
+    
+    public void updateDeliManDetails(int updateId) {
+        int choice = 0, i;
+        Scanner scanner = new Scanner(System.in);
+//        while(j <= manList.getNumberOfEntries()){
+//            j++;
+//        }
+        for (i = 1; i <= manList.getLength(); i++) {
+            if (updateId == manList.getEntry(i).getManID()) {
+                System.out.println(manList.getEntry(i).getManID());
+
+                System.out.println("Update the delivery man details: ");
+                System.out.println("1. Contact Number");
+                System.out.println("2. Address");
+                System.out.println("3. Back to HR main page");
+                System.out.print("\nYour choice: ");
+                choice = sc.nextInt();
+                while (choice < 0 || choice > 3) {
+                    System.out.print("Please enter number 1-3: ");
+                    choice = sc.nextInt();
+                }
+                switch (choice) {
+                    case 1:
+                        System.out.println(manList.getEntry(i).getContactNum());
+                        System.out.print("Enter new contact number: ");
+                        String contactNo = scanner.nextLine();
+                        manList.getEntry(i).setContactNum(contactNo);
+                        break;
+                    case 2:
+                        System.out.println(manList.getEntry(i).getAdds());
+                        System.out.print("Enter new address: ");
+                        String adds = scanner.nextLine();
+                        manList.getEntry(i).setAdds(adds);
+                        break;
+                    case 3:
+                        displayMenu();
+                    default:
+                        System.out.print("Please select your choice (1-3) !");
+
+                }
+
+            }
+
+        }
+
+        System.out.println(manList);
+        displayMenu();
+
+    }
 
     public void viewPendingDeliveries() {
         Scanner scanner = new Scanner(System.in);
@@ -560,30 +672,35 @@ public class Assignment {
     }
     
     public void viewDailyReport(){
+
        int count =0;
        int num = 1;
        int distance = 0;
        int totalDistance = 0;
        int grandDistance = 0;
        int grandDeliveries = 0;
-       String today = "";
+       String reportDate = "";
        String orderTime = "";
-       int orderID = 0;
+       int dmID = 0;
+       int deli = 0;
+     
+       int reportData = 0;
        String orderDMHPNo = "";
        String orderDM = "";
        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
        Date date = new Date();
-       today = dateFormat.format(date).substring(0, 10);
-
-        System.out.println("\t\t\t\tDAILY REPORT OF DELIVERY MAN");
-        System.out.println("\t\t\t       Create at: "+dateFormat.format(date)+"\n");
+       System.out.print("Enter the day of the report(yyyy/mm/dd)： ");
+       reportDate = sc.nextLine();
+        System.out.println("\n\t\t\t\tDAILY DELIVERY MAN REPORT");
+        System.out.println("\t\t\t\t       of "+ reportDate);
+        
 //        System.out.printf("%3s %5s      %-20s %-15s %-23s %-20s\n","--","--","----","-----------","----------------","--------------");
         System.out.println("------------------------------------------------------------------------------------------");
         System.out.printf("%3s %5s      %-20s %-15s %-23s %-20s\n","No","ID","Name","Contact No.","Total Deliveries","Total Distance");
         System.out.println("------------------------------------------------------------------------------------------");
 //        System.out.printf("%3s %5s      %-20s %-15s %-23s %-20s\n","--","--","----","-----------","----------------","--------------");
       
-         for (int i = 1; i <= manList.getLength(); i++) {
+         for (int i = 1 ; i <= manList.getLength(); i++) {
                    count = 0;
                    totalDistance = 0;
                    
@@ -594,8 +711,8 @@ public class Assignment {
                 
                 order ord = orderL.getEntry(j);   
                 orderTime = ord.getOrderTime().substring(0,10);
-                if(orderTime.equals(today) && ord.getDeliveryMan().getName().equals(name)){
-                    orderID = ord.getDeliveryMan().getManID();
+                if(orderTime.equals(reportDate) && ord.getDeliveryMan().getName().equals(name)){
+                    dmID = ord.getDeliveryMan().getManID();
                     orderDM = ord.getDeliveryMan().getName();
                     orderDMHPNo = ord.getDeliveryMan().getContactNum();
                     count++;
@@ -619,24 +736,53 @@ public class Assignment {
                 totalDistance +=  distance;
                 distance = 0;
         }
-            System.out.printf("%3s %5s      %-20s %-15s %16s %18d km\n",num ,orderID,orderDM,orderDMHPNo,count, totalDistance);
-            num++;
-            grandDeliveries += count;
-            grandDistance += totalDistance;
+            
+                if(totalDistance == 0){
+                      dm.setDayTotalDeliveries(0);
+                      manList.remove(i);
+                      manList.add(dm);
+                    
+                }else{
+                    dm.setDayTotalDeliveries(count);
+                    manList.remove(i);
+                    manList.add(dm);
+                    System.out.printf("%3s %5s      %-20s %-15s %16s %18d km\n",num ,dmID,orderDM,orderDMHPNo,dm.getDayTotalDeliveries(), totalDistance);
+                    reportData++;
+                    
+                    grandDeliveries += count;
+                    grandDistance += totalDistance; 
+                    num++;
+                   
+                }
+                    
+                
+                  
+            
        }
+     
+         if(reportData == 0){
+             System.out.println("No record available!");
+         }
 //         System.out.println("==========================================================================================");
-         System.out.println("------------------------------------------------------------------------------------------");
+         System.out.println("\n------------------------------------------------------------------------------------------");
+         if(grandDeliveries == 0){
+           System.out.printf("%48s %27s %6s\n","","Grand Total Deliveries Completed :","-");
+             System.out.printf("%48s %27s %3s km \n","","Grand Total Distances Travelled  :","-");
+         }else{
          System.out.printf("%48s %27s %6d\n","","Grand Total Deliveries Completed :",grandDeliveries);
          System.out.printf("%48s %27s %3d km \n","","Grand Total Distances Travelled  :",grandDistance);
+         }
 //         System.out.println("       \t\t\t\t\t\t\t\tGrand Total Deliveries:"+grandDeliveries);
         System.out.println("------------------------------------------------------------------------------------------\n");
-        System.out.println("\t\t\t\t\tEND OF REPORT\n\n\n");
+        System.out.println("\t\t\t\t     END OF REPORT");
+        System.out.println("\t\t\t    Generated at: "+dateFormat.format(date)+"\n\n\n");
 //        System.out.println("==========================================================================================");
+         
 //            
         }
     
     public void addUser() {
-        staffview.setUserList(manList);
+        staffview.setUserList(manList); 
         Date date = new Date();
         SimpleDateFormat dateFormatter = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
         try {
@@ -682,7 +828,7 @@ public class Assignment {
          System.out.print("Log in Again!");
          }*/
     }
-    /*public void cusRegister(){
+    public void cusRegister(){
      customer custemp = null;
      Scanner cus = new Scanner(System.in);
      String password = null;
@@ -704,7 +850,7 @@ public class Assignment {
      System.out.print("Enter Contact No: ");
      contact_no  = Integer.parseInt(cus.nextLine());
         
-     System.out.print("Enter Restaurant Address: ");
+     System.out.print("Enter Address: ");
      address  = cus.nextLine();
         
      System.out.println("Enter PostCode:");
@@ -713,7 +859,7 @@ public class Assignment {
      custemp = new customer(cus_id,password,cus_name,contact_no,address,posCod);
      customer.add(custemp);
      System.out.println("Register Successful!!");
-     }*/
+     }
 
 //******************************************************************************************************************************    
 //ModuleA

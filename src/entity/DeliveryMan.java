@@ -27,6 +27,7 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
     private int deliveryAssigned;
     private double rating;
     private int totalDeliveries;
+    private int dayTotalDeliveries;
     
     
 
@@ -108,6 +109,24 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
         this.totalDeliveries = totalDeliveries;
     }
       
+        public DeliveryMan(int manID, String name, String pw,String contactNum, String adds, String status, Date DateTime, String workingStatus, String orderCharge, int maxDelivery, int deliveryAssigned, double rating, int totalDeliveries, int dayTotalDeliveries) {
+
+        this.manID = nextManID++;
+        this.pw = pw;
+        this.name = name;
+        this.contactNum = contactNum;
+        this.adds = adds;
+        this.status = status;
+        this.DateTime = DateTime;
+        this.workingStatus = workingStatus;
+        this.orderCharge = orderCharge;
+        this.maxDelivery = maxDelivery;
+        this.deliveryAssigned = deliveryAssigned;
+        this.rating = rating;
+        this.totalDeliveries = totalDeliveries;
+        this.dayTotalDeliveries = dayTotalDeliveries;
+    }
+      
       
     
     public int getManID() {
@@ -175,6 +194,14 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
         this.status = status;
     }
 
+    public int getDayTotalDeliveries() {
+        return dayTotalDeliveries;
+    }
+
+    public void setDayTotalDeliveries(int dayTotalDeliveries) {
+        this.dayTotalDeliveries = dayTotalDeliveries;
+    }
+
     public int getDeliveryAssigned() {
         return deliveryAssigned;
     }
@@ -193,23 +220,23 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
     
     public String toString(){
         return String.format("No. %-10d %-20s %-20s %-20s  %-20s %.1f %4d", manID, name,contactNum,adds,status,rating,totalDeliveries);
+//        return String.format("No. %-10d %-20s %-20s %-20s  %-20s %.1f %4d  %4d", manID, name,contactNum,adds,status,rating,totalDeliveries, dayTotalDeliveries);
     }
     
     @Override
     public int compareTo(DeliveryMan T){
         int nextrow = 1;
-        String strI = Integer.toString(this.getManID());
-      //compare rating
-        if(this.rating >= T.getRating())
+      //compare total delivery 
+        if(this.dayTotalDeliveries <= T.getDayTotalDeliveries())
         {
-            //same rating
-            if(this.rating == T.getRating())
+            
+            if(this.dayTotalDeliveries== T.getDayTotalDeliveries())
             {
-                // if ManID < then next ManID means the ManID happens first
-                // compare the ManID
-                if(Integer.toString(this.getManID()).compareTo(Integer.toString((T.getManID())))>0)
+                // if reqNo < then next reqNo means the reqNo happens first
+                // compare the reqNo
+                if(Integer.toString(this.getManID()).compareTo(Integer.toString(T.getManID()))>0)
                 {
-                    nextrow = 1; //if next new man is lower rating
+                    nextrow = 1; //if next/new request is lower priority
                 }
                 else{
                     nextrow = 0;
@@ -224,26 +251,41 @@ public class DeliveryMan implements Comparable<DeliveryMan> {
         }
         return nextrow;
     }
-    
-DMSortedListInterface<DeliveryMan> manList;
-    public int compare(){
-        int position = 1;
-        DeliveryMan currentMan;
-        DeliveryMan previousMan;
-       for (int i =1; i < manList.getLength(); i++){
-           //getNumberOfEntries()
-           currentMan = manList.getEntry(i);
-           previousMan = manList.getEntry(i-1);
-           if(this.rating>=currentMan.getRating()){
-               if(currentMan == null || previousMan.getRating()<=this.rating)
-               {
-                   position++;
-               }
-           
-           }
-       }
-       return position;
-    }
+//}
+//    }
+
+//    
+//     public int compareTo(DeliveryMan T){
+//        int nextrow = 1;
+//      //compare priority level
+//        if(this.rating <= T.getRating())
+//        {
+//            //same priority level
+//            if(this.rating == T.getRating())
+//            {
+//                // if reqNo < then next reqNo means the reqNo happens first
+//                // compare the reqNo
+//                 if(Integer.toString(this.getManID()).compareTo(Integer.toString(T.getManID()))>0)
+//                {
+//                    nextrow = 1; //if next/new request is lower priority
+//                }
+//                else{
+//                    nextrow = 0;
+//                }
+//            }
+//            else{
+//                nextrow = 1;
+//            }
+//        }
+//        else{
+//            nextrow = 0;
+//        }
+//        return nextrow;
+//    }
+
 
     
 }
+
+
+    
